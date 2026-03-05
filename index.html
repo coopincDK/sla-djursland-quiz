@@ -4,7 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="description" content="S-LA for Djursland – Det store politiske quiz-duel mellem Jens og Leif!" />
-  <title>S-LA for Djursland – Quiz</title>
+  <title>ET S-LA for Djursland – Quiz Show</title>
+  <!-- Open Graph (Facebook, WhatsApp, LinkedIn preview) -->
+  <meta property="og:title" content="ET S-LA for Djursland – Quiz Show" />
+  <meta property="og:description" content="Test din politiske viden! Hvem kender Jens og Leifs holdninger bedst? Stem Djursland ind på Borgen!" />
+  <meta property="og:image" content="https://coopincdk.github.io/sla-djursland-quiz/assets/images/icons/sla_djursland_logo.png" />
+  <meta property="og:url" content="https://coopincdk.github.io/sla-djursland-quiz/" />
+  <meta property="og:type" content="website" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ET S-LA for Djursland – Quiz Show" />
+  <meta name="twitter:description" content="Test din politiske viden! Stem Djursland ind på Borgen!" />
+  <meta name="twitter:image" content="https://coopincdk.github.io/sla-djursland-quiz/assets/images/icons/sla_djursland_logo.png" />
   <link rel="icon" type="image/png" href="assets/images/icons/favicon_sla_djursland.png" />
   <link rel="manifest" href="manifest.json" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -101,6 +112,9 @@
           <button class="btn-gold btn-highscore" onclick="game.showHighscores()">
             <span class="btn-icon">🏆</span> Highscore
           </button>
+          <button class="btn-gallery" onclick="game.showGallery()">
+            <span class="btn-icon">📸</span> Jens &amp; Leif på Djursland
+          </button>
           <button class="btn-share" onclick="game.shareGame()">
             <span class="btn-icon">🔗</span> Del med venner
           </button>
@@ -131,20 +145,13 @@
     });
   </script>
 
-  <!-- Tandhjul: fast placeret, altid klikbar -->
-  <button id="settingsBtn" onclick="game.toggleSettings()" title="Indstillinger" style="
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10000;
-    background: none;
-    border: none;
-    font-size: 1.6rem;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.2s, transform 0.2s;
-  " onmouseover="this.style.opacity=1;this.style.transform='translateX(-50%) rotate(30deg)'" onmouseout="this.style.opacity=0.6;this.style.transform='translateX(-50%) rotate(0deg)'">⚙️</button>
+  <!-- Footer icon-bar: Indstillinger + Galleri + Del + Install -->
+  <div id="footerIconBar" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:10000;display:flex;gap:4px;align-items:center;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:5px 12px;backdrop-filter:blur(8px)">
+    <button id="settingsBtn" onclick="game.toggleSettings()" title="Indstillinger" class="footer-icon-btn">&#9881;&#65039;</button>
+    <button onclick="game.showGallery()" title="Galleri" class="footer-icon-btn">&#128248;</button>
+    <button onclick="game.shareGame()" title="Del med venner" class="footer-icon-btn">&#128279;</button>
+    <button id="pwaFooterBtn" onclick="game.pwaInstall()" title="Tilføj til hjemmeskærm" class="footer-icon-btn" style="display:none">&#128242;</button>
+  </div>
 
   <!-- ═══════════════════════════════════════════════
        ROUND INTRO SCENE
@@ -915,6 +922,31 @@
   " onclick="applyUpdate()">
     🔄 Ny version klar! Tryk for at opdatere
   </div>
+
+<!-- ===============================================
+     GALLERI MODAL
+  =============================================== -->
+<div id="galleryModal" class="gallery-modal" style="display:none" onclick="game.closeGallery(event)">
+  <div class="gallery-inner">
+    <div class="gallery-header">
+      <h2>📸 Jens &amp; Leif på Djursland</h2>
+      <button class="gallery-close" onclick="game.closeGallery()">✕</button>
+    </div>
+    <!-- Lightbox -->
+    <div id="galleryLightbox" class="gallery-lightbox" style="display:none">
+      <button class="lb-nav lb-prev" onclick="game.lbNav(-1)">&#8249;</button>
+      <div class="lb-img-wrap">
+        <img id="lbImg" src="" alt="" />
+        <div class="lb-caption" id="lbCaption"></div>
+      </div>
+      <button class="lb-nav lb-next" onclick="game.lbNav(1)">&#8250;</button>
+      <button class="lb-share" onclick="game.shareGalleryImg()">🔗 Del dette billede</button>
+      <button class="lb-close" onclick="game.closeLightbox()">✕</button>
+    </div>
+    <!-- Grid -->
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</div>
 
 </body>
 </html>

@@ -1332,25 +1332,221 @@ class DjurslandQuiz {
   selectHost(host) { /* future: swap host images */ }
 
   // ============================================================
+  // PWA INSTALL
+  // ============================================================
+  pwaInstall() {
+    const btn = document.getElementById('pwaInstallBtn');
+    if (btn) btn.click();
+    // Trigger via gemt prompt
+    if (window._pwaPrompt) {
+      window._pwaPrompt.prompt();
+    }
+  }
+
+  // ============================================================
+  // GALLERI
+  // ============================================================
+  showGallery() {
+    const modal = document.getElementById('galleryModal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    this._buildGalleryGrid();
+    this.track('gallery_open');
+  }
+
+  closeGallery(e) {
+    if (e && e.target !== document.getElementById('galleryModal')) return;
+    document.getElementById('galleryModal').style.display = 'none';
+    this.closeLightbox();
+  }
+
+  _galleryImages() {
+    const base = 'assets/images/faelles_djursland_scener/';
+    return [
+      { src: base + 'faelles_01_superbrugsen.png',          cap: 'Superbrugsen — hverdagens hjerte' },
+      { src: base + 'faelles_02_auning.png',                cap: 'Auning — midt på Djursland' },
+      { src: base + 'faelles_03_grenaa_havn.png',           cap: 'Grenaa Havn — porten til verden' },
+      { src: base + 'faelles_04_fregatten_jylland.png',     cap: 'Fregatten Jylland — stolt historie' },
+      { src: base + 'faelles_05_kattegatcentret.png',       cap: 'Kattegatcentret — havet kalder' },
+      { src: base + 'faelles_06_ebeltoft.png',              cap: 'Ebeltoft — den smukke købstad' },
+      { src: base + 'faelles_07_gif_fodbold.png',           cap: 'GIF Fodbold — lokal passion' },
+      { src: base + 'faelles_08_svoemmehal.png',            cap: 'Svømmehallen — for alle' },
+      { src: base + 'faelles_09_mols_bjerge.png',           cap: 'Mols Bjerge — Danmarks perle' },
+      { src: base + 'faelles_10_djurs_sommerland.png',      cap: 'Djurs Sommerland — sjov for alle' },
+      { src: base + 'faelles_11_strand_natur.png',          cap: 'Stranden — ren natur' },
+      { src: base + 'faelles_12_poelsevogn.png',            cap: 'Pølsevognen — klassisk Djursland' },
+      { src: base + 'faelles_13_traktor_race.png',          cap: 'Traktor Race — lokalt hit' },
+      { src: base + 'faelles_14_kajaktur.png',              cap: 'Kajaktur — på vandet' },
+      { src: base + 'faelles_15_julemarked.png',            cap: 'Julemarked — hyggelig tradition' },
+      { src: base + 'faelles_16_fisketur.png',              cap: 'Fisketur — fred og ro' },
+      { src: base + 'faelles_17_cykeltur.png',              cap: 'Cykeltur — rundt på Djursland' },
+      { src: base + 'faelles_18_camping.png',               cap: 'Camping — under åben himmel' },
+      { src: base + 'faelles_19_stena_line_optimized.png',  cap: 'Stena Line — Grenaa–Varberg' },
+      { src: base + 'faelles_20_vindmoelle_optimized.png',  cap: 'Vindmøller — grøn fremtid' },
+      { src: base + 'faelles_22_sael_safari_optimized.png', cap: 'Sæl Safari — naturoplevelse' },
+      { src: base + 'faelles_23_ree_park_optimized.png',    cap: 'Ree Park — safari på Djursland' },
+      { src: base + 'faelles_24_lokal_kro.png',             cap: 'Den lokale kro — samlingspunkt' },
+    ];
+  }
+
+  _buildGalleryGrid() {
+    const grid = document.getElementById('galleryGrid');
+    if (!grid || grid.dataset.built) return;
+    grid.dataset.built = '1';
+    const imgs = this._galleryImages();
+    imgs.forEach((img, i) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'gallery-thumb';
+      wrap.innerHTML = `
+        <img src="${img.src}" alt="${img.cap}" loading="lazy" />
+        <button class="thumb-share" onclick="event.stopPropagation();game.openLightbox(${i})" title="Del">🔗</button>
+      `;
+      wrap.addEventListener('click', () => this.openLightbox(i));
+      grid.appendChild(wrap);
+    });
+  }
+
+  // ============================================================
+  // LIGHTBOX MED CANVAS LOGO OVERLAY
+  // ============================================================
+  openLightbox(idx) {
+    this._lbIdx = idx;
+    const lb = document.getElementById('galleryLightbox');
+    lb.style.display = 'flex';
+    this._renderLightbox(idx);
+  }
+
+  closeLightbox() {
+    const lb = document.getElementById('galleryLightbox');
+    if (lb) lb.style.display = 'none';
+  }
+
+  lbNav(dir) {
+    const imgs = this._galleryImages();
+    this._lbIdx = (this._lbIdx + dir + imgs.length) % imgs.length;
+    this._renderLightbox(this._lbIdx);
+  }
+
+  _renderLightbox(idx) {
+    const imgs = this._galleryImages();
+    const item = imgs[idx];
+    const capEl = document.getElementById('lbCaption');
+    if (capEl) capEl.textContent = item.cap;
+
+    // Brug canvas til at lægge logo + tekst på
+    const imgEl = new Image();
+    imgEl.crossOrigin = 'anonymous';
+    imgEl.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width  = imgEl.naturalWidth;
+      canvas.height = imgEl.naturalHeight;
+      const ctx = canvas.getContext('2d');
+
+      // Tegn baggrundsbillede
+      ctx.drawImage(imgEl, 0, 0);
+
+      // Mørkt overlay i bunden
+      const grad = ctx.createLinearGradient(0, canvas.height * 0.65, 0, canvas.height);
+      grad.addColorStop(0, 'rgba(0,0,0,0)');
+      grad.addColorStop(1, 'rgba(0,0,0,0.72)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // "Husk at stemme 24. marts" tekst
+      const fontSize = Math.round(canvas.width * 0.055);
+      ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+      ctx.fillStyle = '#FFD700';
+      ctx.textAlign = 'center';
+      ctx.shadowColor = 'rgba(0,0,0,0.8)';
+      ctx.shadowBlur = 8;
+      ctx.fillText('🗳️ Husk at stemme 24. marts!', canvas.width / 2, canvas.height - fontSize * 1.2);
+
+      // Logo i øverste højre hjørne
+      const logo = new Image();
+      logo.crossOrigin = 'anonymous';
+      logo.onload = () => {
+        const lw = canvas.width * 0.28;
+        const lh = (logo.naturalHeight / logo.naturalWidth) * lw;
+        ctx.shadowBlur = 0;
+        ctx.drawImage(logo, canvas.width - lw - canvas.width * 0.03, canvas.height * 0.02, lw, lh);
+
+        // Vis i lightbox
+        const lbImg = document.getElementById('lbImg');
+        if (lbImg) lbImg.src = canvas.toDataURL('image/jpeg', 0.92);
+        this._lbCanvas = canvas;
+      };
+      logo.onerror = () => {
+        const lbImg = document.getElementById('lbImg');
+        if (lbImg) lbImg.src = canvas.toDataURL('image/jpeg', 0.92);
+        this._lbCanvas = canvas;
+      };
+      logo.src = 'assets/images/icons/sla_djursland_logo.png';
+    };
+    imgEl.src = item.src;
+  }
+
+  // Del galleri-billede med logo overlay
+  shareGalleryImg() {
+    const imgs = this._galleryImages();
+    const item = imgs[this._lbIdx];
+    const url  = 'https://coopincdk.github.io/sla-djursland-quiz/';
+    const text = `📸 ${item.cap} — Stem Djursland ind på Borgen 24. marts! 🗳️`;
+
+    // Prøv at dele som fil (canvas billede)
+    if (this._lbCanvas && navigator.canShare) {
+      this._lbCanvas.toBlob(blob => {
+        const file = new File([blob], 'djursland.jpg', { type: 'image/jpeg' });
+        if (navigator.canShare({ files: [file] })) {
+          navigator.share({ files: [file], title: 'ET S-LA for Djursland – Quiz Show', text, url }).catch(() => {});
+          return;
+        }
+        this._share(text, url);
+      }, 'image/jpeg', 0.92);
+    } else {
+      this._share(text, url);
+    }
+    this.track('gallery_share');
+  }
+
+  // ============================================================
   // DEL MED VENNER
   // ============================================================
 
   shareGame() {
     const url = 'https://coopincdk.github.io/sla-djursland-quiz/';
-    const text = '🎮 Kan du slå mig i S-LA for Djursland quizzen? Test din politiske viden!';
+    const slogans = [
+      '🗳️ Stem Djursland ind på Borgen — tag quizzen først!',
+      '🚣 Fra Grenaa til Christiansborg — test din viden!',
+      '🏔️ Mols Bjerge > Marmorkirken. Og vores quiz > alle andre!',
+      '⛳ Rute 15 hele vejen til Christiansborg — kan du køre med?',
+      '🐟 Færre embedsmænd, flere rødspætter — og en quiz du ikke kan undgå!',
+      '🏠 Vi er ikke udkanten — vi er fremtiden! Test dig selv!',
+      '🤝 Jens og Leif venter på din stemme — men først: quiz!',
+      '🎯 Kan din borgmester svare på disse spørgsmål? Tværst!',
+      '⚓ Grenaa Havn > Nyhavn. Og vores quiz slår alt!',
+      '📰 Djursland kalder — Christiansborg lytter! Tag quizzen!',
+    ];
+    const text = slogans[Math.floor(Math.random() * slogans.length)];
     this._share(text, url);
   }
 
   shareScore() {
     const url = 'https://coopincdk.github.io/sla-djursland-quiz/';
-    const text = `🎮 Jeg fik ${this.score} point i S-LA for Djursland quizzen! Kan du slå mig? 😊`;
+    const slogans = [
+      `🎮 Jeg fik ${this.score} point! Kan du slå mig? Stem Djursland ind på Borgen!`,
+      `⭐ ${this.score} point i S-LA Djursland quizzen — slå det hvis du tør!`,
+      `🗳️ Jeg kender Jens og Leifs holdninger — gør du? ${this.score} point!`,
+      `🏔️ Fra Mols Bjerge med kærlig hilsen og ${this.score} point — prøv selv!`,
+      `🐟 ${this.score} point! Færre embedsmænd, flere rødspætter — og bedre quiz-score!`,
+    ];
+    const text = slogans[Math.floor(Math.random() * slogans.length)];
     this._share(text, url);
   }
 
   _share(text, url) {
     if (navigator.share) {
       // Native del (mobil)
-      navigator.share({ title: 'S-LA for Djursland Quiz', text, url })
+      navigator.share({ title: 'ET S-LA for Djursland – Quiz Show', text, url })
         .catch(() => {});
     } else {
       // Fallback: kopier til clipboard

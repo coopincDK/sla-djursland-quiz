@@ -1,6 +1,6 @@
 {
-  "name": "S-LA for Djursland Quiz",
-  "short_name": "S-LA Quiz",
+  "name": "ET S-LA for Djursland – Quiz Show",
+  "short_name": "S-LA Djursland",
   "description": "Det store politiske quiz-duel mellem Jens og Leif på Djursland!",
   "start_url": "/sla-djursland-quiz/",
   "scope": "/sla-djursland-quiz/",
