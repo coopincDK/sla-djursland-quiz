@@ -140,6 +140,15 @@
     });
   </script>
 
+  <!-- iOS install vejledning -->
+  <div id="iosInstallTip" style="display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:99999;background:rgba(10,10,26,0.97);border:1px solid rgba(255,215,0,0.4);border-radius:16px;padding:16px 20px;max-width:300px;width:90vw;flex-direction:column;gap:8px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.6)">
+    <div style="font-size:0.95rem;font-weight:700;color:#FFD700">📲 Tilføj til hjemmeskærm</div>
+    <div style="font-size:0.82rem;color:rgba(255,255,255,0.8);line-height:1.5">Tryk på <strong style="color:#fff">Del</strong> <span style="font-size:1.1rem">📤</span> i Safari-menuen<br>og vælg <strong style="color:#fff">„Føj til hjemmeskærm“</strong></div>
+    <button onclick="document.getElementById('iosInstallTip').style.display='none';localStorage.setItem('pwa_dismissed','1')" style="background:none;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.5);border-radius:8px;padding:4px 12px;font-size:0.78rem;cursor:pointer;margin-top:4px">Luk</button>
+    <!-- Pil ned mod footer -->
+    <div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid rgba(255,215,0,0.4)"></div>
+  </div>
+
   <!-- Footer icon-bar: Indstillinger + Galleri + Del + Install -->
   <div id="footerIconBar" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:10000;display:flex;gap:4px;align-items:center;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:5px 12px;backdrop-filter:blur(8px)">
     <button id="settingsBtn" onclick="game.toggleSettings()" title="Indstillinger" class="footer-icon-btn">&#9881;&#65039;</button>
@@ -890,6 +899,21 @@
         if (banner) banner.style.display = 'flex';
       }
     });
+    // iOS Safari: vis knap med vejledning (ingen beforeinstallprompt på iOS)
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isInStandaloneMode = window.navigator.standalone === true;
+    if (isIOS && !isInStandaloneMode && !localStorage.getItem('pwa_dismissed')) {
+      const footerBtn = document.getElementById('pwaFooterBtn');
+      if (footerBtn) {
+        footerBtn.style.display = 'inline-flex';
+        footerBtn.title = 'Tilføj til hjemmeskærm';
+        footerBtn.onclick = () => {
+          const el = document.getElementById('iosInstallTip');
+          if (el) el.style.display = el.style.display === 'none' ? 'flex' : 'none';
+        };
+      }
+    }
+
     // Skjul install-knap når appen er installeret
     window.addEventListener('appinstalled', () => {
       const footerBtn = document.getElementById('pwaFooterBtn');
