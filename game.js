@@ -345,12 +345,12 @@ class DjurslandQuiz {
     document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
     const el = document.getElementById(id);
     if (el) el.classList.add('active');
-    // Tandhjul + footer kun synlig på welcome
-    const onWelcome = id === 'welcomeScene';
-    const settingsBtn = document.getElementById('settingsBtn');
+    // Footer kun synlig på welcome + highscore + gameover + victory
+    const showFooter = ['welcomeScene','highscoreModal','gameOverScene','victoryScene','pollScene'].includes(id);
+    const footerBar  = document.getElementById('footerIconBar');
     const ericFooter = document.querySelector('.eric-footer');
-    if (settingsBtn) settingsBtn.style.display = onWelcome ? '' : 'none';
-    if (ericFooter)  ericFooter.style.display  = onWelcome ? '' : 'none';
+    if (footerBar)   footerBar.style.display  = showFooter ? 'flex' : 'none';
+    if (ericFooter)  ericFooter.style.display = showFooter ? ''     : 'none';
   }
 
   // Hjælpefunktion: vælg random element fra array
@@ -809,7 +809,17 @@ class DjurslandQuiz {
       const factEl = document.getElementById('wrongFact');
       if (factEl) factEl.textContent = explanation || '';
       const continueEl = document.getElementById('wrongContinue');
-      if (continueEl) continueEl.style.display = 'none'; // always auto-continue
+      if (continueEl) continueEl.style.display = 'none';
+      // Timeout: vis "Øv"-besked, skjul "Du valgte"
+      const titleEl = document.getElementById('wrongTitle');
+      const selRow  = document.querySelector('.wrong-selected');
+      if (this._timedOut) {
+        if (titleEl) titleEl.textContent = 'Øv! Du nåede det ikke ⏰';
+        if (selRow)  selRow.style.display = 'none';
+      } else {
+        if (titleEl) titleEl.textContent = 'Forkert!';
+        if (selRow)  selRow.style.display = '';
+      }
       const selEl = document.getElementById('wrongSelectedAnswer');
       if (selEl) selEl.textContent = this._selectedLabel || '?';
       const corrEl = document.getElementById('wrongCorrectAnswer');
@@ -975,7 +985,10 @@ class DjurslandQuiz {
   timeExpired() {
     const q = this.questions[this.currentQuestionIndex];
     this.selectedAnswer = -1;
+    // Sæt timeout-flag så wrong-scenen viser "Øv"-besked
+    this._timedOut = true;
     this.handleWrong(q);
+    this._timedOut = false;
   }
 
   // ============================================================
