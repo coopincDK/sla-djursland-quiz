@@ -185,12 +185,31 @@ class DjurslandQuiz {
     }
   }
 
+  // ============================================================
+  // ANALYTICS TRACKING
+  // ============================================================
+  track(event, data = {}) {
+    if (!this.db) return;
+    const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+    const entry = { event, ts: Date.now(), date: today, ...data };
+    // Gem event i log
+    this.db.ref('quiz_stats/events').push(entry).catch(() => {});
+    // Inkrement tæller
+    const counterRef = this.db.ref('quiz_stats/counters/' + event);
+    counterRef.transaction(v => (v || 0) + 1).catch(() => {});
+    // Daglig tæller
+    const dayRef = this.db.ref('quiz_stats/daily/' + today + '/' + event);
+    dayRef.transaction(v => (v || 0) + 1).catch(() => {});
+  }
+
   init() {
     this.loadSounds();
     this.bindButtons();
     this.bindCheats();
     this.showScreen('welcomeScene');
     this.setHostImage('welcome');
+    // Track sidevisning
+    this.track('pageview');
   }
 
   bindCheats() {
@@ -422,6 +441,8 @@ class DjurslandQuiz {
     this.updateScoreDisplay();
     this.showRoundIntro(1);
     this.playMusic('assets/music/Ian Post - Breaking Point.mp3');
+    // Track spilstart
+    this.track('game_start');
   }
 
   restartGame() {
@@ -707,6 +728,8 @@ class DjurslandQuiz {
     this.playSound('correct');
     if (this.streak >= 3) this.playSound('cheer');
     this.showFeedback(true, points, q.explanation);
+    // Track korrekt svar
+    this.track('answer_correct', { round: this.currentRound, q: (q.question||q.statement||q.situation||'').substring(0,60) });
   }
 
   handleWrong(q) {
@@ -716,6 +739,8 @@ class DjurslandQuiz {
     this.playSound('sad');
     // Wrong answer = game over in all rounds
     this.showFeedback(false, 0, q.explanation, true);
+    // Track forkert svar med spørgsmålstekst
+    this.track('answer_wrong', { round: this.currentRound, q: (q.question||q.statement||q.situation||'').substring(0,80) });
   }
 
   calcPoints() {
@@ -1091,6 +1116,7 @@ class DjurslandQuiz {
       subtitleEl.textContent = msgs[Math.floor(Math.random() * msgs.length)];
     }
     this.showScreen('gameOverScene');
+    this.track('game_over', { round: this.currentRound, score: this.score, correct: this.correctAnswers });
   }
 
   showVictory() {
@@ -1111,6 +1137,7 @@ class DjurslandQuiz {
     const timeEl = document.getElementById('victoryTime');
     if (timeEl) timeEl.textContent = this.correctAnswers + ' / 120';
     this.showScreen('victoryScene');
+    this.track('victory', { score: this.score, correct: this.correctAnswers });
     // Navigate to poll after 3 seconds
     setTimeout(() => this.showPoll(), 3000);
   }
@@ -1303,6 +1330,39 @@ class DjurslandQuiz {
   }
 
   selectHost(host) { /* future: swap host images */ }
+
+  // ============================================================
+  // DEL MED VENNER
+  // ============================================================
+
+  shareGame() {
+    const url = 'https://coopincdk.github.io/sla-djursland-quiz/';
+    const text = '🎮 Kan du slå mig i S-LA for Djursland quizzen? Test din politiske viden!';
+    this._share(text, url);
+  }
+
+  shareScore() {
+    const url = 'https://coopincdk.github.io/sla-djursland-quiz/';
+    const text = `🎮 Jeg fik ${this.score} point i S-LA for Djursland quizzen! Kan du slå mig? 😊`;
+    this._share(text, url);
+  }
+
+  _share(text, url) {
+    if (navigator.share) {
+      // Native del (mobil)
+      navigator.share({ title: 'S-LA for Djursland Quiz', text, url })
+        .catch(() => {});
+    } else {
+      // Fallback: kopier til clipboard
+      const full = text + '\n' + url;
+      navigator.clipboard.writeText(full).then(() => {
+        alert('📋 Kopieret! Del det med dine venner.');
+      }).catch(() => {
+        prompt('Kopier linket:', full);
+      });
+    }
+    this.track('share');
+  }
   setTimerSpeed(val) {
     this.maxTime = val === 'fast' ? 20 : val === 'slow' ? 45 : 30;
   }

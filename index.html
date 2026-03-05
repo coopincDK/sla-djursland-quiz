@@ -6,6 +6,11 @@
   <meta name="description" content="S-LA for Djursland – Det store politiske quiz-duel mellem Jens og Leif!" />
   <title>S-LA for Djursland – Quiz</title>
   <link rel="icon" type="image/png" href="assets/images/icons/favicon_sla_djursland.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="S-LA Quiz" />
+  <link rel="apple-touch-icon" href="assets/images/icons/favicon_sla_djursland.png" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -84,12 +89,22 @@
 
         <div class="welcome-vs">🤝</div>
 
+        <!-- PWA install banner -->
+        <div id="pwaInstallBanner" style="display:none" class="pwa-banner">
+          <span>📲 Tilføj til hjemmeskærm for bedre oplevelse!</span>
+          <button id="pwaInstallBtn" class="pwa-install-btn">Tilføj</button>
+          <button id="pwaDismissBtn" class="pwa-dismiss-btn">✕</button>
+        </div>
+
         <div class="welcome-buttons">
           <button class="btn-primary btn-start" onclick="game.startGame()">
             <span class="btn-icon">▶</span> Start Quiz!
           </button>
           <button class="btn-gold btn-highscore" onclick="game.showHighscores()">
             <span class="btn-icon">🏆</span> Highscore
+          </button>
+          <button class="btn-share" onclick="game.shareGame()">
+            <span class="btn-icon">🔗</span> Del med venner
           </button>
         </div>
 
@@ -455,6 +470,7 @@
             <button class="btn-secondary" style="flex:1" onclick="game.startGame()">🔄 Prøv igen</button>
             <button class="btn-secondary" style="flex:1" onclick="game.showHighscores()">🏆 Highscore</button>
           </div>
+          <button class="btn-share" style="width:100%;margin-top:6px" onclick="game.shareScore()">🔗 Del din score med venner</button>
         </div>
       </div>
     </div>
@@ -507,6 +523,9 @@
             <div style="display:flex;gap:8px;width:100%">
               <button class="btn-secondary" style="flex:1" onclick="game.showHighscores()">🏆 Highscore</button>
               <button class="btn-secondary" style="flex:1" onclick="game.startGame()">🔄 Spil igen</button>
+            </div>
+            <button class="btn-share" style="width:100%;margin-top:6px" onclick="game.shareScore()">🔗 Del din sejr med venner!</button>
+            <div style="display:none"><!-- placeholder -->
             </div>
           </div>
         </div>
@@ -833,6 +852,33 @@
         }
       });
     }
+
+    // ============================================================
+    // PWA INSTALL PROMPT
+    // ============================================================
+    let _pwaPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      _pwaPrompt = e;
+      // Vis banner hvis ikke afvist før
+      if (!localStorage.getItem('pwa_dismissed')) {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner) banner.style.display = 'flex';
+      }
+    });
+    document.getElementById('pwaInstallBtn') && document.getElementById('pwaInstallBtn').addEventListener('click', () => {
+      if (_pwaPrompt) {
+        _pwaPrompt.prompt();
+        _pwaPrompt.userChoice.then(() => {
+          document.getElementById('pwaInstallBanner').style.display = 'none';
+          _pwaPrompt = null;
+        });
+      }
+    });
+    document.getElementById('pwaDismissBtn') && document.getElementById('pwaDismissBtn').addEventListener('click', () => {
+      document.getElementById('pwaInstallBanner').style.display = 'none';
+      localStorage.setItem('pwa_dismissed', '1');
+    });
 
     function showUpdateBanner() {
       const banner = document.getElementById('updateBanner');

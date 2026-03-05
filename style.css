@@ -2087,6 +2087,62 @@ html, body {
   }
 }
 
+/* DEL MED VENNER KNAP */
+.btn-share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+}
+.btn-share:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37,211,102,0.5);
+}
+
+/* PWA INSTALL BANNER */
+.pwa-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(0,63,138,0.9), rgba(227,0,15,0.9));
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.pwa-banner span { flex: 1; }
+.pwa-install-btn {
+  background: #FFD700;
+  color: #000;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.pwa-dismiss-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
 /* ELECTION COUNTDOWN */
 .election-countdown {
   margin-top: 4px;

@@ -1,0 +1,23 @@
+{
+  "name": "S-LA for Djursland Quiz",
+  "short_name": "S-LA Quiz",
+  "description": "Det store politiske quiz-duel mellem Jens og Leif på Djursland!",
+  "start_url": "/sla-djursland-quiz/",
+  "scope": "/sla-djursland-quiz/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a1a",
+  "theme_color": "#E3000F",
+  "icons": [
+    {
+      "src": "assets/images/icons/favicon_sla_djursland.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/icons/favicon_sla_djursland.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
