@@ -574,7 +574,7 @@ class DjurslandQuiz {
     const textEl   = document.getElementById('questionText');
     const answersEl= document.getElementById('answersContainer');
     const roundEl  = document.getElementById('roundLabel');
-    if (roundEl) roundEl.textContent = `Runde ${this.currentRound}`;
+    if (roundEl) roundEl.textContent = `#${this.currentRound}`;
 
     // Category badge
     const catName = document.getElementById('categoryName');

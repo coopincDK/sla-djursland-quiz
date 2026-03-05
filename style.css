@@ -648,14 +648,16 @@ html, body {
 .round-badge {
   display: inline-flex;
   align-items: center;
-  padding: 6px 18px;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   background: linear-gradient(135deg, #E3000F, #003F8A);
-  border-radius: 50px;
+  border-radius: 50%;
   font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-weight: 900;
   white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
 .question-progress {
