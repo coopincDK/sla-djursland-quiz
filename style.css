@@ -3129,6 +3129,7 @@ html, body {
   .welcome-character .character-info {
     z-index: 6;
     position: relative;
+    margin-bottom: 60px; /* skub op over footer */
   }
 
   /* --- Globale transparente kasser --- */
