@@ -560,6 +560,7 @@ class DjurslandQuiz {
     this.setRandomBg();
     this.setHostImageForQuestion(q);
     this.renderQuestion(q);
+    this._unlockAnswers(); // sørg for knapper er aktive ved nyt spørgsmål
     this.startTimer();
   }
 
@@ -666,9 +667,24 @@ class DjurslandQuiz {
     });
   }
 
+  _lockAnswers() {
+    document.querySelectorAll('.answer-btn').forEach(b => {
+      b.disabled = true;
+      b.style.pointerEvents = 'none';
+    });
+  }
+
+  _unlockAnswers() {
+    document.querySelectorAll('.answer-btn').forEach(b => {
+      b.disabled = false;
+      b.style.pointerEvents = '';
+    });
+  }
+
   selectAnswer(index, btn) {
     if (this.selectedAnswer !== null) return;
     this.selectedAnswer = index;
+    this._lockAnswers(); // lås øjeblikkeligt
     this.playSound('click');
     document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
     if (btn && btn.classList) btn.classList.add('selected');
@@ -679,6 +695,7 @@ class DjurslandQuiz {
   selectAnswerByValue(value, btn) {
     if (this.selectedAnswer !== null) return;
     this.selectedAnswer = value;
+    this._lockAnswers(); // lås øjeblikkeligt
     this.playSound('click');
     document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
     if (btn && btn.classList) btn.classList.add('selected');
