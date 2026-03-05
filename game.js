@@ -501,8 +501,8 @@ class DjurslandQuiz {
   loadQuestions() {
     const pool = window.quizData[`runde${this.currentRound}`];
     if (!pool) { console.error('Ingen data for runde', this.currentRound); return; }
-    // 5 random spørgsmål per runde
-    this.questions = this.shuffle([...pool]).slice(0, 5);
+    // Shuffle alle spørgsmål — ingen testmode begrænsning
+    this.questions = this.shuffle([...pool]);
   }
 
   shuffle(arr) {
@@ -570,21 +570,22 @@ class DjurslandQuiz {
     if (!container) return;
     container.innerHTML = '';
 
-    // TEST-MODE: korrekt svar placeres på fast position per runde
-    // Runde 1=A(0), Runde 2=B(1), Runde 3=C(2), Runde 4=D(3)
     const labels = ['A', 'B', 'C', 'D'];
-    const targetPos = this.currentRound - 1; // 0,1,2,3
 
-    // Byg ny rækkefølge: flyt korrekt svar til targetPos
+    // Shuffle svarene tilfældigt og opdater q.correct
     const answers = [...q.answers];
     const correctAns = answers[q.correct];
-    answers.splice(q.correct, 1);          // fjern fra original position
-    answers.splice(targetPos, 0, correctAns); // indsæt på target
-    // Opdater q.correct midlertidigt så processResult stadig virker
+    const indices = answers.map((_, i) => i);
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    const shuffled = indices.map(i => answers[i]);
+    // Gem original og sæt ny korrekt position
     q._origCorrect = q.correct;
-    q.correct = targetPos;
+    q.correct = shuffled.indexOf(correctAns);
 
-    answers.forEach((ans, i) => {
+    shuffled.forEach((ans, i) => {
       const btn = document.createElement('button');
       btn.className = 'answer-btn';
       btn.dataset.index = i;
@@ -1317,6 +1318,9 @@ class DjurslandQuiz {
     const gemBtn = document.getElementById(context + 'GemBtn');
     const name = nameEl ? nameEl.value.trim() : '';
     const city = cityEl ? cityEl.value.trim() : '';
+    // Gem navn+by lokalt så det huskes til næste gang
+    if (name) localStorage.setItem('quiz_player_name', name);
+    if (city) localStorage.setItem('quiz_player_city', city);
     await this.saveHighscore(name || 'Anonym', this.score, this.currentRound, city);
     // Vis gemt besked
     if (msgEl) msgEl.style.display = 'block';
@@ -1324,6 +1328,16 @@ class DjurslandQuiz {
     if (nameEl) nameEl.disabled = true;
     if (cityEl) cityEl.disabled = true;
     if (gemBtn) gemBtn.disabled = true;
+  }
+
+  // Forudfyld navn+by fra localStorage når highscore-formular vises
+  prefillPlayerInfo(context) {
+    const savedName = localStorage.getItem('quiz_player_name') || '';
+    const savedCity = localStorage.getItem('quiz_player_city') || '';
+    const nameEl = document.getElementById(context + 'Name');
+    const cityEl = document.getElementById(context + 'City');
+    if (nameEl && savedName) nameEl.value = savedName;
+    if (cityEl && savedCity) cityEl.value = savedCity;
   }
 
   async saveHighscore(name, score, round, city = '') {
