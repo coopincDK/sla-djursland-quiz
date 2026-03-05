@@ -3371,6 +3371,14 @@ html, body {
   .welcome-layout {
     z-index: 5;
     position: relative;
+    margin-top: -12px; /* skub alt 12px op */
+  }
+  /* Fjern gennemsigtig overlay på welcome-content */
+  .welcome-content {
+    background: transparent !important;
+    border: none !important;
+    backdrop-filter: none !important;
+    padding: 6px 12px 4px !important;
   }
   /* Navn-labels i bunden stadig synlige */
   .welcome-character .character-info {
