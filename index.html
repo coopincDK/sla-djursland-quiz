@@ -799,5 +799,77 @@
       setInterval(tick, 1000);
     })();
   </script>
+  <script>
+    // ============================================================
+    // SERVICE WORKER REGISTRERING + AUTO CACHE BUST
+    // ============================================================
+    const APP_VERSION = 'v1.0.9';
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => {
+          console.log('[App] Service Worker registreret:', reg.scope);
+
+          // Tjek for opdatering ved load
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // Ny version klar — vis besked
+                showUpdateBanner();
+              }
+            });
+          });
+        })
+        .catch(err => console.warn('[App] SW fejl:', err));
+
+      // Hvis SW overtager kontrollen — reload siden
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+          refreshing = true;
+          window.location.reload();
+        }
+      });
+    }
+
+    function showUpdateBanner() {
+      const banner = document.getElementById('updateBanner');
+      if (banner) banner.style.display = 'flex';
+    }
+
+    function applyUpdate() {
+      navigator.serviceWorker.getRegistration().then(reg => {
+        if (reg && reg.waiting) {
+          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+        }
+      });
+      document.getElementById('updateBanner').style.display = 'none';
+    }
+  </script>
+
+  <!-- Opdaterings-banner -->
+  <div id="updateBanner" style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #E3000F, #003F8A);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    z-index: 999999;
+    gap: 12px;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    cursor: pointer;
+    white-space: nowrap;
+  " onclick="applyUpdate()">
+    🔄 Ny version klar! Tryk for at opdatere
+  </div>
+
 </body>
 </html>
