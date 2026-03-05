@@ -1234,10 +1234,10 @@ class DjurslandQuiz {
   }
 
   filterHighscore(filter) {
-    // Tab UI only — full filtering can be added later
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     const tab = document.getElementById('tab' + filter.charAt(0).toUpperCase() + filter.slice(1));
     if (tab) tab.classList.add('active');
+    this._hsFilter = filter;
     this.loadHighscores();
   }
 
@@ -1368,16 +1368,41 @@ class DjurslandQuiz {
 
     try {
       const snap = await this.db.ref('djursland_highscores')
-        .orderByChild('score').limitToLast(20).once('value');
+        .orderByChild('score').limitToLast(200).once('value');
       const data = snap.val();
       if (!data) {
         tbody.innerHTML = '<tr><td colspan="5" class="hs-empty">🏆 Vær den første på listen!</td></tr>';
         return;
       }
-      const entries = Object.values(data).sort((a, b) => b.score - a.score);
+
+      let entries = Object.values(data).sort((a, b) => b.score - a.score);
+
+      // Filtrer på dato
+      const filter = this._hsFilter || 'all';
+      if (filter === 'today') {
+        const today = new Date().toLocaleDateString('da-DK');
+        entries = entries.filter(e => e.date && new Date(e.date).toLocaleDateString('da-DK') === today);
+      } else if (filter === 'week') {
+        const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+        entries = entries.filter(e => e.date && new Date(e.date).getTime() > weekAgo);
+      } else if (filter === 'city') {
+        // Bedste score per by
+        const byCity = {};
+        entries.forEach(e => {
+          const city = (e.city || '-').trim().toLowerCase();
+          if (!byCity[city] || e.score > byCity[city].score) byCity[city] = e;
+        });
+        entries = Object.values(byCity).sort((a, b) => b.score - a.score);
+      }
+
+      if (!entries.length) {
+        tbody.innerHTML = '<tr><td colspan="5" class="hs-empty">Ingen resultater endnu.</td></tr>';
+        return;
+      }
+
       tbody.innerHTML = '';
-      entries.forEach((e, i) => {
-        const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i+1}`;
+      entries.slice(0, 20).forEach((e, i) => {
+        const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}`;
         const date = e.date ? new Date(e.date).toLocaleDateString('da-DK') : '';
         const tr = document.createElement('tr');
         tr.innerHTML = `<td>${medal}</td><td>${e.name || 'Anonym'}</td><td>${e.city || '-'}</td><td>⭐ ${e.score}</td><td>${date}</td>`;
