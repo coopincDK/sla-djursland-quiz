@@ -2803,6 +2803,7 @@ html, body {
 
 .checkpoint-progress {
   width: 100%;
+  text-align: center;
 }
 
 .progress-label {
@@ -2811,11 +2812,13 @@ html, body {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: var(--sp-xs);
+  text-align: center;
 }
 
 .progress-rounds {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--sp-xs);
   flex-wrap: wrap;
 }
@@ -2853,6 +2856,7 @@ html, body {
 .checkpoint-next-info {
   font-size: var(--fs-base);
   color: rgba(255,255,255,0.6);
+  text-align: center;
 }
 
 /* Gameover / Victory extras */
