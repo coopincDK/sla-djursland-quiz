@@ -29,7 +29,7 @@
       <source media="(max-width: 600px)" srcset="assets/images/scenes/scene_velkomst_mobil.png" />
       <img src="assets/images/scenes/scene_velkomst_desktop.png" alt="Velkomst baggrund" />
     </picture>
-    <div class="scene-overlay"></div>
+    <div class="scene-overlay scene-overlay--welcome"></div>
 
     <!-- Leif: rød VENSTRE -->
     <div class="welcome-character welcome-leif">
@@ -54,29 +54,6 @@
     <div class="welcome-layout">
       <div class="welcome-content">
         <img src="assets/images/icons/sla_djursland_logo.png" alt="S-LA for Djursland" class="welcome-logo" />
-        <h1 class="welcome-title">S-LA for Djursland</h1>
-        <p class="welcome-subtitle">Det store politiske quiz-duel!<br/>Hvem kender Djursland bedst?</p>
-
-        <div class="welcome-duo">
-          <span class="duo-tag duo-blue">🔵 Jens</span>
-          <span class="duo-vs">🤝</span>
-          <span class="duo-tag duo-red">🔴 Leif</span>
-        </div>
-
-        <div class="welcome-buttons">
-          <button class="btn-primary btn-start" onclick="game.startGame()">
-            <span class="btn-icon">▶</span> Start Quiz!
-          </button>
-          <button class="btn-secondary btn-highscore" onclick="game.showHighscores()">
-            <span class="btn-icon">🏆</span> Highscore
-          </button>
-        </div>
-
-        <div class="welcome-meta">
-          <span class="meta-badge">4 runder</span>
-          <span class="meta-badge">120 spørgsmål</span>
-          <span class="meta-badge">Djursland 2026</span>
-        </div>
 
         <!-- Nedtælling til valg -->
         <div class="election-countdown" id="electionCountdown">
@@ -105,24 +82,68 @@
           <div class="countdown-date">📅 Valgdag: 24. marts 2026 kl. 08:00</div>
         </div>
 
-        <button class="btn-settings" onclick="game.toggleSettings()" title="Indstillinger">⚙️</button>
+        <div class="welcome-vs">🤝</div>
+
+        <div class="welcome-buttons">
+          <button class="btn-primary btn-start" onclick="game.startGame()">
+            <span class="btn-icon">▶</span> Start Quiz!
+          </button>
+          <button class="btn-gold btn-highscore" onclick="game.showHighscores()">
+            <span class="btn-icon">🏆</span> Highscore
+          </button>
+        </div>
+
+        <div class="welcome-meta-box">
+          🎯 <strong>4 runder</strong> &nbsp;·&nbsp; +100 spørgsmål &amp; svar
+        </div>
+
       </div>
     </div>
 
-    <!-- Eric.build footer -->
-    <div class="eric-footer">
-      Lavet med <a href="https://eric.build" target="_blank" rel="noopener">eric.build</a>
-    </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('settingsBtn');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          console.log('TANDHJUL KLIKKET!');
+          const panel = document.getElementById('settingsPanel');
+          console.log('Panel fundet:', panel);
+          console.log('Panel classes:', panel?.className);
+        });
+      } else {
+        console.error('settingsBtn IKKE FUNDET!');
+      }
+    });
+  </script>
+
+  <!-- Tandhjul: fast placeret, altid klikbar -->
+  <button id="settingsBtn" onclick="game.toggleSettings()" title="Indstillinger" style="
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s, transform 0.2s;
+  " onmouseover="this.style.opacity=1;this.style.transform='translateX(-50%) rotate(30deg)'" onmouseout="this.style.opacity=0.6;this.style.transform='translateX(-50%) rotate(0deg)'">⚙️</button>
 
   <!-- ═══════════════════════════════════════════════
        ROUND INTRO SCENE
   ═══════════════════════════════════════════════ -->
   <div id="roundIntroScene" class="scene">
+    <!-- Random Djursland baggrundsbillede -->
+    <img id="roundIntroBgImg" src="assets/images/faelles_djursland_scener/faelles_01_superbrugsen.png" alt="" class="scene-bg-img" />
     <div class="scene-overlay dark-overlay"></div>
 
     <div class="round-intro-layout">
       <div class="round-intro-content">
+        <img src="assets/images/icons/ikon_venskab_rivalisering.png" alt="" class="round-intro-icon" />
         <div class="round-badge-big" id="roundBadgeBig">RUNDE 1</div>
         <h2 class="round-intro-title" id="roundIntroTitle">Djursland Grundviden</h2>
         <p class="round-intro-desc" id="roundIntroDesc">5 spørgsmål om Djursland, politik og lokalsamfundet.</p>
@@ -145,16 +166,13 @@
         <div class="host-speech-bubble" id="roundIntroSpeech">
           <p id="roundIntroSpeechText">Er du klar til at teste din Djursland-viden?</p>
         </div>
+
+        <button class="btn-primary btn-round-start" onclick="game.beginRound()">
+          <span>Klar! Start runden →</span>
+        </button>
       </div>
 
-      <div class="round-intro-host">
-        <img id="roundIntroHostImg" src="assets/images/host/jens_v3_02.png" alt="Vært" class="host-img host-img--intro" />
-      </div>
     </div>
-
-    <button class="btn-primary btn-round-start" onclick="game.beginRound()">
-      <span>Klar! Start runden →</span>
-    </button>
   </div>
 
   <!-- ═══════════════════════════════════════════════
@@ -163,7 +181,7 @@
   <div id="questionScene" class="scene">
     <picture class="scene-bg">
       <source media="(max-width: 600px)" srcset="assets/images/scenes/scene_spoergsmaal_desktop.png" />
-      <img src="assets/images/scenes/scene_spoergsmaal_desktop.png" alt="Spørgsmål baggrund" />
+      <img id="questionBgImg" src="assets/images/scenes/scene_spoergsmaal_desktop.png" alt="Spørgsmål baggrund" />
     </picture>
     <div class="scene-overlay question-overlay"></div>
 
@@ -344,9 +362,6 @@
     <div class="scene-overlay checkpoint-overlay"></div>
 
     <div class="checkpoint-layout">
-      <div class="checkpoint-host">
-        <img id="checkpointHostImg" src="assets/images/host/jens_v3_04.png" alt="Vært" class="host-img host-img--checkpoint" />
-      </div>
 
       <div class="checkpoint-content">
         <img src="assets/images/scenes/scene_checkpoint.png" alt="" class="checkpoint-badge-img" style="display:none;" />
@@ -405,10 +420,6 @@
     <div class="scene-overlay gameover-overlay"></div>
 
     <div class="gameover-layout">
-      <div class="gameover-host">
-        <img id="gameOverHostImg" src="assets/images/host/jens_v3_07.png" alt="Vært" class="host-img host-img--gameover" />
-      </div>
-
       <div class="gameover-content">
         <h2 class="gameover-title">💀 Game Over</h2>
         <p class="gameover-subtitle" id="gameOverSubtitle">Du nåede ikke i mål denne gang…</p>
@@ -435,12 +446,15 @@
           <p id="gameOverSpeechText">Øv! Det var ikke Djurslands bedste dag. Prøv igen!</p>
         </div>
 
-        <div class="gameover-buttons">
-          <button class="btn-primary" onclick="game.showPoll()">
-            🗳️ Del din mening →
-          </button>
-          <button class="btn-secondary" onclick="game.startGame()">🔄 Prøv igen</button>
-          <button class="btn-secondary" onclick="game.showHighscores()">🏆 Highscore</button>
+        <div class="inline-score-save" id="gameoverScoreSave">
+          <input type="text" id="gameoverName" placeholder="Dit navn (valgfrit)" class="score-input" maxlength="30" />
+          <input type="text" id="gameoverCity" placeholder="By" class="score-input" maxlength="30" />
+          <button class="btn-primary" id="gameoverGemBtn" onclick="game.saveScoreInline('gameover')">💾 Gem score</button>
+          <p class="score-saved-msg" id="gameoverSavedMsg" style="display:none">✅ Gemt!</p>
+          <div style="display:flex;gap:8px;width:100%">
+            <button class="btn-secondary" style="flex:1" onclick="game.startGame()">🔄 Prøv igen</button>
+            <button class="btn-secondary" style="flex:1" onclick="game.showHighscores()">🏆 Highscore</button>
+          </div>
         </div>
       </div>
     </div>
@@ -454,9 +468,6 @@
     <div class="scene-overlay victory-overlay"></div>
 
     <div class="victory-layout">
-      <div class="victory-host">
-        <img id="victoryHostImg" src="assets/images/host/jens_v3_08.png" alt="Vært" class="host-img host-img--victory" />
-      </div>
 
       <div class="victory-content">
         <div class="victory-crown animate-bounce">👑</div>
@@ -488,11 +499,16 @@
         </div>
 
         <div class="victory-buttons">
-          <button class="btn-primary btn-gold" onclick="game.showPoll()">
-            🗳️ Del din mening →
-          </button>
-          <button class="btn-secondary" onclick="game.showHighscores()">🏆 Gem til Highscore</button>
-          <button class="btn-secondary" onclick="game.startGame()">🔄 Spil igen</button>
+          <div class="inline-score-save" id="victoryScoreSave">
+            <input type="text" id="victoryName" placeholder="Dit navn (valgfrit)" class="score-input" maxlength="30" />
+            <input type="text" id="victoryCity" placeholder="By" class="score-input" maxlength="30" />
+            <button class="btn-primary btn-gold" id="victoryGemBtn" onclick="game.saveScoreInline('victory')">💾 Gem score</button>
+            <p class="score-saved-msg" id="victorySavedMsg" style="display:none">✅ Gemt!</p>
+            <div style="display:flex;gap:8px;width:100%">
+              <button class="btn-secondary" style="flex:1" onclick="game.showHighscores()">🏆 Highscore</button>
+              <button class="btn-secondary" style="flex:1" onclick="game.startGame()">🔄 Spil igen</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -525,12 +541,13 @@
               <tr>
                 <th>#</th>
                 <th>Navn</th>
+                <th>By</th>
                 <th>Score</th>
                 <th>Dato</th>
               </tr>
             </thead>
             <tbody id="highscoreTableBody">
-              <tr><td colspan="4" class="hs-empty">Ingen highscores endnu. Vær den første!</td></tr>
+              <tr><td colspan="5" class="hs-empty">Ingen highscores endnu. Vær den første! 🏆</td></tr>
             </tbody>
           </table>
         </div>
@@ -539,6 +556,7 @@
           <p>Gem dit resultat på listen:</p>
           <div class="hs-input-row">
             <input type="text" id="playerNameInput" placeholder="Dit navn…" maxlength="20" class="hs-name-input" />
+            <input type="text" id="playerCityInput" placeholder="Din by…" maxlength="20" class="hs-name-input" />
             <button class="btn-primary" id="submitScoreBtn" onclick="game.submitScore()">Gem 💾</button>
           </div>
         </div>
@@ -603,6 +621,7 @@
   ═══════════════════════════════════════════════ -->
   <!-- AUDIENCE MODAL -->
   <div id="audienceModal" class="modal">
+    <img id="audienceBgImg" src="" alt="" class="modal-bg-img" />
     <div class="modal-content">
       <h3>📊 Publikum mener:</h3>
       <div class="audience-results" id="audienceResults"></div>
@@ -612,7 +631,8 @@
 
   <!-- EXPERT SELECT MODAL -->
   <div id="expertModal" class="modal">
-    <div class="modal-content expert-modal">
+    <img id="expertBgImg" src="" alt="" class="modal-bg-img" />
+    <div class="modal-content">
       <h3>📞 Ring en ven</h3>
       <p class="expert-intro">Vælg en ekspert at ringe til:</p>
       <div class="expert-grid" id="expertGrid"></div>
@@ -621,13 +641,17 @@
 
   <!-- EXPERT ANSWER MODAL -->
   <div id="expertAnswerModal" class="modal">
+    <img id="expertAnswerBgImg" src="" alt="" class="modal-bg-img" />
     <div class="modal-content">
       <div class="expert-answer-header">
-        <span class="expert-answer-emoji" id="expertAnswerEmoji">🔧</span>
-        <h3 id="expertAnswerName">Eksperten</h3>
+        <img id="expertAnswerImg" src="" alt="Ekspert" class="expert-answer-portrait" />
+        <div>
+          <div style="font-size:1.8rem" id="expertAnswerEmoji">🔧</div>
+          <h3 id="expertAnswerName">Eksperten</h3>
+        </div>
       </div>
       <p class="expert-answer-text" id="expertAnswerText">Hmm, jeg tror svaret er...</p>
-      <button class="btn-primary" onclick="game.closeExpertAnswer()">OK, tak!</button>
+      <button class="btn-primary" onclick="game.closeExpertAnswer()">OK, tak! 👍</button>
     </div>
   </div>
 
@@ -643,7 +667,7 @@
   <!-- ═══════════════════════════════════════════════
        SETTINGS PANEL
   ═══════════════════════════════════════════════ -->
-  <div id="settingsPanel" class="settings-panel" style="display:none;">
+  <div id="settingsPanel" class="settings-panel">
     <div class="settings-header">
       <h3>⚙️ Indstillinger</h3>
       <button class="modal-close" onclick="game.toggleSettings()">✕</button>
@@ -666,41 +690,14 @@
         </label>
       </div>
 
-      <div class="setting-row">
-        <label>🎙️ Vært</label>
-        <div class="host-selector">
-          <button class="host-select-btn active" id="selectJens" onclick="game.selectHost('jens')">
-            <img src="assets/images/host/jens_v3_01.png" alt="Jens" />
-            <span>Jens</span>
-          </button>
-          <button class="host-select-btn" id="selectLeif" onclick="game.selectHost('leif')">
-            <img src="assets/images/host/leif_v3_01.png" alt="Leif" />
-            <span>Leif</span>
-          </button>
-        </div>
-      </div>
 
-      <div class="setting-row">
-        <label>⏱️ Timer-hastighed</label>
-        <select id="settingSpeed" onchange="game.setTimerSpeed(this.value)" class="setting-select">
-          <option value="normal">Normal (30 sek)</option>
-          <option value="fast">Hurtig (20 sek)</option>
-          <option value="slow">Langsom (45 sek)</option>
-        </select>
-      </div>
 
-      <div class="setting-row">
-        <label>🌙 Mørk tilstand</label>
-        <label class="toggle-switch">
-          <input type="checkbox" id="settingDark" checked onchange="game.toggleDarkMode()" />
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
+
+
+
     </div>
 
-    <div class="settings-footer">
-      <button class="btn-danger" onclick="game.resetProgress()">🗑️ Nulstil fremgang</button>
-    </div>
+
   </div>
 
   <!-- ═══════════════════════════════════════════════
@@ -764,6 +761,11 @@
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
   <script src="firebase-config.js"></script>
+
+  <!-- Eric.build footer — global, altid synlig -->
+  <div class="eric-footer">
+    Lavet med <a href="https://eric.build" target="_blank" rel="noopener">eric.build</a>
+  </div>
 
   <script src="questions.js"></script>
   <script src="game.js"></script>

@@ -27,19 +27,59 @@ class DjurslandQuiz {
     this.musicMuted = false;
     this.sfxMuted = false;
 
+    // Host billeder — shuffles ved hvert spørgsmål
+    this.jensImgs = [
+      'jens_v3_01','jens_v3_02','jens_v3_03','jens_v3_04','jens_v3_05',
+      'jens_v3_06','jens_v3_07','jens_v3_08','jens_v3_12','jens_v3_17','jens_v3_20',
+      'jens_pol_04','jens_pol_05','jens_pol_11',
+      'jens_politiker_01','jens_politiker_02'
+    ].map(n => `assets/images/host/${n}.png`);
+
+    this.leifImgs = [
+      'leif_v3_01','leif_v3_02','leif_v3_03','leif_v3_04','leif_v3_05',
+      'leif_v3_06','leif_v3_07','leif_v3_08','leif_v3_10','leif_v3_11','leif_v3_12',
+      'leif_pol_05','leif_pol_06','leif_pol_09','leif_pol_11','leif_pol_13',
+      'leif_politiker_01','leif_politiker_02','leif_politiker_03'
+    ].map(n => `assets/images/host/${n}.png`);
+
+    // Borgere Djursland til publikum-joker
+    this.borgereImgs = [
+      'borgere_01_vaelgermoede','borgere_02_haandsoprackning','borgere_03_cafe_debat',
+      'borgere_04_torvet_diskussion','borgere_05_aeldrecenter','borgere_06_skole_foraeldre',
+      'borgere_07_sportshal','borgere_08_stemmerum','borgere_09_frivillige',
+      'borgere_10_marked','borgere_11_bibliotek','borgere_12_sankthans'
+    ].map(n => `assets/images/borgere_djursland/${n}.png`);
+
+    // Djursland fælles scener til round intro (24 billeder)
+    this.djurslandScenes = [
+      'faelles_01_superbrugsen','faelles_02_auning','faelles_03_grenaa_havn',
+      'faelles_04_fregatten_jylland','faelles_05_kattegatcentret','faelles_06_ebeltoft',
+      'faelles_07_gif_fodbold','faelles_08_svoemmehal','faelles_09_mols_bjerge',
+      'faelles_10_djurs_sommerland','faelles_11_strand_natur','faelles_12_poelsevogn',
+      'faelles_13_traktor_race','faelles_14_kajaktur','faelles_15_julemarked',
+      'faelles_16_fisketur','faelles_17_cykeltur','faelles_18_camping',
+      'faelles_19_stena_line','faelles_20_vindmoelle','faelles_21_ko_race',
+      'faelles_22_sael_safari','faelles_23_ree_park','faelles_24_lokal_kro'
+    ].map(n => `assets/images/faelles_djursland_scener/${n}.png`);
+    this._lastScene = -1;
+
+    // Baggrundsbilleder til spørgsmål — shuffles random
+    this.bgImgs = [
+      'bg_p_01_rute15','bg_p_02_grenaa_havn','bg_p_04_vindmoeller','bg_p_05_landsby',
+      'bg_p_06_folkeskole','bg_p_07_mols_bjerge','bg_p_08_bolig_landet','bg_p_09_drikkevand',
+      'bg_p_10_erhverv','bg_p_11_sundhedshus','bg_p_12_landbrug','bg_p_13_skat_frihed',
+      'bg_p_14_foreningsliv','bg_p_15_ebeltoft','bg_p_16_christiansborg','bg_p_17_havmiljoe',
+      'bg_p_18_valgplakater','bg_p_19_djurs_sommerland','bg_p_20_strand_kyst'
+    ].map(n => `assets/images/scenes/${n}.png`);
+    this._lastBg = -1;
+
     this.hostImages = {
-      welcome:   'assets/images/host/jens_v3_01.png',
-      question:  'assets/images/host/jens_v3_02.png',
-      correct:   'assets/images/host/jens_v3_03.png',
-      wrong:     'assets/images/host/jens_v3_04.png',
-      thinking:  'assets/images/host/jens_v3_05.png',
-      celebrate: 'assets/images/host/jens_v3_06.png',
-      checkpoint:'assets/images/host/jens_v3_07.png',
-      gameover:  'assets/images/host/jens_v3_08.png',
-      leif_question:  'assets/images/host/leif_v3_01.png',
-      leif_correct:   'assets/images/host/leif_v3_02.png',
-      leif_wrong:     'assets/images/host/leif_v3_03.png',
-      leif_celebrate: 'assets/images/host/leif_v3_04.png',
+      welcome:    'assets/images/host/jens_v3_01.png',
+      correct:    'assets/images/host/jens_v3_03.png',
+      wrong:      'assets/images/host/jens_v3_08.png',
+      celebrate:  'assets/images/host/jens_v3_06.png',
+      checkpoint: 'assets/images/host/jens_v3_07.png',
+      gameover:   'assets/images/host/jens_v3_08.png',
     };
 
     this.experts = [
@@ -284,28 +324,88 @@ class DjurslandQuiz {
     document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
     const el = document.getElementById(id);
     if (el) el.classList.add('active');
+    // Tandhjul + footer kun synlig på welcome
+    const onWelcome = id === 'welcomeScene';
+    const settingsBtn = document.getElementById('settingsBtn');
+    const ericFooter = document.querySelector('.eric-footer');
+    if (settingsBtn) settingsBtn.style.display = onWelcome ? '' : 'none';
+    if (ericFooter)  ericFooter.style.display  = onWelcome ? '' : 'none';
+  }
+
+  // Hjælpefunktion: vælg random element fra array
+  _rand(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  // Random baggrundsbillede til spørgsmål (undgår samme to gange i træk)
+  _randomBg() {
+    let idx;
+    do { idx = Math.floor(Math.random() * this.bgImgs.length); }
+    while (idx === this._lastBg && this.bgImgs.length > 1);
+    this._lastBg = idx;
+    return this.bgImgs[idx];
   }
 
   setHostImage(state) {
-    // Try both ids (question scene uses hostImage, others use scene-specific ids)
-    const img = document.getElementById('hostImage') ||
-                document.getElementById('questionHostImg') ||
-                document.getElementById('roundIntroHostImg');
-    if (!img) return;
-    const useLeif = (this.currentRound === 2 || this.currentRound === 3);
-    let src;
-    if (useLeif && state === 'question') src = this.hostImages.leif_question;
-    else if (useLeif && state === 'correct')  src = this.hostImages.leif_correct;
-    else if (useLeif && state === 'wrong')    src = this.hostImages.leif_wrong;
-    else if (useLeif && state === 'celebrate')src = this.hostImages.leif_celebrate;
-    else src = this.hostImages[state] || this.hostImages.question;
-    img.src = src;
+    // Brug _currentHost hvis sat (så feedback matcher spørgsmålets kandidat)
+    const candidate = this._currentHost || (this.currentRound === 2 || this.currentRound === 3 ? 'leif' : 'jens');
+    if (state === 'welcome' || state === 'checkpoint') {
+      // Welcome/checkpoint: altid Jens
+      const img = document.getElementById('hostImage') || document.getElementById('roundIntroHostImg');
+      if (img) img.src = this._rand(this.jensImgs);
+    } else {
+      this._setHostImg(candidate);
+    }
+  }
+
+  // Vælg host-billede baseret på spørgsmålets host-felt
+  // Gemmer også hvilken kandidat der er aktiv så feedback-scener bruger samme
+  setHostImageForQuestion(q) {
+    const host = q?.host || 'random';
+    // Bestem kandidat og gem til brug i feedback-scener
+    if (host === 'jens') {
+      this._currentHost = 'jens';
+    } else if (host === 'leif') {
+      this._currentHost = 'leif';
+    } else if (host === 'both') {
+      this._currentHost = this.currentQuestionIndex % 2 === 0 ? 'jens' : 'leif';
+    } else {
+      this._currentHost = Math.random() > 0.5 ? 'jens' : 'leif';
+    }
+    this._setHostImg(this._currentHost, true); // forceNew: nyt spørgsmål = nyt billede
+  }
+
+  // Sæt host-billede på alle synlige host-img elementer
+  // Ved nyt spørgsmål vælges et nyt tilfældigt billede og gemmes i _currentHostImg
+  // så feedback-scener (correct/wrong) bruger SAMME billede
+  _setHostImg(candidate, forceNew = false) {
+    const pool = candidate === 'leif' ? this.leifImgs : this.jensImgs;
+    // Vælg nyt billede kun når forceNew=true (ved nyt spørgsmål)
+    // Ellers genbrug det gemte billede så rytmen holdes
+    if (forceNew || !this._currentHostImg) {
+      this._currentHostImg = this._rand(pool);
+    }
+    const src = this._currentHostImg;
+    const ids = ['hostImage','questionHostImg','correctHostImg','wrongHostImg',
+                 'correctSpeechHost','wrongSpeechHost','roundIntroHostImg'];
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.src = src;
+    });
+  }
+
+  // Skift baggrundsbillede på spørgsmåls-scenen
+  setRandomBg() {
+    const bg = document.getElementById('questionBgImg') ||
+               document.querySelector('#questionScene .scene-bg-img') ||
+               document.querySelector('#questionScene .scene-bg img');
+    if (bg) bg.src = this._randomBg();
   }
 
   setHostImageRight(state) {
     const img = document.getElementById('hostImageRight');
     if (!img) return;
-    img.src = this.hostImages[state] || this.hostImages.question;
+    img.src = this._rand(this.jensImgs);
   }
 
   // ============================================================
@@ -365,8 +465,15 @@ class DjurslandQuiz {
     const speechEl = document.getElementById('roundIntroSpeechText');
     if (speechEl) speechEl.textContent = speeches[round] || '';
 
+    // Sæt random Djursland baggrundsbillede
+    let sceneIdx;
+    do { sceneIdx = Math.floor(Math.random() * this.djurslandScenes.length); }
+    while (sceneIdx === this._lastScene && this.djurslandScenes.length > 1);
+    this._lastScene = sceneIdx;
+    const introBg = document.getElementById('roundIntroBgImg');
+    if (introBg) introBg.src = this.djurslandScenes[sceneIdx];
+
     this.showScreen('roundIntroScene');
-    this.setHostImage('checkpoint');
     this.playSound('checkpoint');
   }
 
@@ -394,10 +501,8 @@ class DjurslandQuiz {
   loadQuestions() {
     const pool = window.quizData[`runde${this.currentRound}`];
     if (!pool) { console.error('Ingen data for runde', this.currentRound); return; }
-    // Runde 1: 40 sp, Runde 2: 30 sp, Runde 3: 20 sp, Runde 4: 30 sp
-    const counts = { 1: 40, 2: 30, 3: 20, 4: 30 };
-    const count = counts[this.currentRound] || pool.length;
-    this.questions = this.shuffle([...pool]).slice(0, Math.min(count, pool.length));
+    // 5 random spørgsmål per runde
+    this.questions = this.shuffle([...pool]).slice(0, 5);
   }
 
   shuffle(arr) {
@@ -418,7 +523,8 @@ class DjurslandQuiz {
     this.pendingAnswer = null;
 
     this.updateProgress();
-    this.setHostImage('question');
+    this.setRandomBg();
+    this.setHostImageForQuestion(q);
     this.renderQuestion(q);
     this.startTimer();
   }
@@ -463,11 +569,26 @@ class DjurslandQuiz {
   renderClassicAnswers(q, container) {
     if (!container) return;
     container.innerHTML = '';
-    q.answers.forEach((ans, i) => {
+
+    // TEST-MODE: korrekt svar placeres på fast position per runde
+    // Runde 1=A(0), Runde 2=B(1), Runde 3=C(2), Runde 4=D(3)
+    const labels = ['A', 'B', 'C', 'D'];
+    const targetPos = this.currentRound - 1; // 0,1,2,3
+
+    // Byg ny rækkefølge: flyt korrekt svar til targetPos
+    const answers = [...q.answers];
+    const correctAns = answers[q.correct];
+    answers.splice(q.correct, 1);          // fjern fra original position
+    answers.splice(targetPos, 0, correctAns); // indsæt på target
+    // Opdater q.correct midlertidigt så processResult stadig virker
+    q._origCorrect = q.correct;
+    q.correct = targetPos;
+
+    answers.forEach((ans, i) => {
       const btn = document.createElement('button');
       btn.className = 'answer-btn';
       btn.dataset.index = i;
-      btn.textContent = ans;
+      btn.innerHTML = `<span class="answer-label">${labels[i]}</span><span class="answer-text">${ans}</span>`;
       btn.addEventListener('click', () => this.selectAnswer(i, btn));
       container.appendChild(btn);
     });
@@ -668,6 +789,7 @@ class DjurslandQuiz {
 
   nextQuestion() {
     this.currentQuestionIndex++;
+    this.showScreen('questionScene');
     this.showQuestion();
   }
 
@@ -757,11 +879,16 @@ class DjurslandQuiz {
   // ============================================================
 
   renderLifelines() {
-    const ids = ['lifeline5050','lifelineAudience','lifelinePhone','lifelineTime'];
+    const ids  = ['lifeline5050','lifelineAudience','lifelinePhone','lifelineTime'];
     const keys = ['fiftyFifty','audience','phone','extraTime'];
     ids.forEach((id, i) => {
       const btn = document.getElementById(id);
-      if (btn) btn.disabled = this.lifelines[keys[i]];
+      if (!btn) return;
+      const used = this.lifelines[keys[i]];
+      btn.disabled = used;
+      btn.style.opacity    = used ? '0' : '1';
+      btn.style.visibility = used ? 'hidden' : 'visible';
+      btn.style.pointerEvents = used ? 'none' : '';
     });
   }
 
@@ -769,6 +896,7 @@ class DjurslandQuiz {
     if (this.lifelines.fiftyFifty) return;
     if (this.currentRound === 2 || this.currentRound === 3) return;
     this.lifelines.fiftyFifty = true;
+    this.renderLifelines();
     this.score -= 200;
     this.updateScoreDisplay();
     this.playSound('whoosh');
@@ -788,8 +916,12 @@ class DjurslandQuiz {
   useAudience() {
     if (this.lifelines.audience) return;
     this.lifelines.audience = true;
+    this.renderLifelines();
     this.score -= 200;
     this.updateScoreDisplay();
+    // Sæt random borgere baggrundsbillede
+    const bgEl = document.getElementById('audienceBgImg');
+    if (bgEl) bgEl.src = this._rand(this.borgereImgs);
     this.playSound('dramatic');
 
     const q = this.questions[this.currentQuestionIndex];
@@ -852,8 +984,10 @@ class DjurslandQuiz {
   }
 
   usePhone() {
+    console.log('=== usePhone() kaldt ===');
     if (this.lifelines.phone) return;
     this.lifelines.phone = true;
+    this.renderLifelines();
     this.score -= 200;
     this.updateScoreDisplay();
     this.playSound('drumroll');
@@ -867,6 +1001,8 @@ class DjurslandQuiz {
     const line = lines[Math.floor(Math.random() * lines.length)].replace('{answer}', correctLabel);
 
     // Build expert grid dynamically (like lager-quiz — no phoneModal)
+    console.log('expertGrid element:', document.getElementById('expertGrid'));
+    console.log('expertModal element:', document.getElementById('expertModal'));
     const grid = document.getElementById('expertGrid');
     if (grid) {
       grid.innerHTML = '';
@@ -884,9 +1020,15 @@ class DjurslandQuiz {
         grid.appendChild(card);
       });
     }
+    const bgEl = document.getElementById('expertBgImg');
+    if (bgEl) bgEl.src = this._rand(this.borgereImgs);
     const expertModal = document.getElementById('expertModal');
-    if (expertModal) expertModal.classList.add('active');
-    else console.warn('expertModal not found in HTML!');
+    console.log('expertModal fundet:', expertModal);
+    if (expertModal) {
+      expertModal.classList.add('active');
+      console.log('expertModal classes efter add:', expertModal.className);
+      console.log('expertModal computed display:', window.getComputedStyle(expertModal).display);
+    } else console.warn('expertModal IKKE fundet i HTML!');
     this.stopTimer();
     document.getElementById('lifelinePhone').disabled = true;
   }
@@ -904,12 +1046,20 @@ class DjurslandQuiz {
     if (this.currentRound === 3) {
       return { samarbejde: 'Samarbejde', rivalisering: 'Rivalisering', begge: 'Begge dele' }[q.answer] || q.answer;
     }
+    // Brug q.correct som er sat til targetPos efter shuffle i renderClassicAnswers
+    // Hent tekst direkte fra DOM-knapperne (de er allerede renderet korrekt)
+    const btns = document.querySelectorAll('.answer-btn');
+    if (btns[q.correct]) {
+      return btns[q.correct].querySelector('.answer-text')?.textContent ||
+             btns[q.correct].textContent.trim();
+    }
     return q.answers ? q.answers[q.correct] : '?';
   }
 
   useExtraTime() {
     if (this.lifelines.extraTime) return;
     this.lifelines.extraTime = true;
+    this.renderLifelines();
     this.score -= 200;
     this.updateScoreDisplay();
     this.playSound('ding');
@@ -1102,15 +1252,38 @@ class DjurslandQuiz {
   }
 
   callExpert(expert, q) {
-    document.getElementById('expertModal').classList.remove('active');
+    console.log('=== callExpert() kaldt ===', expert.name);
+    // Luk ekspert-vælg modal
+    const selModal = document.getElementById('expertModal');
+    if (selModal) selModal.classList.remove('active');
+
     const correctLabel = this.getCorrectLabel(q);
     const isConfident = Math.random() > 0.35;
     const lines = isConfident ? expert.confidentLines : expert.unsureLines;
     const line = lines[Math.floor(Math.random() * lines.length)].replace('{answer}', correctLabel);
-    document.getElementById('expertAnswerEmoji').textContent = expert.emoji;
-    document.getElementById('expertAnswerName').textContent = expert.name;
-    document.getElementById('expertAnswerText').textContent = line;
-    document.getElementById('expertAnswerModal').classList.add('active');
+
+    // Vis ekspert-svar modal
+    const emoji = document.getElementById('expertAnswerEmoji');
+    const name  = document.getElementById('expertAnswerName');
+    const text  = document.getElementById('expertAnswerText');
+    const img   = document.getElementById('expertAnswerImg');
+    if (emoji) emoji.textContent = expert.emoji;
+    if (name)  name.textContent  = expert.name;
+    if (text)  text.textContent  = line;
+    if (img)   img.src           = expert.image;
+
+    const abgEl = document.getElementById('expertAnswerBgImg');
+    if (abgEl) abgEl.src = this._rand(this.borgereImgs);
+    const ansModal = document.getElementById('expertAnswerModal');
+    console.log('expertAnswerModal fundet:', ansModal);
+    console.log('emoji el:', document.getElementById('expertAnswerEmoji'));
+    console.log('name el:', document.getElementById('expertAnswerName'));
+    console.log('text el:', document.getElementById('expertAnswerText'));
+    if (ansModal) {
+      ansModal.classList.add('active');
+      console.log('expertAnswerModal classes:', ansModal.className);
+      console.log('expertAnswerModal display:', window.getComputedStyle(ansModal).display);
+    } else console.error('expertAnswerModal IKKE fundet i HTML!');
   }
 
   closeExpertAnswer() {
@@ -1125,7 +1298,7 @@ class DjurslandQuiz {
   toggleSettings() {
     const panel = document.getElementById('settingsPanel');
     if (!panel) return;
-    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    panel.classList.toggle('active');
   }
 
   selectHost(host) { /* future: swap host images */ }
@@ -1137,10 +1310,27 @@ class DjurslandQuiz {
     if (confirm('Nulstil al fremgang?')) this.startGame();
   }
 
-  async saveHighscore(name, score, round) {
+  async saveScoreInline(context) {
+    const nameEl = document.getElementById(context + 'Name');
+    const cityEl = document.getElementById(context + 'City');
+    const msgEl  = document.getElementById(context + 'SavedMsg');
+    const gemBtn = document.getElementById(context + 'GemBtn');
+    const name = nameEl ? nameEl.value.trim() : '';
+    const city = cityEl ? cityEl.value.trim() : '';
+    await this.saveHighscore(name || 'Anonym', this.score, this.currentRound, city);
+    // Vis gemt besked
+    if (msgEl) msgEl.style.display = 'block';
+    // Deaktiver KUN input + gem-knap (ikke navigationsknapper)
+    if (nameEl) nameEl.disabled = true;
+    if (cityEl) cityEl.disabled = true;
+    if (gemBtn) gemBtn.disabled = true;
+  }
+
+  async saveHighscore(name, score, round, city = '') {
     if (!this.db) return;
     const entry = {
       name: name.trim().substring(0, 20),
+      city: city.substring(0, 20),
       score,
       round,
       date: new Date().toISOString()
@@ -1155,10 +1345,10 @@ class DjurslandQuiz {
   async loadHighscores() {
     const tbody = document.getElementById('highscoreTableBody');
     if (!tbody) return;
-    tbody.innerHTML = '<tr><td colspan="4" class="hs-empty">Henter...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" class="hs-empty">Henter...</td></tr>';
 
     if (!this.db) {
-      tbody.innerHTML = '<tr><td colspan="4" class="hs-empty">Highscores ikke tilgængelige offline — Firebase ikke forbundet.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="5" class="hs-empty">Highscores ikke tilgængelige offline — Firebase ikke forbundet.</td></tr>';
       return;
     }
 
@@ -1167,7 +1357,7 @@ class DjurslandQuiz {
         .orderByChild('score').limitToLast(20).once('value');
       const data = snap.val();
       if (!data) {
-        tbody.innerHTML = '<tr><td colspan="4" class="hs-empty">🏆 Vær den første på listen!</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" class="hs-empty">🏆 Vær den første på listen!</td></tr>';
         return;
       }
       const entries = Object.values(data).sort((a, b) => b.score - a.score);
@@ -1176,19 +1366,22 @@ class DjurslandQuiz {
         const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i+1}`;
         const date = e.date ? new Date(e.date).toLocaleDateString('da-DK') : '';
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${medal}</td><td>${e.name || 'Anonym'}</td><td>⭐ ${e.score}</td><td>${date}</td>`;
+        tr.innerHTML = `<td>${medal}</td><td>${e.name || 'Anonym'}</td><td>${e.city || '-'}</td><td>⭐ ${e.score}</td><td>${date}</td>`;
         tbody.appendChild(tr);
       });
     } catch (err) {
-      tbody.innerHTML = '<tr><td colspan="4" class="hs-empty">Fejl ved hentning — prøv igen.</td></tr>';
+      console.error('Firebase loadHighscores fejl:', err);
+      tbody.innerHTML = `<tr><td colspan="5" class="hs-empty">⚠️ Fejl: ${err.message || err} — tjek Firebase regler.</td></tr>`;
     }
   }
 
   submitScore() {
     const nameInput = document.getElementById('playerNameInput');
+    const cityInput = document.getElementById('playerCityInput');
     const name = nameInput ? nameInput.value.trim() : 'Anonym';
+    const city = cityInput ? cityInput.value.trim() : '';
     if (!name) { alert('Indtast dit navn!'); return; }
-    this.saveHighscore(name, this.score, this.currentRound);
+    this.saveHighscore(name, this.score, this.currentRound, city);
     this.playSound('whoosh');
     const btn = document.getElementById('submitScoreBtn');
     if (btn) { btn.textContent = '✅ Gemt!'; btn.disabled = true; }
