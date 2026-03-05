@@ -474,14 +474,14 @@ class DjurslandQuiz {
     if (timerText) timerText.textContent = this.maxTime + ' sekunder pr. spørgsmål';
     const ptsText = document.getElementById('roundRulePoints');
     const pts = { 1: '1000', 2: '500', 3: '500', 4: '1500' }[round];
-    if (ptsText) ptsText.textContent = pts + ' point pr. korrekt svar';
+    if (ptsText) ptsText.textContent = pts + ' point + op til +300 tidsbonus';
 
     // Speech bubble
     const speeches = {
-      1: 'Er du klar? Ét forkert svar og det er slut! 😊',
-      2: 'Kender du Jens og Leifs holdninger? 🤔',
-      3: 'Samarbejde eller rivalisering? Du bestemmer! ⚔️',
-      4: 'Finalen! Kun ægte Djursland-kendere klarer denne! 🏆'
+      1: 'Svar hurtigt for tidsbonus! 3 i træk giver streak-bonus 🔥 Livlinjer koster -200p!',
+      2: 'Kender du Jens og Leifs holdninger? Streak giver ekstra point! 🤔',
+      3: 'Samarbejde eller rivalisering? Hurtige svar = flere point! ⚔️',
+      4: 'Finalen! Svar hurtigt, hold streaken — kun ægte Djursland-kendere klarer dette! 🏆'
     };
     const speechEl = document.getElementById('roundIntroSpeechText');
     if (speechEl) speechEl.textContent = speeches[round] || '';
@@ -492,7 +492,16 @@ class DjurslandQuiz {
     while (sceneIdx === this._lastScene && this.djurslandScenes.length > 1);
     this._lastScene = sceneIdx;
     const introBg = document.getElementById('roundIntroBgImg');
-    if (introBg) introBg.src = this.djurslandScenes[sceneIdx];
+    if (introBg) {
+      // Start usynlig, fade ind når billedet er loaded
+      introBg.style.opacity = '0';
+      introBg.style.transition = 'opacity 0.4s ease';
+      const newSrc = this.djurslandScenes[sceneIdx];
+      introBg.onload = () => { introBg.style.opacity = '1'; };
+      // Hvis billedet allerede er cachet fires onload ikke — sæt opacity direkte
+      introBg.src = newSrc;
+      if (introBg.complete) introBg.style.opacity = '1';
+    }
 
     this.showScreen('roundIntroScene');
     this.playSound('checkpoint');
@@ -721,13 +730,20 @@ class DjurslandQuiz {
   handleCorrect(q) {
     this.streak++;
     this.correctAnswers++;
-    const points = this.calcPoints();
+    const base   = { 1: 1000, 2: 500, 3: 500, 4: 1500 }[this.currentRound] || 500;
+    const timeBon = Math.floor((this.timeLeft / this.maxTime) * 300);
+    const strBon  = this.streak >= 3 ? (this.streak - 2) * 50 : 0;
+    const points  = base + timeBon + strBon;
     this.score += points;
     this.updateScoreDisplay();
     this.setHostImage('correct');
     this.playSound('correct');
     if (this.streak >= 3) this.playSound('cheer');
-    this.showFeedback(true, points, q.explanation);
+    // Byg bonus-tekst til feedback
+    let bonusInfo = `+${base}`;
+    if (timeBon > 0) bonusInfo += ` +${timeBon} tid`;
+    if (strBon  > 0) bonusInfo += ` +${strBon} streak🔥`;
+    this.showFeedback(true, points, q.explanation, false, bonusInfo);
     // Track korrekt svar
     this.track('answer_correct', { round: this.currentRound, q: (q.question||q.statement||q.situation||'').substring(0,60) });
   }
@@ -745,12 +761,14 @@ class DjurslandQuiz {
 
   calcPoints() {
     const base = { 1: 1000, 2: 500, 3: 500, 4: 1500 }[this.currentRound] || 500;
-    const timeBonus = Math.floor((this.timeLeft / this.maxTime) * 200);
-    const streakBonus = this.streak >= 3 ? 100 : 0;
+    // Tidsbonus: op til 300 point for hurtigt svar
+    const timeBonus = Math.floor((this.timeLeft / this.maxTime) * 300);
+    // Streak-bonus: 50 per svar i streak (3=150, 5=250, 10=500 osv)
+    const streakBonus = this.streak >= 3 ? (this.streak - 2) * 50 : 0;
     return base + timeBonus + streakBonus;
   }
 
-  showFeedback(correct, points, explanation, gameOver = false) {
+  showFeedback(correct, points, explanation, gameOver = false, bonusInfo = null) {
     // Clear any existing timers
     if (this._feedbackInterval) clearInterval(this._feedbackInterval);
     if (this._feedbackTimeout) clearTimeout(this._feedbackTimeout);
@@ -764,6 +782,9 @@ class DjurslandQuiz {
       if (factEl) factEl.textContent = explanation || '';
       const ptsEl = document.querySelector('#pointsEarned .points-value');
       if (ptsEl) ptsEl.textContent = '+' + points;
+      // Vis bonus-breakdown (tidsbonus, streak)
+      const bonusEl = document.getElementById('pointsBonusInfo');
+      if (bonusEl) bonusEl.textContent = bonusInfo || '';
       const answerTextEl = document.getElementById('correctAnswerText');
       if (answerTextEl) answerTextEl.textContent = this._correctLabel ? `✅ ${this._correctLabel}` : '';
       this.showScreen('correctScene');
@@ -918,8 +939,21 @@ class DjurslandQuiz {
     });
   }
 
+  _deductLifelineCost() {
+    const cost = 200;
+    this.score = Math.max(0, this.score - cost);
+    this.updateScoreDisplay();
+    // Vis kort besked
+    const el = document.getElementById('scoreDisplay') || document.getElementById('scoreValue');
+    if (el) {
+      el.style.color = '#f85149';
+      setTimeout(() => { el.style.color = ''; }, 800);
+    }
+  }
+
   useFiftyFifty() {
     if (this.lifelines.fiftyFifty) return;
+    this._deductLifelineCost();
     if (this.currentRound === 2 || this.currentRound === 3) return;
     this.lifelines.fiftyFifty = true;
     this.renderLifelines();
@@ -941,6 +975,7 @@ class DjurslandQuiz {
 
   useAudience() {
     if (this.lifelines.audience) return;
+    this._deductLifelineCost();
     this.lifelines.audience = true;
     this.renderLifelines();
     this.score -= 200;
@@ -1012,6 +1047,7 @@ class DjurslandQuiz {
   usePhone() {
     console.log('=== usePhone() kaldt ===');
     if (this.lifelines.phone) return;
+    this._deductLifelineCost();
     this.lifelines.phone = true;
     this.renderLifelines();
     this.score -= 200;
@@ -1084,6 +1120,7 @@ class DjurslandQuiz {
 
   useExtraTime() {
     if (this.lifelines.extraTime) return;
+    this._deductLifelineCost();
     this.lifelines.extraTime = true;
     this.renderLifelines();
     this.score -= 200;

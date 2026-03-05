@@ -143,8 +143,8 @@
   <!-- Footer icon-bar: Indstillinger + Galleri + Del + Install -->
   <div id="footerIconBar" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:10000;display:flex;gap:4px;align-items:center;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:5px 12px;backdrop-filter:blur(8px)">
     <button id="settingsBtn" onclick="game.toggleSettings()" title="Indstillinger" class="footer-icon-btn">&#9881;&#65039;</button>
+    <button id="pwaFooterBtn" onclick="game.pwaInstall()" title="Tilføj som app" class="footer-icon-btn" style="display:none">&#11015;&#65039;</button>
     <button onclick="game.shareGame()" title="Del med venner" class="footer-icon-btn">&#128279;</button>
-    <button id="pwaFooterBtn" onclick="game.pwaInstall()" title="Tilføj til hjemmeskærm" class="footer-icon-btn" style="display:none">&#128242;</button>
   </div>
 
   <!-- ═══════════════════════════════════════════════
@@ -320,6 +320,7 @@
           <span class="points-value">+250</span>
           <span class="points-label">point</span>
         </div>
+        <div id="pointsBonusInfo" style="font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:-4px;letter-spacing:0.03em"></div>
         <div class="streak-bonus" id="streakBonus" style="display:none;">
           <span>🔥 Streak bonus: </span><span id="streakBonusValue">+50</span>
         </div>
@@ -853,14 +854,26 @@
     // PWA INSTALL PROMPT
     // ============================================================
     let _pwaPrompt = null;
+    window._pwaPrompt = null;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       _pwaPrompt = e;
+      window._pwaPrompt = e; // tilgængelig for game.pwaInstall()
+      // Vis install-knap i footer (både mobil og PC)
+      const footerBtn = document.getElementById('pwaFooterBtn');
+      if (footerBtn) footerBtn.style.display = 'inline-flex';
       // Vis banner hvis ikke afvist før
       if (!localStorage.getItem('pwa_dismissed')) {
         const banner = document.getElementById('pwaInstallBanner');
         if (banner) banner.style.display = 'flex';
       }
+    });
+    // Skjul install-knap når appen er installeret
+    window.addEventListener('appinstalled', () => {
+      const footerBtn = document.getElementById('pwaFooterBtn');
+      if (footerBtn) footerBtn.style.display = 'none';
+      const banner = document.getElementById('pwaInstallBanner');
+      if (banner) banner.style.display = 'none';
     });
     document.getElementById('pwaInstallBtn') && document.getElementById('pwaInstallBtn').addEventListener('click', () => {
       if (_pwaPrompt) {
