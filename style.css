@@ -3371,7 +3371,8 @@ html, body {
   .welcome-layout {
     z-index: 5;
     position: relative;
-    margin-top: -12px; /* skub alt 12px op */
+    margin-top: -75px; /* skub op med navn-boksenes højde */
+    margin-bottom: 75px; /* bevar plads i bunden */
   }
   /* Fjern gennemsigtig overlay på welcome-content */
   .welcome-content {
