@@ -2129,61 +2129,106 @@ html, body {
   align-items: center;
   justify-content: center;
   pointer-events: none;
+  overflow: hidden;
 }
 #livesBonusOverlay.lb-hidden { display: none; }
 #livesBonusOverlay.lb-show   { display: flex; }
 
+/* Konfetti-partikler */
+.lb-confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: lbConfettiFall linear both;
+}
+@keyframes lbConfettiFall {
+  0%   { transform: translateY(-60px) rotate(0deg) scale(1);   opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg) scale(0.5); opacity: 0; }
+}
+
 .lb-card {
-  background: linear-gradient(135deg, rgba(10,10,26,0.97), rgba(30,20,60,0.97));
+  background: linear-gradient(135deg, rgba(8,8,22,0.98), rgba(25,15,55,0.98));
   border: 2px solid #FFD700;
-  border-radius: 24px;
-  padding: 32px 48px;
+  border-radius: 28px;
+  padding: 36px 52px;
   text-align: center;
-  box-shadow: 0 0 60px rgba(255,215,0,0.4), 0 20px 60px rgba(0,0,0,0.8);
-  animation: lbCardPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+  box-shadow:
+    0 0 0 4px rgba(255,215,0,0.15),
+    0 0 80px rgba(255,215,0,0.5),
+    0 30px 80px rgba(0,0,0,0.9);
+  animation: lbCardPop 0.45s cubic-bezier(0.34,1.56,0.64,1) both;
+  position: relative;
+  z-index: 2;
 }
 @keyframes lbCardPop {
-  from { transform: scale(0.5); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
+  0%   { transform: scale(0.3) rotate(-8deg); opacity: 0; }
+  60%  { transform: scale(1.08) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1)    rotate(0deg); opacity: 1; }
 }
+
 .lb-title {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 900;
   color: #FFD700;
-  margin-bottom: 16px;
-  letter-spacing: 0.05em;
+  margin-bottom: 18px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(255,215,0,0.8);
+  animation: lbTitleShake 0.5s 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
 }
+@keyframes lbTitleShake {
+  0%   { transform: scale(0.8) rotate(-3deg); }
+  40%  { transform: scale(1.15) rotate(3deg); }
+  70%  { transform: scale(0.95) rotate(-1deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
 .lb-hearts {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 .lb-heart {
-  font-size: 2.8rem;
+  font-size: 3.2rem;
   display: inline-block;
-  animation: lbHeartBounce 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  animation: lbHeartBounce 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  filter: drop-shadow(0 0 12px rgba(255,80,80,0.9));
 }
 @keyframes lbHeartBounce {
-  from { transform: scale(0) rotate(-20deg); opacity: 0; }
-  to   { transform: scale(1) rotate(0deg);   opacity: 1; }
+  0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+  50%  { transform: scale(1.4) rotate(10deg); opacity: 1; }
+  75%  { transform: scale(0.9) rotate(-5deg); }
+  100% { transform: scale(1)   rotate(0deg); opacity: 1; }
 }
+
 .lb-amount {
-  font-size: 3rem;
+  font-size: 3.8rem;
   font-weight: 900;
   color: #FFD700;
-  text-shadow: 0 0 30px rgba(255,215,0,0.8);
-  animation: lbAmountPulse 0.6s 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+  text-shadow: 0 0 40px rgba(255,215,0,1), 0 0 80px rgba(255,215,0,0.5);
+  animation: lbAmountPulse 0.7s 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+  line-height: 1;
 }
 @keyframes lbAmountPulse {
-  from { transform: scale(0.3); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
+  0%   { transform: scale(0.2) rotate(10deg); opacity: 0; }
+  60%  { transform: scale(1.2) rotate(-3deg); opacity: 1; }
+  80%  { transform: scale(0.95); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
+
 .lb-per {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.6);
-  margin-top: 8px;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.65);
+  margin-top: 10px;
+  animation: lbFadeIn 0.4s 0.7s both;
+}
+@keyframes lbFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* FOOTER ICON BAR */

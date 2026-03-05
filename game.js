@@ -937,11 +937,40 @@ class DjurslandQuiz {
     overlay.classList.remove('lb-hidden');
     overlay.classList.add('lb-show');
 
-    // Skjul efter 3 sek
+    // Konfetti!
+    this._spawnConfetti(overlay);
+
+    // Skjul efter 3.5 sek
     setTimeout(() => {
       overlay.classList.remove('lb-show');
       overlay.classList.add('lb-hidden');
-    }, 3000);
+      overlay.querySelectorAll('.lb-confetti').forEach(el => el.remove());
+    }, 3500);
+  }
+
+  _spawnConfetti(container) {
+    const colors = ['#FFD700','#E3000F','#003F8A','#ff6b6b','#51cf66','#339af0','#ff922b','#cc5de8','#ffffff'];
+    const count  = 70;
+    for (let i = 0; i < count; i++) {
+      const el    = document.createElement('span');
+      el.className = 'lb-confetti';
+      const color  = colors[Math.floor(Math.random() * colors.length)];
+      const size   = 7 + Math.random() * 10;
+      const isRect = Math.random() > 0.6;
+      const isCirc = !isRect && Math.random() > 0.5;
+      el.style.cssText = [
+        `background:${color}`,
+        `width:${isRect ? size*2 : size}px`,
+        `height:${size}px`,
+        `border-radius:${isCirc ? '50%' : '2px'}`,
+        `left:${Math.random() * 100}vw`,
+        `top:0`,
+        `position:absolute`,
+        `animation-duration:${1.6 + Math.random() * 1.6}s`,
+        `animation-delay:${Math.random() * 0.5}s`,
+      ].join(';');
+      container.appendChild(el);
+    }
   }
 
   // ============================================================
