@@ -21,8 +21,8 @@ class DjurslandQuiz {
       extraTime: false
     };
     this.streak = 0;
-    this.lives = 2;
-    this.maxLives = 2;
+    this.lives = 1;
+    this.maxLives = 1;
     this.pollVoted = false;
     this.sounds = {};
     this.music = null;
@@ -767,7 +767,7 @@ class DjurslandQuiz {
   renderLives() {
     const el = document.getElementById('livesDisplay');
     if (!el) return;
-    const total = this.maxLives + 1; // 3 hjerter i alt
+    const total = this.maxLives + 1; // 2 hjerter i alt
     let html = '';
     for (let i = 0; i < total; i++) {
       html += `<span style="font-size:1.1rem;transition:opacity 0.3s;opacity:${i <= this.lives ? 1 : 0.2}">❤️</span>`;
