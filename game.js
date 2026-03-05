@@ -536,7 +536,7 @@ class DjurslandQuiz {
     const pool = window.quizData[`runde${this.currentRound}`];
     if (!pool) { console.error('Ingen data for runde', this.currentRound); return; }
     // 10 tilfældige spørgsmål per runde (shufflet)
-    this.questions = this.shuffle([...pool]).slice(0, 20);
+    this.questions = this.shuffle([...pool]).slice(0, 10);
   }
 
   shuffle(arr) {
