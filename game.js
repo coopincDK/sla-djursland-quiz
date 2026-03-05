@@ -891,6 +891,47 @@ class DjurslandQuiz {
     }
     this.showScreen('checkpointScene');
     this.playSound('checkpoint');
+
+    // Liv-bonus: vis animation efter kort pause
+    setTimeout(() => this._showLivesBonus(), 800);
+  }
+
+  _showLivesBonus() {
+    const livesLeft = this.lives + 1; // +1 fordi lives er 0-indexed (0 = 1 liv tilbage)
+    if (livesLeft <= 0) return;
+
+    // Bonus per runde: R1=500, R2=1000, R3=1500
+    const bonusPerLife = { 1: 500, 2: 1000, 3: 1500 }[this.currentRound] || 500;
+    const totalBonus = livesLeft * bonusPerLife;
+
+    // Tilføj til score
+    this.score += totalBonus;
+    this.updateScoreDisplay();
+
+    // Vis overlay
+    const overlay = document.getElementById('livesBonusOverlay');
+    const heartsEl = document.getElementById('livesBonusHearts');
+    const amountEl = document.getElementById('livesBonusAmount');
+    const perEl    = document.getElementById('livesBonusPer');
+    if (!overlay) return;
+
+    // Byg hjerter
+    let heartsHtml = '';
+    for (let i = 0; i < livesLeft; i++) {
+      heartsHtml += `<span class="lb-heart" style="animation-delay:${i * 0.15}s">❤️</span>`;
+    }
+    if (heartsEl) heartsEl.innerHTML = heartsHtml;
+    if (amountEl) amountEl.textContent = '+' + totalBonus.toLocaleString();
+    if (perEl)    perEl.textContent    = `${livesLeft} liv × ${bonusPerLife.toLocaleString()} point`;
+
+    overlay.classList.remove('lb-hidden');
+    overlay.classList.add('lb-show');
+
+    // Skjul efter 3 sek
+    setTimeout(() => {
+      overlay.classList.remove('lb-show');
+      overlay.classList.add('lb-hidden');
+    }, 3000);
   }
 
   // ============================================================
