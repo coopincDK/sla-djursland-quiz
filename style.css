@@ -3106,6 +3106,31 @@ html, body {
    ============================================================ */
 @media (max-width: 430px) {
 
+  /* --- Welcome: personer bag knapper --- */
+  .welcome-character {
+    z-index: 2 !important;  /* under knapper (z-index 5+) */
+    opacity: 0.82;
+  }
+  .character-img {
+    height: min(52vh, 320px) !important; /* lidt mindre */
+  }
+  .welcome-leif {
+    transform: translateX(-8%) !important;
+  }
+  .welcome-jens {
+    transform: translateX(8%) !important;
+  }
+  /* Knapper og indhold OVER personerne */
+  .welcome-layout {
+    z-index: 5;
+    position: relative;
+  }
+  /* Navn-labels i bunden stadig synlige */
+  .welcome-character .character-info {
+    z-index: 6;
+    position: relative;
+  }
+
   /* --- Globale transparente kasser --- */
   .game-header,
   .question-main,
