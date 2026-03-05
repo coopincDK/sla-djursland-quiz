@@ -565,7 +565,7 @@ class DjurslandQuiz {
 
   updateProgress() {
     const el = document.getElementById('questionProgress');
-    if (el) el.textContent = `Spørgsmål ${this.currentQuestionIndex + 1} / ${this.questions.length}`;
+    if (el) el.textContent = `${this.currentQuestionIndex + 1}/${this.questions.length}`;
     const bar = document.getElementById('timerBar'); // timerBar doubles as progress indicator
     // Note: timerBar is the timer fill — don't overwrite it here
   }
