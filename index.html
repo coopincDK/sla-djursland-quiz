@@ -151,6 +151,7 @@
        ROUND INTRO SCENE
   ═══════════════════════════════════════════════ -->
   <div id="roundIntroScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Tilbage til start">✕</button>
     <!-- Random Djursland baggrundsbillede -->
     <img id="roundIntroBgImg" src="assets/images/faelles_djursland_scener/faelles_01_superbrugsen.png" alt="" class="scene-bg-img" />
     <div class="scene-overlay dark-overlay"></div>
@@ -193,6 +194,7 @@
        QUESTION SCENE
   ═══════════════════════════════════════════════ -->
   <div id="questionScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Afslut spil">✕</button>
     <picture class="scene-bg">
       <source media="(max-width: 600px)" srcset="assets/images/scenes/scene_spoergsmaal_desktop.png" />
       <img id="questionBgImg" src="assets/images/scenes/scene_spoergsmaal_desktop.png" alt="Spørgsmål baggrund" />
@@ -308,6 +310,7 @@
        CORRECT ANSWER SCENE
   ═══════════════════════════════════════════════ -->
   <div id="correctScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Afslut spil">✕</button>
     <img src="assets/images/scenes/scene_korrekt_svar.png" alt="Korrekt svar" class="scene-bg-img" />
     <div class="scene-overlay success-overlay"></div>
 
@@ -344,6 +347,7 @@
        WRONG ANSWER SCENE
   ═══════════════════════════════════════════════ -->
   <div id="wrongScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Afslut spil">✕</button>
     <img src="assets/images/scenes/scene_forkert_svar.png" alt="Forkert svar" class="scene-bg-img" />
     <div class="scene-overlay error-overlay"></div>
 
@@ -387,6 +391,7 @@
   </div>
 
   <div id="checkpointScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Afslut spil">✕</button>
     <img src="assets/images/scenes/scene_checkpoint.png" alt="Checkpoint" class="scene-bg-img" />
     <div class="scene-overlay checkpoint-overlay"></div>
 
@@ -445,6 +450,7 @@
        GAME OVER SCENE
   ═══════════════════════════════════════════════ -->
   <div id="gameOverScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Tilbage til start">✕</button>
     <img src="assets/images/scenes/scene_game_over.png" alt="Game Over" class="scene-bg-img" />
     <div class="scene-overlay gameover-overlay"></div>
 
@@ -494,6 +500,7 @@
        VICTORY SCENE
   ═══════════════════════════════════════════════ -->
   <div id="victoryScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Tilbage til start">✕</button>
     <img src="assets/images/scenes/scene_sejr_champion.png" alt="Sejr!" class="scene-bg-img" />
     <div class="scene-overlay victory-overlay"></div>
 
@@ -551,6 +558,7 @@
        HIGHSCORE SCENE
   ═══════════════════════════════════════════════ -->
   <div id="highscoreModal" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Tilbage til start">✕</button>
     <img src="assets/images/scenes/scene_highscore.png" alt="Highscore" class="scene-bg-img" />
     <div class="scene-overlay highscore-overlay"></div>
 
@@ -604,6 +612,7 @@
        POLL SCENE (Meningsmåling)
   ═══════════════════════════════════════════════ -->
   <div id="pollScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Tilbage til start">✕</button>
     <img src="assets/images/scenes/scene_meningsmaalig.png" alt="Meningsmåling" class="scene-bg-img" />
     <div class="scene-overlay poll-overlay"></div>
 
