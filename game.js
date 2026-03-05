@@ -599,10 +599,10 @@ class DjurslandQuiz {
     if (!container) return;
     container.innerHTML = '';
     const opts = [
-      { value: 'J', label: '🧑 Jens (J)' },
-      { value: 'L', label: '👴 Leif (L)' },
-      { value: 'B', label: '🤝 Begge (B)' },
-      { value: 'I', label: '❌ Ingen (I)' },
+      { value: 'J', label: '🧑 Jens' },
+      { value: 'L', label: '👴 Leif' },
+      { value: 'B', label: '🤝 Begge' },
+      { value: 'I', label: '❌ Ingen' },
     ];
     opts.forEach(opt => {
       const btn = document.createElement('button');
