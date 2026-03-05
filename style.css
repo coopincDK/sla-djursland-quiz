@@ -127,6 +127,7 @@ html, body {
   inset: 0;
   background: rgba(10, 10, 26, 0.28);
   z-index: 1;
+  pointer-events: none; /* overlays må aldrig blokere klik */
 }
 .scene-overlay--none {
   background: transparent !important;
@@ -256,11 +257,15 @@ html, body {
   cursor: pointer;
   animation: logoFloat 3s ease-in-out infinite;
   filter: drop-shadow(0 10px 30px rgba(255,215,0,0.35));
+  /* Tillad logoet at stikke ud over toppen */
+  position: relative;
+  z-index: 20;
+  margin-top: -40px; /* træk op så det stikker ud */
 }
 
 @keyframes logoFloat {
   0%   { transform: translateY(0px)    scale(1.00); filter: drop-shadow(0 10px 30px rgba(255,215,0,0.35)); }
-  50%  { transform: translateY(-10px)  scale(1.04); filter: drop-shadow(0 22px 44px rgba(255,215,0,0.65)) drop-shadow(0 8px 20px rgba(0,0,0,0.4)); }
+  50%  { transform: translateY(-22px)  scale(1.06); filter: drop-shadow(0 22px 44px rgba(255,215,0,0.65)) drop-shadow(0 8px 20px rgba(0,0,0,0.4)); }
   100% { transform: translateY(0px)    scale(1.00); filter: drop-shadow(0 10px 30px rgba(255,215,0,0.35)); }
 }
 
