@@ -21,6 +21,8 @@ class DjurslandQuiz {
       extraTime: false
     };
     this.streak = 0;
+    this.lives = 2;
+    this.maxLives = 2;
     this.pollVoted = false;
     this.sounds = {};
     this.music = null;
@@ -437,6 +439,8 @@ class DjurslandQuiz {
     this.correctAnswers = 0;
     this.streak = 0;
     this.lifelines = { fiftyFifty: false, audience: false, phone: false, extraTime: false };
+    this.lives = this.maxLives;
+    this.renderLives();
     this.pollVoted = false;
     this.updateScoreDisplay();
     this.showRoundIntro(1);
@@ -478,10 +482,10 @@ class DjurslandQuiz {
 
     // Speech bubble
     const speeches = {
-      1: 'Svar hurtigt for tidsbonus! 3 i træk giver streak-bonus 🔥 Livlinjer koster -200p!',
-      2: 'Kender du Jens og Leifs holdninger? Streak giver ekstra point! 🤔',
-      3: 'Samarbejde eller rivalisering? Hurtige svar = flere point! ⚔️',
-      4: 'Finalen! Svar hurtigt, hold streaken — kun ægte Djursland-kendere klarer dette! 🏆'
+      1: 'Du har 3 hjerter ❤️❤️❤️ — svar hurtigt for tidsbonus og hold streaken! Livlinjer koster -200p 🔥',
+      2: 'Kender du Jens og Leifs holdninger? 3 hjerter — brug dem med omtanke! 🤔',
+      3: 'Samarbejde eller rivalisering? Hurtige svar = flere point! 3 hjerter tilbage ⚔️',
+      4: 'Finalen! 3 hjerter, hold streaken — kun ægte Djursland-kendere klarer dette! 🏆'
     };
     const speechEl = document.getElementById('roundIntroSpeechText');
     if (speechEl) speechEl.textContent = speeches[round] || '';
@@ -532,7 +536,7 @@ class DjurslandQuiz {
     const pool = window.quizData[`runde${this.currentRound}`];
     if (!pool) { console.error('Ingen data for runde', this.currentRound); return; }
     // 10 tilfældige spørgsmål per runde (shufflet)
-    this.questions = this.shuffle([...pool]).slice(0, 10);
+    this.questions = this.shuffle([...pool]).slice(0, 20);
   }
 
   shuffle(arr) {
@@ -750,13 +754,25 @@ class DjurslandQuiz {
 
   handleWrong(q) {
     this.streak = 0;
+    this.lives--;
+    this.renderLives();
     this.setHostImage('wrong');
     this.playSound('wrong');
     this.playSound('sad');
-    // Wrong answer = game over in all rounds
-    this.showFeedback(false, 0, q.explanation, true);
-    // Track forkert svar med spørgsmålstekst
+    const isGameOver = this.lives < 0;
+    this.showFeedback(false, 0, q.explanation, isGameOver);
     this.track('answer_wrong', { round: this.currentRound, q: (q.question||q.statement||q.situation||'').substring(0,80) });
+  }
+
+  renderLives() {
+    const el = document.getElementById('livesDisplay');
+    if (!el) return;
+    const total = this.maxLives + 1; // 3 hjerter i alt
+    let html = '';
+    for (let i = 0; i < total; i++) {
+      html += `<span style="font-size:1.1rem;transition:opacity 0.3s;opacity:${i <= this.lives ? 1 : 0.2}">❤️</span>`;
+    }
+    el.innerHTML = html;
   }
 
   calcPoints() {
