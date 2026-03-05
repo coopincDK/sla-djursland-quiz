@@ -1355,7 +1355,13 @@ class DjurslandQuiz {
   }
 
   closeGallery(e) {
-    if (e && e.target !== document.getElementById('galleryModal')) return;
+    // Luk kun hvis man klikker på selve backdrop (ikke indholdet)
+    if (e && e.currentTarget !== e.target) return;
+    document.getElementById('galleryModal').style.display = 'none';
+    this.closeLightbox();
+  }
+
+  forceCloseGallery() {
     document.getElementById('galleryModal').style.display = 'none';
     this.closeLightbox();
   }

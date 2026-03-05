@@ -586,10 +586,7 @@
           </div>
         </div>
 
-        <div class="hs-footer-btns">
-          <button class="btn-secondary" onclick="game.goToMainMenu()">🏠 Tilbage til start</button>
-          <button class="btn-primary" onclick="game.startGame()">🔄 Spil igen</button>
-        </div>
+<!-- knapper fjernet - brug tilbage-pil eller start forfra fra welcome -->
       </div>
     </div>
   </div>
@@ -930,7 +927,7 @@
   <div class="gallery-inner">
     <div class="gallery-header">
       <h2>📸 Jens &amp; Leif på Djursland</h2>
-      <button class="gallery-close" onclick="game.closeGallery()">✕</button>
+      <button class="gallery-close" onclick="game.forceCloseGallery()">✕</button>
     </div>
     <!-- Lightbox -->
     <div id="galleryLightbox" class="gallery-lightbox" style="display:none">
