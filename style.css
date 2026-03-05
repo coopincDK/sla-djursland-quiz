@@ -3096,3 +3096,172 @@ html, body {
   justify-content: center;
   flex-wrap: wrap;
 }
+
+/* ============================================================
+   IPHONE 14 & MOBIL OPTIMERING (390px bred, 844px høj)
+   ============================================================ */
+@media (max-width: 430px) {
+
+  /* --- Globale transparente kasser --- */
+  .game-header,
+  .question-main,
+  .feedback-content,
+  .gameover-content,
+  .victory-content,
+  .checkpoint-content,
+  .round-intro-content,
+  .modal .modal-content,
+  .host-speech-bubble,
+  .gameover-speech,
+  .answer-btn,
+  .lifeline-bar,
+  .stat-card {
+    background: rgba(5, 5, 18, 0.45) !important;
+    backdrop-filter: blur(10px) !important;
+  }
+
+  /* --- Game header kompakt --- */
+  .game-header {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+  .round-badge { font-size: 0.7rem; padding: 4px 12px; }
+  .score-display { font-size: 0.85rem; }
+  .timer-display { font-size: 0.85rem; }
+
+  /* --- Spørgsmål --- */
+  .question-main {
+    padding: 10px 12px;
+    border-radius: 14px;
+    margin: 6px 8px;
+  }
+  .question-text {
+    font-size: 1rem !important;
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+
+  /* --- Svar-knapper --- */
+  .answers-grid {
+    gap: 7px;
+  }
+  .answer-btn {
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    border-radius: 12px;
+    min-height: 52px;
+  }
+  .answer-label {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  /* --- Lifelines --- */
+  .lifeline-bar {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+  .lifeline-btn {
+    min-width: 60px;
+    padding: 6px 4px;
+    font-size: 0.7rem;
+  }
+  .lifeline-icon { font-size: 1.2rem; }
+
+  /* --- Feedback scene --- */
+  .feedback-content {
+    padding: 14px 14px;
+    border-radius: 14px;
+    margin: 8px;
+    max-width: 100%;
+  }
+  .feedback-title { font-size: 1.6rem !important; }
+  .feedback-answer-text { font-size: 0.88rem; }
+  .feedback-explanation { font-size: 0.82rem; }
+
+  /* --- Round intro --- */
+  .round-intro-content {
+    padding: 14px 16px;
+    max-width: 92vw;
+    background: rgba(5, 5, 18, 0.38) !important;
+  }
+  .round-intro-title { font-size: 1.3rem !important; }
+  .round-intro-desc { font-size: 0.85rem; }
+  .rule-item { font-size: 0.82rem; }
+  .round-intro-icon { width: 52px; }
+
+  /* --- Checkpoint --- */
+  .checkpoint-content {
+    padding: 12px;
+    max-width: 95vw;
+  }
+  .checkpoint-stats {
+    gap: 6px;
+  }
+  .stat-card {
+    padding: 10px 14px;
+    min-width: 80px;
+  }
+  .stat-value { font-size: 1.3rem !important; }
+
+  /* --- Gameover / Victory --- */
+  .gameover-content,
+  .victory-content {
+    padding: 14px;
+    max-width: 95vw;
+    border-radius: 14px;
+  }
+  .gameover-title { font-size: 1.8rem !important; }
+  .victory-title { font-size: 1.6rem !important; }
+
+  /* --- Score gem --- */
+  .inline-score-save {
+    max-width: 95vw;
+  }
+  .score-input {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+
+  /* --- Modaler --- */
+  .modal .modal-content {
+    padding: 20px 16px;
+    border-radius: 16px;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .expert-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px;
+  }
+
+  /* --- Knapper generelt --- */
+  .btn-primary, .btn-secondary {
+    font-size: 0.88rem;
+    padding: 12px 18px;
+  }
+
+  /* --- Highscore --- */
+  .highscore-content {
+    padding: 12px 10px;
+  }
+  .highscore-table th,
+  .highscore-table td {
+    font-size: 0.78rem;
+    padding: 6px 4px;
+  }
+  .highscore-icon-img {
+    width: 140px !important;
+  }
+
+  /* --- Safe area for iPhone notch/home bar --- */
+  .scene {
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .lifeline-bar {
+    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+  }
+}
