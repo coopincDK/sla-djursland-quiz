@@ -31,18 +31,24 @@
     </picture>
     <div class="scene-overlay"></div>
 
-    <!-- Jens: blå venstre -->
-    <div class="welcome-character welcome-jens">
-      <div class="character-glow character-glow--blue"></div>
-      <img src="assets/images/host/jens_v3_01.png" alt="Jens" class="character-img" />
-      <div class="character-label character-label--blue">🔵 Jens</div>
-    </div>
-
-    <!-- Leif: rød højre -->
+    <!-- Leif: rød VENSTRE -->
     <div class="welcome-character welcome-leif">
       <div class="character-glow character-glow--red"></div>
-      <img src="assets/images/host/leif_v3_01.png" alt="Leif" class="character-img" />
-      <div class="character-label character-label--red">🔴 Leif</div>
+      <img src="assets/images/host/leif_politiker_03.png" alt="Leif Lahn Jensen" class="character-img" />
+      <div class="character-info">
+        <div class="character-label character-label--red">🔴 Leif Lahn Jensen</div>
+        <a href="https://www.socialdemokratiet.dk/politikere/leif-lahn-jensen/" target="_blank" rel="noopener" class="character-link character-link--red">Læs mere om Leif →</a>
+      </div>
+    </div>
+
+    <!-- Jens: blå HØJRE -->
+    <div class="welcome-character welcome-jens">
+      <div class="character-glow character-glow--blue"></div>
+      <img src="assets/images/host/jens_v3_02.png" alt="Jens Meilvang" class="character-img character-img--flip" />
+      <div class="character-info">
+        <div class="character-label character-label--blue">🔵 Jens Meilvang</div>
+        <a href="https://www.liberalalliance.dk/jens-meilvang/" target="_blank" rel="noopener" class="character-link character-link--blue">Læs mere om Jens →</a>
+      </div>
     </div>
 
     <div class="welcome-layout">
@@ -69,11 +75,43 @@
         <div class="welcome-meta">
           <span class="meta-badge">4 runder</span>
           <span class="meta-badge">120 spørgsmål</span>
-          <span class="meta-badge">Djursland 2025</span>
+          <span class="meta-badge">Djursland 2026</span>
+        </div>
+
+        <!-- Nedtælling til valg -->
+        <div class="election-countdown" id="electionCountdown">
+          <div class="countdown-label">⏳ Valg om</div>
+          <div class="countdown-boxes">
+            <div class="countdown-box">
+              <span class="countdown-num" id="cdDays">--</span>
+              <span class="countdown-unit">dage</span>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-box">
+              <span class="countdown-num" id="cdHours">--</span>
+              <span class="countdown-unit">timer</span>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-box">
+              <span class="countdown-num" id="cdMins">--</span>
+              <span class="countdown-unit">min</span>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-box">
+              <span class="countdown-num" id="cdSecs">--</span>
+              <span class="countdown-unit">sek</span>
+            </div>
+          </div>
+          <div class="countdown-date">📅 Valgdag: 24. marts 2026 kl. 08:00</div>
         </div>
 
         <button class="btn-settings" onclick="game.toggleSettings()" title="Indstillinger">⚙️</button>
       </div>
+    </div>
+
+    <!-- Eric.build footer -->
+    <div class="eric-footer">
+      Lavet med <a href="https://eric.build" target="_blank" rel="noopener">eric.build</a>
     </div>
   </div>
 
@@ -730,5 +768,34 @@
   <script src="questions.js"></script>
   <script src="game.js"></script>
 
+  <script>
+    // Nedtælling til valgdag 24. marts 2026 kl. 08:00
+    (function() {
+      const ELECTION = new Date('2026-03-24T08:00:00').getTime();
+      function pad(n) { return String(n).padStart(2, '0'); }
+      function tick() {
+        const diff = ELECTION - Date.now();
+        if (diff <= 0) {
+          document.getElementById('electionCountdown').innerHTML =
+            '<div class="countdown-label">🎉 Valgdag er i dag!</div>';
+          return;
+        }
+        const days  = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const mins  = Math.floor((diff % 3600000)  / 60000);
+        const secs  = Math.floor((diff % 60000)    / 1000);
+        const d = document.getElementById('cdDays');
+        const h = document.getElementById('cdHours');
+        const m = document.getElementById('cdMins');
+        const s = document.getElementById('cdSecs');
+        if (d) d.textContent = days;
+        if (h) h.textContent = pad(hours);
+        if (m) m.textContent = pad(mins);
+        if (s) s.textContent = pad(secs);
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
 </body>
 </html>

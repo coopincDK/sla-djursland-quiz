@@ -237,17 +237,17 @@ html, body {
 }
 
 .welcome-logo {
-  max-width: calc(190px * var(--ui-scale));
-  width: 55%;
+  max-width: calc(342px * var(--ui-scale));
+  width: 75%;
   height: auto;
   cursor: pointer;
-  transition: transform 180ms ease, filter 180ms ease;
+  transition: transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1), filter 240ms ease;
   filter: drop-shadow(0 10px 22px rgba(0,0,0,0.35));
 }
 
 .welcome-logo:hover {
-  transform: translateY(-2px) scale(1.04);
-  filter: drop-shadow(0 14px 28px rgba(0,0,0,0.45));
+  transform: translateY(-6px) scale(1.10);
+  filter: drop-shadow(0 20px 40px rgba(255,215,0,0.45)) drop-shadow(0 8px 20px rgba(0,0,0,0.5));
 }
 
 .welcome-content {
@@ -1843,17 +1843,40 @@ html, body {
   z-index: 2;
   pointer-events: none;
 }
-.welcome-jens {
-  left: 0;
-  transform: translateX(-8%);
-}
+/* Leif: venstre (rød) */
 .welcome-leif {
+  left: 0;
+  transform: translateX(-6%);
+}
+/* Jens: højre (blå) — spejlvendt så han vender mod midten */
+.welcome-jens {
   right: 0;
-  transform: translateX(8%) scaleX(-1); /* mirror so they face center */
+  transform: translateX(6%);
 }
-.welcome-leif .character-label {
-  transform: scaleX(-1); /* un-mirror the label */
+.character-img--flip {
+  transform: scaleX(-1);
 }
+/* Info-boks under billede */
+.character-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+  margin-bottom: 14px;
+}
+.character-link {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 14px;
+  border-radius: 14px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  letter-spacing: 0.3px;
+}
+.character-link:hover { opacity: 0.8; }
+.character-link--red  { background: rgba(227,0,15,0.75);  color: #fff; border: 1px solid #ff4444; }
+.character-link--blue { background: rgba(0,63,138,0.75); color: #fff; border: 1px solid #4a90d9; }
 .character-img {
   height: min(65vh, 520px);
   width: auto;
@@ -1896,6 +1919,81 @@ html, body {
 /* Hide characters on small screens */
 @media (max-width: 900px) {
   .welcome-character { display: none; }
+}
+
+/* ELECTION COUNTDOWN */
+.election-countdown {
+  margin-top: 10px;
+  text-align: center;
+}
+.countdown-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+.countdown-boxes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.countdown-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 6px 10px;
+  min-width: 52px;
+}
+.countdown-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #FFD700;
+  font-variant-numeric: tabular-nums;
+}
+.countdown-unit {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  color: #aaa;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+.countdown-sep {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #FFD700;
+  margin-bottom: 12px;
+}
+.countdown-date {
+  font-size: 0.7rem;
+  color: #888;
+  margin-top: 6px;
+}
+
+/* ERIC.BUILD FOOTER */
+.eric-footer {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.35);
+  z-index: 10;
+  white-space: nowrap;
+}
+.eric-footer a {
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.eric-footer a:hover {
+  color: #fff;
 }
 /* Duo tags: Jens=blå, Leif=rød */
 .duo-tag.duo-blue {
