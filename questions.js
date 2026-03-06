@@ -362,6 +362,60 @@ window.quizData = {
     host: "jens"
   }
 ],
+  {
+    question: "Hvad vil Leif Lahn Jensen typisk prioritere i debatten om infrastruktur på Djursland?",
+    answers: ["Sikre at alle borgere har adgang til veje og transport", "Privatisere al vejvedligeholdelse uden offentligt ansvar", "Skære i vejbudgetter for at finansiere skattelettelser", "Overlade alt til markedet uden fælles planlægning"],
+    correct: 0,
+    category: "Infrastruktur",
+    icon: "assets/images/icons/02_kattegatforbindelsen.png",
+    explanation: "Leif Lahn Jensen (S) prioriterer typisk at sikre alle borgeres adgang til veje og offentlig transport som et fælles ansvar.",
+    host: "leif"
+  },
+  {
+    question: "Hvad vil Leif Lahn Jensen typisk mene er vigtigst for lokale arbejdspladser?",
+    answers: ["Ordentlige lønvilkår og trygge ansættelser", "Lavere lønninger og færre rettigheder", "Fjerne alle overenskomster og aftaler", "Mere usikkerhed og kortere kontrakter"],
+    correct: 0,
+    category: "Erhverv",
+    icon: "assets/images/icons/05_erhvervsklima.png",
+    explanation: "Leif Lahn Jensen (S) mener typisk, at ordentlige lønvilkår og trygge ansættelser er fundamentet for sunde lokale arbejdspladser.",
+    host: "leif"
+  },
+  {
+    question: "Hvad vil Leif Lahn Jensen typisk fremhæve om Djurslands fremtid?",
+    answers: ["Investering i fællesskab og lokal service er nøglen", "Udkanten skal klare sig selv uden offentlig støtte", "Færre offentlige tilbud gør området mere attraktivt", "Centralisering til de store byer er den rigtige vej"],
+    correct: 0,
+    category: "Lokalt",
+    icon: "assets/images/icons/10_djursland_lokalt.png",
+    explanation: "Leif Lahn Jensen (S) mener typisk, at investering i fællesskab og lokal service er nøglen til Djurslands fremtid.",
+    host: "leif"
+  },
+  {
+    question: "Hvad vil Leif Lahn Jensen typisk mene om støtte til kystfiskere?",
+    answers: ["Stærke fælles rammer beskytter de lokale fiskere", "Fiskerne skal klare sig uden nogen form for støtte", "Kystfiskeri bør udfases til fordel for industrifiskeri", "Regler for fiskeri bør fjernes helt uden undtagelser"],
+    correct: 0,
+    category: "Fiskeri",
+    icon: "assets/images/icons/06_kystfiskeri.png",
+    explanation: "Leif Lahn Jensen (S) mener typisk, at stærke fælles rammer og støtte er nødvendige for at beskytte de lokale kystfiskere.",
+    host: "leif"
+  },
+  {
+    question: "Hvad vil Leif Lahn Jensen typisk lægge vægt på i klimapolitikken lokalt?",
+    answers: ["Grøn omstilling skal sikre både miljø og lokale jobs", "Klimaet er ikke et politisk ansvar", "Grøn omstilling må ikke koste noget for det offentlige", "Miljøhensyn bør vige for økonomisk vækst altid"],
+    correct: 0,
+    category: "Klima",
+    icon: "assets/images/icons/04_groen_energi.png",
+    explanation: "Leif Lahn Jensen (S) lægger typisk vægt på, at grøn omstilling skal sikre både miljøet og lokale arbejdspladser.",
+    host: "leif"
+  },
+  {
+    question: "Hvad vil Leif Lahn Jensen typisk mene om busforbindelser i landdistrikterne?",
+    answers: ["Alle skal have adgang til kollektiv transport uanset bopæl", "Busser bør kun køre hvor det er lønsomt", "Landdistrikterne må klare sig uden offentlig transport", "Transport er et privat ansvar og ikke det offentliges"],
+    correct: 0,
+    category: "Transport",
+    icon: "assets/images/icons/09_konkurrence_togdrift.png",
+    explanation: "Leif Lahn Jensen (S) mener typisk, at alle borgere skal have adgang til kollektiv transport uanset hvor de bor på Djursland.",
+    host: "leif"
+  },
   runde2: [
   {
     statement: "Topskat bør lettes, så det bedre kan betale sig at arbejde ekstra.",
