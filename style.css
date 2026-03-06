@@ -2883,7 +2883,7 @@ html, body {
   text-align: center;
   gap: 8px;
   padding: 16px 24px;
-  background: rgba(10, 10, 26, 0.30);
+  background: rgba(10, 10, 26, 0.12);
   border-radius: 16px;
   backdrop-filter: blur(2px);
   animation: fadeIn 0.4s ease;
@@ -3642,8 +3642,8 @@ html, body {
   .round-intro-content {
     padding: 14px 16px;
     max-width: 92vw;
-    background: rgba(5, 5, 18, 0.30) !important;
-    backdrop-filter: blur(3px) !important;
+    background: rgba(5, 5, 18, 0.12) !important;
+    backdrop-filter: blur(2px) !important;
   }
   .round-intro-title { font-size: 1.3rem !important; }
   .round-intro-desc { font-size: 0.85rem; }

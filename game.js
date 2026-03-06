@@ -346,7 +346,7 @@ class DjurslandQuiz {
     const el = document.getElementById(id);
     if (el) el.classList.add('active');
     // Footer kun synlig på welcome + highscore + gameover + victory
-    const showFooter = ['welcomeScene','highscoreModal','gameOverScene','victoryScene','pollScene'].includes(id);
+    const showFooter = ['welcomeScene','highscoreModal','victoryScene','pollScene'].includes(id);
     const footerBar  = document.getElementById('footerIconBar');
     const ericFooter = document.querySelector('.eric-footer');
     if (footerBar)   footerBar.style.display  = showFooter ? 'flex' : 'none';
