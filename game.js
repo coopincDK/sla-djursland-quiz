@@ -21,7 +21,7 @@ class DjurslandQuiz {
       extraTime: false
     };
     this.streak = 0;
-    this.lives = 1;
+    this.lives = 1; // starter med 2 hjerter (0-indexed: 1=2 hjerter)
     this.maxLives = 1;
     this.pollVoted = false;
     this.sounds = {};
@@ -473,7 +473,8 @@ class DjurslandQuiz {
 
     // Rules
     const lifeText = document.getElementById('roundRuleLifeText');
-    if (lifeText) lifeText.textContent = 'Ét forkert svar = Game Over!';
+    const livesLeft = this.lives + 1;
+    if (lifeText) lifeText.textContent = `${livesLeft} hjerter tilbage ❤️ — ${livesLeft} forkerte = Game Over!`;
     const timerText = document.getElementById('roundRuleTimer');
     if (timerText) timerText.textContent = this.maxTime + ' sekunder pr. spørgsmål';
     const ptsText = document.getElementById('roundRulePoints');
@@ -481,11 +482,12 @@ class DjurslandQuiz {
     if (ptsText) ptsText.textContent = pts + ' point + op til +300 tidsbonus';
 
     // Speech bubble
+    const livesNow = this.lives + 1;
     const speeches = {
-      1: 'Du har 3 hjerter ❤️❤️❤️ — svar hurtigt for tidsbonus og hold streaken! Livlinjer koster -200p 🔥',
-      2: 'Kender du Jens og Leifs holdninger? 3 hjerter — brug dem med omtanke! 🤔',
-      3: 'Samarbejde eller rivalisering? Hurtige svar = flere point! 3 hjerter tilbage ⚔️',
-      4: 'Finalen! 3 hjerter, hold streaken — kun ægte Djursland-kendere klarer dette! 🏆'
+      1: `Du har ${livesNow} hjerter ❤️ — svar hurtigt for tidsbonus! Du får +1 liv når runden er klaret 🔥`,
+      2: `Kender du Jens Meilvang og Leif Lahn Jensens holdninger? ${livesNow} hjerter — brug dem med omtanke! 🤔`,
+      3: `Samarbejde eller rivalisering? ${livesNow} hjerter tilbage — +1 liv venter! ⚔️`,
+      4: `Finalen! ${livesNow} hjerter, hold streaken — kun ægte Djursland-kendere klarer dette! 🏆`
     };
     const speechEl = document.getElementById('roundIntroSpeechText');
     if (speechEl) speechEl.textContent = speeches[round] || '';
@@ -634,10 +636,10 @@ class DjurslandQuiz {
     if (!container) return;
     container.innerHTML = '';
     const opts = [
-      { value: 'J', label: '🧑 Jens' },
-      { value: 'L', label: '👴 Leif' },
+      { value: 'J', label: '🧑 Jens Meilvang' },
+      { value: 'L', label: '👴 Leif Lahn Jensen' },
       { value: 'B', label: '🤝 Begge' },
-      { value: 'I', label: '❌ Ingen' },
+      { value: 'I', label: '❌ Ingen af dem' },
     ];
     opts.forEach(opt => {
       const btn = document.createElement('button');
@@ -916,6 +918,15 @@ class DjurslandQuiz {
         prog.classList.toggle('current', r === this.currentRound + 1);
       }
     }
+    // +1 ekstra liv ved checkpoint (op til max)
+    if (this.lives < this.maxLives) {
+      this.lives++;
+      this.renderLives();
+    } else if (this.lives === this.maxLives) {
+      // Allerede fuld — giv alligevel +1 over max som bonus-liv
+      this.lives++;
+    }
+
     this.showScreen('checkpointScene');
     this.playSound('checkpoint');
 
@@ -947,6 +958,10 @@ class DjurslandQuiz {
     for (let i = 0; i < livesLeft; i++) {
       heartsHtml += `<span class="lb-heart" style="animation-delay:${i * 0.15}s">❤️</span>`;
     }
+    // +1 liv tekst
+    const newLivesEl = document.getElementById('livesBonusNewLife');
+    if (newLivesEl) newLivesEl.textContent = '❤️ +1 ekstra liv!';
+
     if (heartsEl) heartsEl.innerHTML = heartsHtml;
     if (amountEl) amountEl.textContent = '+' + totalBonus.toLocaleString();
     if (perEl)    perEl.textContent    = `${livesLeft} liv × ${bonusPerLife.toLocaleString()} point`;
