@@ -345,6 +345,18 @@ class DjurslandQuiz {
     document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
     const el = document.getElementById(id);
     if (el) el.classList.add('active');
+    // Ryd svar-knapper når vi forlader questionScene
+    // (fjerner sticky selected/correct/wrong states)
+    if (id !== 'questionScene') {
+      const container = document.getElementById('answersContainer');
+      if (container) {
+        container.querySelectorAll('.answer-btn').forEach(b => {
+          b.classList.remove('selected', 'correct', 'wrong', 'disabled');
+          b.disabled = false;
+          b.style.pointerEvents = '';
+        });
+      }
+    }
     // Footer kun synlig på welcome + highscore + gameover + victory
     const showFooter = ['welcomeScene','highscoreModal','victoryScene','pollScene'].includes(id);
     const footerBar  = document.getElementById('footerIconBar');
