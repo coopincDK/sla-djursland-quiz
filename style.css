@@ -807,7 +807,7 @@ html, body {
   align-items: center;
   gap: var(--sp-sm);
   padding: var(--sp-sm) var(--sp-md);
-  background: rgba(20, 20, 40, 0.85);
+  background: rgba(10, 10, 26, 0.52);
   border: 2px solid rgba(255,255,255,0.25);
   border-radius: 12px;
   color: #ffffff;
@@ -823,7 +823,7 @@ html, body {
 .answer-btn:hover:not(.disabled) {
   transform: translateY(-2px) scale(1.01);
   border-color: rgba(255,255,255,0.7);
-  background: rgba(40, 40, 70, 0.95);
+  background: rgba(30, 30, 60, 0.75);
   box-shadow: 0 6px 24px rgba(0,0,0,0.4);
 }
 
@@ -2883,7 +2883,7 @@ html, body {
   text-align: center;
   gap: 8px;
   padding: 16px 24px;
-  background: rgba(10, 10, 26, 0.55);
+  background: rgba(10, 10, 26, 0.30);
   border-radius: 16px;
   backdrop-filter: blur(2px);
   animation: fadeIn 0.4s ease;
@@ -3574,7 +3574,7 @@ html, body {
   .lifeline-bar,
   .stat-card {
     background: rgba(5, 5, 18, 0.45) !important;
-    backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(6px) !important;
   }
 
   /* --- Game header kompakt --- */
@@ -3642,8 +3642,8 @@ html, body {
   .round-intro-content {
     padding: 14px 16px;
     max-width: 92vw;
-    background: rgba(5, 5, 18, 0.55) !important;
-    backdrop-filter: blur(4px) !important;
+    background: rgba(5, 5, 18, 0.30) !important;
+    backdrop-filter: blur(3px) !important;
   }
   .round-intro-title { font-size: 1.3rem !important; }
   .round-intro-desc { font-size: 0.85rem; }
