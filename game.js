@@ -656,8 +656,9 @@ class DjurslandQuiz {
     container.innerHTML = '';
     const opts = [
       { value: 'samarbejde',  label: '🤝 Samarbejde' },
-      { value: 'rivalisering',label: '⚔️ Rivalisering' },
-      { value: 'begge',       label: '🔄 Begge dele' },
+      { value: 'rivalisering', label: '⚔️ Rivalisering' },
+      { value: 'begge',        label: '🤝 Enige — uenige om vejen' },
+      { value: 'udenom',       label: '🏖️ De snakker udenom' },
     ];
     opts.forEach(opt => {
       const btn = document.createElement('button');
