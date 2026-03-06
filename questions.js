@@ -360,8 +360,7 @@ window.quizData = {
     icon: "assets/images/icons/09_konkurrence_togdrift.png",
     explanation: "Jens Meilvang (LA) mener typisk, at konkurrence i offentlig drift giver bedre service og lavere omkostninger.",
     host: "jens"
-  }
-],
+  },
   {
     question: "Hvad vil Leif Lahn Jensen typisk prioritere i debatten om infrastruktur på Djursland?",
     answers: ["Sikre at alle borgere har adgang til veje og transport", "Privatisere al vejvedligeholdelse uden offentligt ansvar", "Skære i vejbudgetter for at finansiere skattelettelser", "Overlade alt til markedet uden fælles planlægning"],
@@ -415,7 +414,8 @@ window.quizData = {
     icon: "assets/images/icons/09_konkurrence_togdrift.png",
     explanation: "Leif Lahn Jensen (S) mener typisk, at alle borgere skal have adgang til kollektiv transport uanset hvor de bor på Djursland.",
     host: "leif"
-  },
+  }
+],
   runde2: [
   {
     statement: "Topskat bør lettes, så det bedre kan betale sig at arbejde ekstra.",
