@@ -1484,27 +1484,21 @@ html, body {
   font-size: 1.05rem;
 }
 
-.highscore-table tbody tr:nth-child(1) td:first-child::before {
-  content: '🥇 ';
-}
+/* medalje sat af JS - ingen ::before */
 
 .highscore-table tbody tr:nth-child(2) td {
   color: #C0C0C0;
   font-weight: 600;
 }
 
-.highscore-table tbody tr:nth-child(2) td:first-child::before {
-  content: '🥈 ';
-}
+
 
 .highscore-table tbody tr:nth-child(3) td {
   color: #CD7F32;
   font-weight: 600;
 }
 
-.highscore-table tbody tr:nth-child(3) td:first-child::before {
-  content: '🥉 ';
-}
+
 
 
 /* 16. EXPERT MODAL

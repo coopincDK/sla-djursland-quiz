@@ -1771,6 +1771,11 @@ class DjurslandQuiz {
     if (nameEl) nameEl.disabled = true;
     if (cityEl) cityEl.disabled = true;
     if (gemBtn) gemBtn.disabled = true;
+    // Sørg for navigationsknapper stadig virker
+    document.querySelectorAll('#gameOverScene .btn-secondary, #gameOverScene .btn-share, #victoryScene .btn-secondary, #victoryScene .btn-share').forEach(b => {
+      b.disabled = false;
+      b.style.pointerEvents = '';
+    });
   }
 
   // Forudfyld navn+by fra localStorage når highscore-formular vises
