@@ -1,4 +1,4 @@
-﻿// S-LA for Djursland — Quiz data (40/30/20/30)
+// S-LA for Djursland — Quiz data (40/30/20/30)
 window.quizData = {
   runde1: [
   {
@@ -7,7 +7,7 @@ window.quizData = {
     correct: 0,
     category: "Infrastruktur",
     icon: "assets/images/icons/02_kattegatforbindelsen.png",
-    explanation: "Jens Meilvang (V) prioriterer typisk afbureaukratisering og hurtigere sagsbehandling for at fremme projekter.",
+    explanation: "Jens Meilvang (LA) prioriterer typisk afbureaukratisering og hurtigere sagsbehandling for at fremme projekter.",
     host: "jens"
   },
   {
@@ -25,7 +25,7 @@ window.quizData = {
     correct: 0,
     category: "Skat",
     icon: "assets/images/icons/01_lavere_skat.png",
-    explanation: "Jens Meilvang (V) går typisk ind for lavere skat for at stimulere arbejde og investeringer.",
+    explanation: "Jens Meilvang (LA) går typisk ind for lavere skat for at stimulere arbejde og investeringer.",
     host: "jens"
   },
   {
@@ -43,7 +43,7 @@ window.quizData = {
     correct: 0,
     category: "Transport",
     icon: "assets/images/icons/09_konkurrence_togdrift.png",
-    explanation: "Jens Meilvang (V) foretrækker typisk konkurrence og markedsbaserede løsninger i togdriften.",
+    explanation: "Jens Meilvang (LA) foretrækker typisk konkurrence og markedsbaserede løsninger i togdriften.",
     host: "jens"
   },
   {
@@ -52,7 +52,7 @@ window.quizData = {
     correct: 0,
     category: "Erhverv",
     icon: "assets/images/icons/05_erhvervsklima.png",
-    explanation: "Jens Meilvang (V) mener typisk, at mindre bureaukrati og et enklere regelsæt giver virksomheder bedre vilkår.",
+    explanation: "Jens Meilvang (LA) mener typisk, at mindre bureaukrati og et enklere regelsæt giver virksomheder bedre vilkår.",
     host: "jens"
   },
   {
@@ -97,7 +97,7 @@ window.quizData = {
     correct: 0,
     category: "Infrastruktur",
     icon: "assets/images/icons/02_kattegatforbindelsen.png",
-    explanation: "Jens Meilvang (V) argumenterer typisk for, at bedre infrastruktur løfter vækst og mobilitet i området.",
+    explanation: "Jens Meilvang (LA) argumenterer typisk for, at bedre infrastruktur løfter vækst og mobilitet i området.",
     host: "jens"
   },
   {
@@ -115,7 +115,7 @@ window.quizData = {
     correct: 0,
     category: "Transport",
     icon: "assets/images/icons/09_konkurrence_togdrift.png",
-    explanation: "Jens Meilvang (V) peger typisk på mere effektiv drift og bedre konkurrencevilkår som vejen til billigere og bedre transport.",
+    explanation: "Jens Meilvang (LA) peger typisk på mere effektiv drift og bedre konkurrencevilkår som vejen til billigere og bedre transport.",
     host: "jens"
   },
   {
@@ -133,7 +133,7 @@ window.quizData = {
     correct: 0,
     category: "Erhverv",
     icon: "assets/images/icons/05_erhvervsklima.png",
-    explanation: "Jens Meilvang (V) mener typisk, at lavere skatter og færre administrative byrder styrker iværksætteri og små virksomheder.",
+    explanation: "Jens Meilvang (LA) mener typisk, at lavere skatter og færre administrative byrder styrker iværksætteri og små virksomheder.",
     host: "jens"
   },
   {
@@ -151,7 +151,7 @@ window.quizData = {
     correct: 0,
     category: "Klima",
     icon: "assets/images/icons/04_groen_energi.png",
-    explanation: "Jens Meilvang (V) kobler typisk grøn omstilling til vækst og nye lokale jobs frem for forbud og stop.",
+    explanation: "Jens Meilvang (LA) kobler typisk grøn omstilling til vækst og nye lokale jobs frem for forbud og stop.",
     host: "jens"
   },
   {
@@ -160,7 +160,7 @@ window.quizData = {
     correct: 0,
     category: "Uddannelse",
     icon: "assets/images/icons/02_lilleskolen.png",
-    explanation: "Jens Meilvang (V) foretrækker typisk mere frihed og færre regler i uddannelsessystemet.",
+    explanation: "Jens Meilvang (LA) foretrækker typisk mere frihed og færre regler i uddannelsessystemet.",
     host: "jens"
   },
   {
@@ -196,7 +196,7 @@ window.quizData = {
     correct: 0,
     category: "Skat",
     icon: "assets/images/icons/01_lavere_skat.png",
-    explanation: "Jens Meilvang (V) argumenterer typisk for at lette topskatten for at belønne ekstra arbejdsindsats.",
+    explanation: "Jens Meilvang (LA) argumenterer typisk for at lette topskatten for at belønne ekstra arbejdsindsats.",
     host: "jens"
   },
   {
@@ -214,7 +214,7 @@ window.quizData = {
     correct: 0,
     category: "Sundhed",
     icon: "assets/images/icons/08_sundhed_naerhed.png",
-    explanation: "Jens Meilvang (V) peger typisk på mere valgfrihed og smartere organisering som vejen til bedre sundhedstilbud.",
+    explanation: "Jens Meilvang (LA) peger typisk på mere valgfrihed og smartere organisering som vejen til bedre sundhedstilbud.",
     host: "jens"
   },
   {
@@ -232,7 +232,7 @@ window.quizData = {
     correct: 0,
     category: "Velfærd",
     icon: "assets/images/icons/01_velfaerd_faellesskab.png",
-    explanation: "Jens Meilvang (V) mener typisk, at velfærd skal være effektiv med fokus på kerneopgaverne.",
+    explanation: "Jens Meilvang (LA) mener typisk, at velfærd skal være effektiv med fokus på kerneopgaverne.",
     host: "jens"
   },
   {
@@ -259,7 +259,7 @@ window.quizData = {
     correct: 0,
     category: "Lokalt",
     icon: "assets/images/icons/10_djursland_lokalt.png",
-    explanation: "Jens Meilvang (V) ønsker typisk at gøre det lettere at drive virksomhed og skabe vækst i kommunen.",
+    explanation: "Jens Meilvang (LA) ønsker typisk at gøre det lettere at drive virksomhed og skabe vækst i kommunen.",
     host: "jens"
   },
   {
@@ -268,7 +268,7 @@ window.quizData = {
     correct: 0,
     category: "Fiskeri",
     icon: "assets/images/icons/06_kystfiskeri.png",
-    explanation: "Jens Meilvang (V) ønsker typisk færre unødige regler og mere plads til lokal drift i fiskeriet.",
+    explanation: "Jens Meilvang (LA) ønsker typisk færre unødige regler og mere plads til lokal drift i fiskeriet.",
     host: "jens"
   },
   {
@@ -286,7 +286,7 @@ window.quizData = {
     correct: 0,
     category: "Sundhed",
     icon: "assets/images/icons/08_sundhed_naerhed.png",
-    explanation: "Jens Meilvang (V) vil typisk fjerne flaskehalse og bruge ressourcerne smartere for at reducere ventetider.",
+    explanation: "Jens Meilvang (LA) vil typisk fjerne flaskehalse og bruge ressourcerne smartere for at reducere ventetider.",
     host: "jens"
   },
   {
@@ -304,7 +304,7 @@ window.quizData = {
     correct: 0,
     category: "Klima",
     icon: "assets/images/icons/04_groen_energi.png",
-    explanation: "Jens Meilvang (V) mener typisk, at grønne løsninger skal være realistiske og skalerbare, ikke blot symbolske.",
+    explanation: "Jens Meilvang (LA) mener typisk, at grønne løsninger skal være realistiske og skalerbare, ikke blot symbolske.",
     host: "jens"
   },
   {
@@ -322,7 +322,7 @@ window.quizData = {
     correct: 0,
     category: "Uddannelse",
     icon: "assets/images/icons/02_lilleskolen.png",
-    explanation: "Jens Meilvang (V) ønsker typisk mere lokal frihed og mindre central detailstyring i folkeskolen.",
+    explanation: "Jens Meilvang (LA) ønsker typisk mere lokal frihed og mindre central detailstyring i folkeskolen.",
     host: "jens"
   },
   {
@@ -358,7 +358,7 @@ window.quizData = {
     correct: 0,
     category: "Transport",
     icon: "assets/images/icons/09_konkurrence_togdrift.png",
-    explanation: "Jens Meilvang (V) mener typisk, at konkurrence i offentlig drift giver bedre service og lavere omkostninger.",
+    explanation: "Jens Meilvang (LA) mener typisk, at konkurrence i offentlig drift giver bedre service og lavere omkostninger.",
     host: "jens"
   }
 ],
