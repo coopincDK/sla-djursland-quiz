@@ -16,12 +16,7 @@
       "package-lock.json",
       "database.rules.json"
     ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ],
+
     "headers": [
       {
         "source": "**/*.@(js|css)",
