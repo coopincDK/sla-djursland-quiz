@@ -427,19 +427,19 @@ window.quizData = {
     statement: "Velfærd og ældrepleje skal styrkes, også selv om det koster flere fælles midler.",
     answer: "L",
     explanation: "Socialdemokratiets grundholdning: stærk offentlig velfærd finansieret af fællesskabet, selv hvis det kræver højere udgifter.",
-    host: "jens"
+    host: "leif"
   },
   {
     statement: "Mindre bureaukrati i det offentlige kan frigive tid til kerneopgaver.",
     answer: "B",
     explanation: "Begge partier ønsker at reducere unødigt papirarbejde — LA af principielle årsager, S for at styrke frontpersonalet.",
-    host: "jens"
+    host: "both"
   },
   {
     statement: "Kystfiskeri og lokale havne er en vigtig del af Djurslands identitet.",
     answer: "B",
     explanation: "Begge kandidater repræsenterer Djursland og anerkender kystfiskeriets kulturelle og erhvervsmæssige betydning for området.",
-    host: "jens"
+    host: "both"
   },
   {
     statement: "Togdrift bør åbnes mere for konkurrence, så flere kan byde på opgaven.",
@@ -451,13 +451,13 @@ window.quizData = {
     statement: "Sundhed skal være tæt på borgerne, især i områder langt fra de store hospitaler.",
     answer: "L",
     explanation: "S prioriterer nærhed i sundhedsvæsenet og kæmper mod centralisering, der rammer udkantsborgere hårdest.",
-    host: "jens"
+    host: "leif"
   },
   {
     statement: "Kommunerne bør have flere penge til folkeskoler og daginstitutioner.",
     answer: "L",
     explanation: "S vil styrke den offentlige sektor med øgede bevillinger til børn og uddannelse via kommunerne.",
-    host: "jens"
+    host: "leif"
   },
   {
     statement: "Erhvervslivet trives bedst med færre regler og mindre kontrolbyrde.",
@@ -469,19 +469,19 @@ window.quizData = {
     statement: "Rute 15 skal være mere sikker og fremkommelig for både pendlere og erhverv.",
     answer: "B",
     explanation: "Begge kandidater arbejder for bedre infrastruktur på Djursland — Rute 15 er en konkret lokal mærkesag for begge.",
-    host: "jens"
+    host: "both"
   },
   {
     statement: "Offentlige opgaver bør kun løses af det offentlige og aldrig af private.",
     answer: "I",
     explanation: "Ingen af dem mener dette: LA er imod monopoler, og S accepterer private løsninger på visse områder.",
-    host: "jens"
+    host: "random"
   },
   {
     statement: "Vi skal sikre ordentlige forhold for lønmodtagere og stærke aftaler på arbejdsmarkedet.",
     answer: "L",
     explanation: "S er fagbevægelsens parti og kæmper for kollektive overenskomster og stærke lønmodtagerrettigheder.",
-    host: "jens"
+    host: "leif"
   },
   {
     statement: "Skattelettelser kan skabe vækst og tiltrække flere arbejdspladser til Djursland.",
@@ -493,19 +493,19 @@ window.quizData = {
     statement: "Grøn omstilling skal gennemføres på en måde, der også skaber lokale jobs.",
     answer: "B",
     explanation: "Begge partier støtter grøn omstilling med fokus på beskæftigelse — S via offentlige investeringer, LA via markedet.",
-    host: "jens"
+    host: "both"
   },
   {
     statement: "Vi bør indføre brugerbetaling på akut hjælp for at spare penge.",
     answer: "I",
     explanation: "Ingen af dem støtter brugerbetaling på akuthjælp — det ville være politisk umuligt for begge partier.",
-    host: "jens"
+    host: "random"
   },
   {
     statement: "Ældre skal have adgang til pleje, uanset postnummer og økonomi.",
     answer: "L",
     explanation: "S's velfærdsmodel sikrer universel adgang til ældrepleje uafhængigt af geografi og privatøkonomi.",
-    host: "jens"
+    host: "leif"
   },
   {
     statement: "Regler for små virksomheder bør forenkles, så tiden bruges på kunder og drift.",
@@ -517,19 +517,19 @@ window.quizData = {
     statement: "Det vigtigste er, at Djursland ikke bliver glemt i nationale investeringer.",
     answer: "B",
     explanation: "Begge lokalpolitikere kæmper for, at Djursland får sin andel af nationale midler til infrastruktur og service.",
-    host: "jens"
+    host: "both"
   },
   {
     statement: "Kollektiv transport skal være et tilbud til hele området, ikke kun de største byer.",
     answer: "L",
     explanation: "S prioriterer offentlig transport som et universelt tilbud, der sikrer mobilitet for alle — også i landdistrikterne.",
-    host: "jens"
+    host: "leif"
   },
   {
     statement: "Vi skal afskaffe alle afgifter på brændstof med det samme uden undtagelser.",
     answer: "I",
     explanation: "Ingen af dem støtter en øjeblikkelig og total afskaffelse af brændstofafgifter — det er for radikalt for begge.",
-    host: "jens"
+    host: "random"
   },
   {
     statement: "Private aktører kan nogle gange levere service mere effektivt end offentlige monopoler.",
@@ -541,37 +541,37 @@ window.quizData = {
     statement: "Fællesskabet har et ansvar for at hjælpe dem, der har det sværest.",
     answer: "L",
     explanation: "S's grundværdi: solidaritet og omfordeling — samfundet skal stille op for de svageste borgere.",
-    host: "jens"
+    host: "leif"
   },
   {
     statement: "Når vi laver regler, skal vi måle effekten og fjerne det, der ikke virker.",
     answer: "B",
     explanation: "Begge partier støtter evidensbaseret politik og evaluering af lovgivning — om end med forskellig konklusion om hvad der virker.",
-    host: "jens"
+    host: "both"
   },
   {
     statement: "Lokale havne bør udvikles, så de understøtter turisme og erhverv.",
     answer: "B",
     explanation: "Begge kandidater ser havneudvikling som en lokal vækstmotor for Djursland — turisme og erhverv gavner alle.",
-    host: "jens"
+    host: "both"
   },
   {
     statement: "Vi bør nedlægge de fleste lokale institutioner for at spare penge.",
     answer: "I",
     explanation: "Ingen af dem vil nedlægge lokale institutioner — begge kæmper tværtimod for at bevare og styrke dem på Djursland.",
-    host: "jens"
+    host: "random"
   },
   {
     statement: "Uddannelse skal være tilgængelig, også hvis man bor langt fra de store byer.",
     answer: "B",
     explanation: "Begge partier støtter uddannelsesdækning i hele landet — S via offentlige institutioner, LA via fleksible løsninger.",
-    host: "jens"
+    host: "both"
   },
   {
     statement: "Sundhedssystemet skal styres med fokus på tryghed og nærhed for borgerne.",
     answer: "L",
     explanation: "S's sundhedspolitik prioriterer nærhed, tryghed og et stærkt offentligt sundhedsvæsen frem for centralisering.",
-    host: "jens"
+    host: "leif"
   },
   {
     statement: "Det skal være lettere at starte virksomhed, også i mindre byer på Djursland.",
@@ -583,19 +583,19 @@ window.quizData = {
     statement: "Vi skal helt stoppe nye vejprojekter i Danmark de næste 20 år.",
     answer: "I",
     explanation: "Ingen af dem støtter et totalt stop for vejprojekter — begge arbejder aktivt for bedre veje på Djursland.",
-    host: "jens"
+    host: "random"
   },
   {
     statement: "Et stærkt lokalsamfund kræver både arbejde, service og gode forbindelser.",
     answer: "B",
     explanation: "Begge kandidater er enige om, at Djursland har brug for jobs, offentlig service og infrastruktur for at blomstre.",
-    host: "jens"
+    host: "both"
   },
   {
     statement: "Djursland er det bedste sted at bo i Danmark.",
     answer: "B",
     explanation: "Det er der ingen tvivl om — begge kandidater elsker Djursland! 🎉",
-    host: "jens"
+    host: "both"
   }
 ],
   runde3: [
@@ -603,121 +603,121 @@ window.quizData = {
     situation: "Der skal laves en fælles plan for at forbedre trafiksikkerheden på en strækning af Rute 15.",
     answer: "samarbejde",
     explanation: "Trafiksikkerhed er et fælles ansvar, der kræver koordinering på tværs af myndigheder og interessenter.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Der opstår debat om topskat: skal den sænkes eller bruges til mere velfærd?",
     answer: "rivalisering",
     explanation: "Topskat er et klassisk politisk stridspunkt, hvor højre- og venstrefløjen har fundamentalt forskellige prioriteter.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Der skal skaffes midler til en ny akutindsats, fx bedre dækning og hurtigere hjælp.",
     answer: "begge",
     explanation: "Alle ønsker bedre akutberedskab, men der er uenighed om finansiering — offentligt eller privat, centralt eller lokalt.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Kommunen vil udlicitere en serviceopgave for at spare penge og øge fleksibilitet.",
     answer: "rivalisering",
     explanation: "Udlicitering er politisk kontroversielt og skaber konflikt mellem dem, der prioriterer besparelser, og dem, der vil bevare offentlig drift.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Et lokalt erhvervsnetværk ønsker færre administrative krav for små virksomheder.",
     answer: "begge",
     explanation: "De fleste støtter lettere vilkår for erhvervslivet, men er uenige om, hvilke regler der kan fjernes uden at gå på kompromis med fx arbejdsmiljø.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Der planlægges et grønt energiprojekt, som kan skabe lokale arbejdspladser.",
     answer: "samarbejde",
     explanation: "Grøn omstilling med lokale jobs samler bred opbakning på tværs af politiske skel.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Der diskuteres om flere penge skal gå til offentlig ældrepleje eller til skattelettelser.",
     answer: "rivalisering",
     explanation: "Prioriteringen mellem velfærd og skattelettelser er en kernekonflik mellem politiske blokke.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Der skal findes en løsning, så unge kan tage uddannelse tættere på Djursland.",
     answer: "samarbejde",
     explanation: "Lokal uddannelsesdækning er et fælles mål for at fastholde unge og sikre fremtidig arbejdskraft i området.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "En ny model for togdrift foreslår mere konkurrence og flere operatører.",
     answer: "rivalisering",
     explanation: "Privatisering og konkurrence i togdriften er politisk omstridt og deler vandene skarpt.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Grenaa Havn skal udvikles, så den både kan støtte erhverv og turisme.",
     answer: "samarbejde",
     explanation: "Havneudvikling til gavn for både erhverv og turisme er et bredt forankret lokalt mål.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Der opstår diskussion om private løsninger i sundhed, fx mere valgfrihed for patienter.",
     answer: "begge",
     explanation: "Valgfrihed i sundhed støttes af mange, men der er uenighed om, hvorvidt det svækker det offentlige system.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Der skal prioriteres flere hænder i ældreplejen frem for nye effektiviseringsprojekter.",
     answer: "begge",
     explanation: "Alle vil have god ældrepleje, men er uenige om vejen — mere personale eller smartere arbejdsgange.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Et forslag vil gøre det hurtigere at give byggetilladelser til nye erhvervsbyggerier.",
     answer: "samarbejde",
     explanation: "Hurtigere sagsbehandling for erhvervsbyggeri er bredt støttet som et middel til vækst og beskæftigelse.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Der foreslås at skære i offentlige tilbud for at sænke skatten markant.",
     answer: "rivalisering",
     explanation: "Markante skattelettelser finansieret ved nedskæringer i velfærd er et klassisk politisk konfliktpunkt.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Kystfiskere ønsker mere fleksible regler for at kunne lande fangst lokalt.",
     answer: "begge",
     explanation: "Støtte til lokale fiskere er udbredt, men der er uenighed om, hvilke regler der kan lempes uden at skade bestande og miljø.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Der skal laves en fælles kampagne for at tiltrække nye familier til Djursland.",
     answer: "samarbejde",
     explanation: "Tiltrækning af tilflyttere er et fælles lokalt mål, der samler kommuner, erhvervsliv og foreninger.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "En ny velfærdsreform foreslår mere privat drift og mere frit valg i kommunen.",
     answer: "rivalisering",
     explanation: "Privatisering af velfærdsopgaver er et stærkt politisk stridspunkt med klare fronter.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Der skal sikres bedre busforbindelser mellem mindre byer og Grenaa.",
     answer: "samarbejde",
     explanation: "Bedre kollektiv trafik i landdistrikterne er et fælles ønske for at sikre mobilitet og sammenhæng.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "Der opstår debat om fagforeningers rolle og arbejdsmarkedets aftalemodel.",
     answer: "rivalisering",
     explanation: "Fagforeningernes rolle og den danske model er et politisk betændt emne med stærke holdninger på begge sider.",
-    host: "jens"
+    host: "both"
   },
   {
     situation: "En plan vil samle flere lokale indsatser om sundhed, frivillighed og foreningsliv.",
     answer: "samarbejde",
     explanation: "Tværgående lokale indsatser om sundhed og fællesskab samler bred opbakning og bygger på frivilligt engagement.",
-    host: "jens"
+    host: "both"
   }
 ],
   runde4: [
@@ -725,6 +725,7 @@ window.quizData = {
     question: "Hvad er den officielle betegnelse for vejen der forbinder Randers med Grenaa?",
     answers: ["Rute 16", "Rute 15", "Rute 21", "Rute 11"],
     correct: 1,
+    category: "Geografi",
     explanation: "Rute 15 forbinder Randers med Grenaa tværs over Djursland.",
     host: "random"
   },
@@ -732,6 +733,7 @@ window.quizData = {
     question: "Hvilken by er den største på Djursland?",
     answers: ["Ebeltoft", "Rønde", "Grenaa", "Auning"],
     correct: 2,
+    category: "Geografi",
     explanation: "Grenaa er den største by på Djursland og fungerer som regionalt centrum.",
     host: "random"
   },
@@ -739,6 +741,7 @@ window.quizData = {
     question: "Hvad hedder nationalparken på Djursland?",
     answers: ["Djursland Naturpark", "Mols Bjerge Nationalpark", "Kattegat Nationalpark", "Norddjurs Naturpark"],
     correct: 1,
+    category: "Natur",
     explanation: "Mols Bjerge Nationalpark er Danmarks mindste nationalpark og ligger på Djursland.",
     host: "random"
   },
@@ -746,6 +749,7 @@ window.quizData = {
     question: "Hvilke to kommuner udgør Djursland?",
     answers: ["Randers og Syddjurs", "Norddjurs og Syddjurs", "Grenaa og Ebeltoft", "Norddjurs og Randers"],
     correct: 1,
+    category: "Geografi",
     explanation: "Djursland består af Norddjurs Kommune og Syddjurs Kommune.",
     host: "random"
   },
@@ -753,6 +757,7 @@ window.quizData = {
     question: "Hvad er Grenaa Havn primært i dag?",
     answers: ["Lystbådehavn", "Militærhavn", "Erhvervs- og færgehavn", "Ren fiskerihavn"],
     correct: 2,
+    category: "Erhverv",
     explanation: "Grenaa Havn er en aktiv erhvervs- og færgehavn med bl.a. færgeforbindelse til Sverige.",
     host: "random"
   },
@@ -760,6 +765,7 @@ window.quizData = {
     question: "Hvilken færgerute går fra Grenaa?",
     answers: ["Grenaa–Frederikshavn", "Grenaa–Göteborg", "Grenaa–Varberg", "Grenaa–Oslo"],
     correct: 2,
+    category: "Geografi",
     explanation: "Stena Line driver ruten Grenaa–Varberg i Sverige.",
     host: "random"
   },
@@ -767,6 +773,7 @@ window.quizData = {
     question: "Hvor ligger Djurs Sommerland?",
     answers: ["Ved Ebeltoft", "Ved Grenaa Strand", "Ved Nimtofte", "Ved Auning"],
     correct: 2,
+    category: "Kultur",
     explanation: "Djurs Sommerland ligger ved Nimtofte og er en af Danmarks største forlystelsesparker.",
     host: "random"
   },
@@ -774,6 +781,7 @@ window.quizData = {
     question: "Hvornår fik Norddjurs Kommune sin nuværende form?",
     answers: ["1970", "1998", "2007", "2013"],
     correct: 2,
+    category: "Historie",
     explanation: "Norddjurs Kommune fik sin nuværende form ved kommunalreformen i 2007.",
     host: "random"
   },
@@ -781,6 +789,7 @@ window.quizData = {
     question: "Hvad er Bønnerup primært kendt for?",
     answers: ["Sommerhusområde", "Kystfiskerihavn", "Vindmøllepark", "Handelsby"],
     correct: 1,
+    category: "Erhverv",
     explanation: "Bønnerup er en lille kystfiskerihavn på Djurslands nordkyst.",
     host: "random"
   },
@@ -788,6 +797,7 @@ window.quizData = {
     question: "Hvilken å løber ud i Kattegat ved Grenaa?",
     answers: ["Randers Fjord", "Alling Å", "Grenaa Å", "Djurs Å"],
     correct: 2,
+    category: "Geografi",
     explanation: "Grenaa Å løber gennem byen og ud i Kattegat ved Grenaa.",
     host: "random"
   },
@@ -795,6 +805,7 @@ window.quizData = {
     question: "Hvad er Ebeltoft særligt berømt for?",
     answers: ["Stort industriområde", "Moderne arkitektur", "Middelalderlig gågade og Fregatten Jylland", "Stort universitet"],
     correct: 2,
+    category: "Kultur",
     explanation: "Ebeltoft er kendt for sin charmerende middelalderlige gågade og det historiske skib Fregatten Jylland.",
     host: "random"
   },
@@ -802,6 +813,7 @@ window.quizData = {
     question: "Hvad er Fregatten Jylland?",
     answers: ["En aktiv krigsfregat", "Verdens længste bevarede træskib", "En turistbåd til Sverige", "Et vikingeskibsmuseum"],
     correct: 1,
+    category: "Historie",
     explanation: "Fregatten Jylland er verdens længste bevarede træskib og ligger i Ebeltoft.",
     host: "random"
   },
@@ -809,6 +821,7 @@ window.quizData = {
     question: "Hvad er den omtrentlige befolkning i Norddjurs Kommune?",
     answers: ["Ca. 15.000", "Ca. 25.000", "Ca. 38.000", "Ca. 55.000"],
     correct: 2,
+    category: "Geografi",
     explanation: "Norddjurs Kommune har cirka 38.000 indbyggere.",
     host: "random"
   },
@@ -816,6 +829,7 @@ window.quizData = {
     question: "Hvad hedder den ældste idrætsforening i Grenaa?",
     answers: ["FC Djursland", "FC Grenaa", "Grenaa IF", "Norddjurs BK"],
     correct: 2,
+    category: "Sport",
     explanation: "Grenaa IF (Idrætsforening) er den ældste idrætsforening i Grenaa.",
     host: "random"
   },
@@ -823,6 +837,7 @@ window.quizData = {
     question: "Hvad er Kolindsund?",
     answers: ["En sø i Mols Bjerge", "En bugt ved Grenaa", "Et tidligere inddæmmet fjordområde", "Et naturreservat ved Ebeltoft"],
     correct: 2,
+    category: "Historie",
     explanation: "Kolindsund er et tidligere fjordområde der blev inddæmmet og omdannet til landbrugsjord i 1800-tallet.",
     host: "random"
   },
@@ -830,6 +845,7 @@ window.quizData = {
     question: "Hvad er Fornæs?",
     answers: ["En ø ud for Grenaa", "Danmarks østligste punkt", "En fiskerihavn syd for Ebeltoft", "Et naturcenter i Mols Bjerge"],
     correct: 1,
+    category: "Geografi",
     explanation: "Fornæs er Danmarks østligste punkt og ligger på Djurslands nordøstkyst.",
     host: "random"
   },
@@ -837,6 +853,7 @@ window.quizData = {
     question: "Hvad er Gl. Estrup ved Auning?",
     answers: ["En gammel fabrik", "En naturpark", "Et renæssanceslot med landbrugsmuseum", "En middelalderby"],
     correct: 2,
+    category: "Historie",
     explanation: "Gl. Estrup er et renæssanceslot fra 1500-tallet der i dag huser Danmarks Landbrugsmuseum.",
     host: "random"
   },
@@ -844,6 +861,7 @@ window.quizData = {
     question: "Hvad er den primære erhvervsgren på Djursland udover turisme?",
     answers: ["Fiskeri alene", "IT og teknologi", "Landbrug og fødevarer", "Shipping og logistik"],
     correct: 2,
+    category: "Erhverv",
     explanation: "Landbrug og fødevareproduktion er en af de vigtigste erhvervsgrene på Djursland ved siden af turismen.",
     host: "random"
   },
@@ -851,6 +869,7 @@ window.quizData = {
     question: "Hvad hedder havvindmølleparken planlagt i Kattegat ud for Djursland?",
     answers: ["Djursland Havvind", "Kattegat Nord", "Kattegatvind", "Grenaa Offshore"],
     correct: 2,
+    category: "Erhverv",
     explanation: "Kattegatvind er et stort planlagt havvindmølleprojekt i Kattegat ud for Djursland.",
     host: "random"
   },
@@ -858,6 +877,7 @@ window.quizData = {
     question: "Hvad er den største udfordring Djursland deler med mange landdistrikter?",
     answers: ["For mange turister", "For høje huspriser", "Affolkning og faldende befolkningstal", "For lidt landbrugsjord"],
     correct: 2,
+    category: "Geografi",
     explanation: "Som mange andre landdistrikter kæmper Djursland med affolkning og faldende befolkningstal.",
     host: "random"
   },
@@ -865,6 +885,7 @@ window.quizData = {
     question: "Hvad er Rute 21's funktion for Djursland?",
     answers: ["Forbinder Grenaa med Randers", "Forbinder Djursland med Aarhus", "Kystvejen langs Kattegat", "Forbinder Ebeltoft med Grenaa"],
     correct: 1,
+    category: "Geografi",
     explanation: "Rute 21 er den primære vej der forbinder Djursland med Aarhus via Mols.",
     host: "random"
   },
@@ -872,6 +893,7 @@ window.quizData = {
     question: "Hvornår blev Grenaa IF stiftet?",
     answers: ["1888", "1895", "1905", "1923"],
     correct: 2,
+    category: "Sport",
     explanation: "Grenaa IF blev stiftet i 1905 og er en af de ældste idrætsforeninger i området.",
     host: "random"
   },
@@ -879,6 +901,7 @@ window.quizData = {
     question: "Hvad er Djurslands geografiske placering i Danmark?",
     answers: ["En halvø i Lillebælt", "En ø i Kattegat", "En halvø i Kattegat øst for Aarhus", "En halvø i Randers Fjord"],
     correct: 2,
+    category: "Geografi",
     explanation: "Djursland er en halvø der stikker ud i Kattegat øst for Aarhus i det østlige Jylland.",
     host: "random"
   },
@@ -886,6 +909,7 @@ window.quizData = {
     question: "Hvad er Ebeltoft Glasmuseum?",
     answers: ["Et lokalt kunsthåndværksmuseum", "Et internationalt anerkendt glaskunstmuseum", "Et museum for middelalderlig glasproduktion", "Et naturvidenskabeligt museum"],
     correct: 1,
+    category: "Kultur",
     explanation: "Ebeltoft Glasmuseum er internationalt anerkendt og viser moderne glaskunst fra hele verden.",
     host: "random"
   },
@@ -893,6 +917,7 @@ window.quizData = {
     question: "Hvad produceres der på vindmøllefabrikkerne nær Djursland?",
     answers: ["Solpaneler", "Havvindmøller", "Vindmøllevinger", "Batterier til elbiler"],
     correct: 2,
+    category: "Erhverv",
     explanation: "Der produceres vindmøllevinger på fabrikker i området nær Djursland.",
     host: "random"
   },
@@ -900,6 +925,7 @@ window.quizData = {
     question: "Hvad er Clausholm?",
     answers: ["Et slot i Ebeltoft", "Et barokslot fra 1600-tallet nær Randers", "Ruiner af en middelalderborg", "Et Djursland-historiemuseum"],
     correct: 1,
+    category: "Historie",
     explanation: "Clausholm er et velbevaret barokslot fra slutningen af 1600-tallet beliggende nær Randers.",
     host: "random"
   },
@@ -907,6 +933,7 @@ window.quizData = {
     question: "Hvad er særligt ved Djurslands kystlinje?",
     answers: ["Den er næsten uden strande", "Den er kun tilgængelig med båd", "Den har både Kattegat-kyst og fjorde", "Den er beskyttet militærzone"],
     correct: 2,
+    category: "Natur",
     explanation: "Djurslands kystlinje er varieret med både åbne Kattegat-strande og rolige fjorde.",
     host: "random"
   },
@@ -914,6 +941,7 @@ window.quizData = {
     question: "Hvad er Grenaa Gymnasium lokalt?",
     answers: ["Lukket og erstattet", "Et af Danmarks mindste", "Det eneste gymnasium i Norddjurs", "Specialiseret i maritime fag"],
     correct: 2,
+    category: "Kultur",
     explanation: "Grenaa Gymnasium er det eneste gymnasium i Norddjurs Kommune.",
     host: "random"
   },
@@ -921,6 +949,7 @@ window.quizData = {
     question: "Hvad er FC Djursland?",
     answers: ["Grenaa IFs nuværende navn", "En fodboldoverbygning der eksisterede 2009–2023", "En aktiv fodboldklub i 1. division", "En ungdomsklub i Ebeltoft"],
     correct: 1,
+    category: "Sport",
     explanation: "FC Djursland var en fodboldoverbygningsklub der samlede klubber fra Djursland og eksisterede fra 2009 til 2023.",
     host: "random"
   },
@@ -928,6 +957,7 @@ window.quizData = {
     question: "Hvad er Djurslands uofficielle kælenavn blandt lokale?",
     answers: ["Kattegat-landet", "Den grønne halvø", "Danmarks smukkeste halvø", "Østjyllands perle"],
     correct: 2,
+    category: "Kultur",
     explanation: "Djursland kaldes uofficielt for Danmarks smukkeste halvø af de lokale.",
     host: "random"
   }

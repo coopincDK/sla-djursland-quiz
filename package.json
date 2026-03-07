@@ -1,0 +1,24 @@
+{
+  "name": "djursland-quiz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "add_host.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coopincDK/sla-djursland-quiz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/coopincDK/sla-djursland-quiz/issues"
+  },
+  "homepage": "https://github.com/coopincDK/sla-djursland-quiz#readme",
+  "dependencies": {
+    "sharp": "^0.34.5"
+  }
+}
