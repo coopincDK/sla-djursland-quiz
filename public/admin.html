@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S-LA Djursland — Admin</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    h1 { font-size: 1.6rem; color: #FFD700; margin-bottom: 4px; }
+    .subtitle { color: #8b949e; font-size: 0.9rem; margin-bottom: 24px; }
+
+    /* LOGIN */
+    #loginScreen {
+      max-width: 360px;
+      margin: 80px auto;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+    }
+    #loginScreen h2 { color: #FFD700; margin-bottom: 16px; }
+    #loginScreen input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #30363d;
+      background: #0d1117;
+      color: #e6edf3;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+    #loginScreen button {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(135deg, #E3000F, #003F8A);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    #loginError { color: #f85149; margin-top: 8px; font-size: 0.85rem; }
+
+    /* DASHBOARD */
+    #dashboard { display: none; }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logout-btn {
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #e6edf3;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    /* STAT CARDS */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #FFD700;
+    }
+    .stat-card .lbl {
+      font-size: 0.78rem;
+      color: #8b949e;
+      margin-top: 4px;
+    }
+
+    /* SECTIONS */
+    .section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .section h2 {
+      font-size: 1rem;
+      color: #58a6ff;
+      margin-bottom: 14px;
+      border-bottom: 1px solid #30363d;
+      padding-bottom: 8px;
+    }
+
+    /* TABELLER */
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { color: #8b949e; text-align: left; padding: 6px 8px; border-bottom: 1px solid #30363d; }
+    td { padding: 7px 8px; border-bottom: 1px solid #21262d; }
+    tr:last-child td { border-bottom: none; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-red { background: rgba(248,81,73,0.2); color: #f85149; }
+    .badge-green { background: rgba(63,185,80,0.2); color: #3fb950; }
+    .badge-blue { background: rgba(88,166,255,0.2); color: #58a6ff; }
+    .badge-gold { background: rgba(255,215,0,0.2); color: #FFD700; }
+
+    /* DAGLIG GRAF */
+    .bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 80px; margin-top: 8px; }
+    .bar-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; }
+    .bar {
+      width: 100%;
+      background: linear-gradient(to top, #003F8A, #58a6ff);
+      border-radius: 4px 4px 0 0;
+      min-height: 2px;
+      transition: height 0.3s;
+    }
+    .bar-lbl { font-size: 0.6rem; color: #8b949e; margin-top: 3px; }
+
+    /* REFRESH */
+    .refresh-btn {
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #58a6ff;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      float: right;
+    }
+    .loading { color: #8b949e; font-size: 0.85rem; }
+    .empty { color: #8b949e; font-style: italic; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <h2>🔐 Admin Login</h2>
+  <p style="color:#8b949e;font-size:0.85rem;margin-bottom:16px">S-LA Djursland Quiz</p>
+  <input type="password" id="pwInput" placeholder="Adgangskode..." onkeydown="if(event.key==='Enter')doLogin()" />
+  <button onclick="doLogin()">Log ind</button>
+  <p id="loginError"></p>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="header">
+    <div>
+      <h1>📊 S-LA Djursland Admin</h1>
+      <p class="subtitle">Live data fra Firebase — <span id="lastUpdated">opdaterer...</span></p>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="refresh-btn" onclick="loadAll()">🔄 Opdater</button>
+      <button class="logout-btn" onclick="doLogout()">Log ud</button>
+    </div>
+  </div>
+
+  <!-- NØGLETAL -->
+  <div class="stat-grid">
+    <div class="stat-card"><div class="num" id="cntPageview">–</div><div class="lbl">👁 Sidevisninger</div></div>
+    <div class="stat-card"><div class="num" id="cntGameStart">–</div><div class="lbl">🎮 Spil startet</div></div>
+    <div class="stat-card"><div class="num" id="cntVictory">–</div><div class="lbl">🏆 Gennemført</div></div>
+    <div class="stat-card"><div class="num" id="cntGameOver">–</div><div class="lbl">💀 Game Over</div></div>
+    <div class="stat-card"><div class="num" id="cntCorrect">–</div><div class="lbl">✅ Korrekte svar</div></div>
+    <div class="stat-card"><div class="num" id="cntWrong">–</div><div class="lbl">❌ Forkerte svar</div></div>
+    <div class="stat-card"><div class="num" id="cntShare">–</div><div class="lbl">🔗 Delt</div></div>
+    <div class="stat-card"><div class="num" id="cntConversion">–</div><div class="lbl">📈 Gennemfører %</div></div>
+  </div>
+
+  <!-- DAGLIG AKTIVITET -->
+  <div class="section">
+    <h2>📅 Daglig aktivitet (seneste 14 dage)</h2>
+    <div class="bar-chart" id="dailyChart"><p class="loading">Henter...</p></div>
+  </div>
+
+  <!-- FORKERTE SVAR -->
+  <div class="section">
+    <h2>❌ Spørgsmål der oftest svares forkert</h2>
+    <table>
+      <thead><tr><th>#</th><th>Spørgsmål</th><th>Runde</th><th>Forkerte</th></tr></thead>
+      <tbody id="wrongTable"><tr><td colspan="4" class="loading">Henter...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- HIGHSCORE -->
+  <div class="section">
+    <h2>🏆 Top 10 Highscores</h2>
+    <table>
+      <thead><tr><th>#</th><th>Navn</th><th>By</th><th>Score</th><th>Dato</th></tr></thead>
+      <tbody id="hsTable"><tr><td colspan="5" class="loading">Henter...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- BYER -->
+  <div class="section">
+    <h2>🌍 Bedste score pr. by</h2>
+    <table>
+      <thead><tr><th>#</th><th>By</th><th>Bedste score</th><th>Spiller</th></tr></thead>
+      <tbody id="cityTable"><tr><td colspan="4" class="loading">Henter...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- MENINGSMÅLING -->
+  <div class="section">
+    <h2>🗳 Meningsmåling resultater</h2>
+    <div id="pollResults"><p class="loading">Henter...</p></div>
+  </div>
+
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<script>
+  // ============================================================
+  // CONFIG
+  // ============================================================
+  const ADMIN_PASSWORD = 'djursland2026'; // Skift dette!
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAMh-GmgUO8NjBMaOMvp2hpkxnOL9QjiEc",
+    authDomain: "sla-djursland.firebaseapp.com",
+    databaseURL: "https://sla-djursland-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "sla-djursland",
+  };
+
+  let db = null;
+
+  // ============================================================
+  // LOGIN
+  // ============================================================
+  function doLogin() {
+    const pw = document.getElementById('pwInput').value;
+    if (pw === ADMIN_PASSWORD) {
+      sessionStorage.setItem('admin_ok', '1');
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      initFirebase();
+      loadAll();
+    } else {
+      document.getElementById('loginError').textContent = '❌ Forkert adgangskode';
+    }
+  }
+
+  function doLogout() {
+    sessionStorage.removeItem('admin_ok');
+    location.reload();
+  }
+
+  // Auto-login hvis session stadig aktiv
+  if (sessionStorage.getItem('admin_ok')) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    initFirebase();
+    loadAll();
+  }
+
+  // ============================================================
+  // FIREBASE
+  // ============================================================
+  function initFirebase() {
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+  }
+
+  // ============================================================
+  // LOAD ALL
+  // ============================================================
+  async function loadAll() {
+    document.getElementById('lastUpdated').textContent = 'opdaterer...';
+    await Promise.all([
+      loadCounters(),
+      loadDaily(),
+      loadWrongAnswers(),
+      loadHighscores(),
+      loadPoll(),
+    ]);
+    document.getElementById('lastUpdated').textContent =
+      'sidst opdateret ' + new Date().toLocaleTimeString('da-DK');
+  }
+
+  // ============================================================
+  // COUNTERS
+  // ============================================================
+  async function loadCounters() {
+    const snap = await db.ref('quiz_stats/counters').once('value');
+    const c = snap.val() || {};
+    set('cntPageview',  c.pageview    || 0);
+    set('cntGameStart', c.game_start  || 0);
+    set('cntVictory',   c.victory     || 0);
+    set('cntGameOver',  c.game_over   || 0);
+    set('cntCorrect',   c.answer_correct || 0);
+    set('cntWrong',     c.answer_wrong   || 0);
+    set('cntShare',     c.share       || 0);
+    const starts = c.game_start || 0;
+    const wins   = c.victory    || 0;
+    set('cntConversion', starts ? Math.round((wins/starts)*100) + '%' : '–');
+  }
+
+  // ============================================================
+  // DAGLIG AKTIVITET
+  // ============================================================
+  async function loadDaily() {
+    const snap = await db.ref('quiz_stats/daily').once('value');
+    const data = snap.val() || {};
+    const chart = document.getElementById('dailyChart');
+
+    // Seneste 14 dage
+    const days = [];
+    for (let i = 13; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      days.push(d.toISOString().slice(0, 10));
+    }
+
+    const counts = days.map(d => (data[d] && data[d].game_start) || 0);
+    const max = Math.max(...counts, 1);
+
+    chart.innerHTML = counts.map((v, i) => {
+      const pct = Math.round((v / max) * 100);
+      const lbl = days[i].slice(5); // MM-DD
+      return `<div class="bar-wrap">
+        <div class="bar" style="height:${pct}%;min-height:${v>0?4:2}px" title="${v} spil"></div>
+        <div class="bar-lbl">${lbl}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // ============================================================
+  // FORKERTE SVAR
+  // ============================================================
+  async function loadWrongAnswers() {
+    const snap = await db.ref('quiz_stats/events').orderByChild('event').equalTo('answer_wrong').limitToLast(500).once('value');
+    const data = snap.val() || {};
+    const counts = {};
+    Object.values(data).forEach(e => {
+      const key = (e.q || 'Ukendt').substring(0, 80);
+      const runde = e.round || '?';
+      const k = runde + '||' + key;
+      counts[k] = (counts[k] || 0) + 1;
+    });
+
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 15);
+    const tbody = document.getElementById('wrongTable');
+    if (!sorted.length) { tbody.innerHTML = '<tr><td colspan="4" class="empty">Ingen data endnu</td></tr>'; return; }
+
+    tbody.innerHTML = sorted.map(([k, n], i) => {
+      const [runde, q] = k.split('||');
+      return `<tr>
+        <td>${i+1}</td>
+        <td>${q}</td>
+        <td><span class="badge badge-blue">R${runde}</span></td>
+        <td><span class="badge badge-red">${n}x</span></td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ============================================================
+  // HIGHSCORES
+  // ============================================================
+  async function loadHighscores() {
+    const snap = await db.ref('djursland_highscores').orderByChild('score').limitToLast(10).once('value');
+    const data = snap.val() || {};
+    const entries = Object.values(data).sort((a, b) => b.score - a.score);
+    const tbody = document.getElementById('hsTable');
+    if (!entries.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty">Ingen scores endnu</td></tr>'; return; }
+
+    const medals = ['🥇','🥈','🥉'];
+    tbody.innerHTML = entries.map((e, i) => `<tr>
+      <td>${medals[i] || i+1}</td>
+      <td>${e.name || 'Anonym'}</td>
+      <td>${e.city || '–'}</td>
+      <td><span class="badge badge-gold">⭐ ${e.score}</span></td>
+      <td>${e.date ? new Date(e.date).toLocaleDateString('da-DK') : ''}</td>
+    </tr>`).join('');
+
+    // Byer
+    const byCity = {};
+    Object.values(data).forEach(e => {
+      const city = (e.city || '–').trim();
+      if (!byCity[city] || e.score > byCity[city].score) byCity[city] = e;
+    });
+    const cities = Object.entries(byCity).sort((a, b) => b[1].score - a[1].score);
+    const ctbody = document.getElementById('cityTable');
+    ctbody.innerHTML = cities.map(([city, e], i) => `<tr>
+      <td>${i+1}</td>
+      <td>${city}</td>
+      <td><span class="badge badge-gold">⭐ ${e.score}</span></td>
+      <td>${e.name || 'Anonym'}</td>
+    </tr>`).join('');
+  }
+
+  // ============================================================
+  // MENINGSMÅLING
+  // ============================================================
+  async function loadPoll() {
+    const snap = await db.ref('djursland_poll/votes').once('value');
+    const data = snap.val() || {};
+    const total = Object.values(data).reduce((s, v) => s + v, 0) || 1;
+    const el = document.getElementById('pollResults');
+    if (!Object.keys(data).length) { el.innerHTML = '<p class="empty">Ingen stemmer endnu</p>'; return; }
+
+    const colors = { J: '#003F8A', L: '#E3000F', B: '#2D7D46', I: '#8b949e' };
+    const labels = { J: '🧑 Jens Meilvang (LA)', L: '👴 Leif Lahn Jensen (S)', B: '🤝 Begge', I: '❌ Ingen' };
+
+    el.innerHTML = Object.entries(data).sort((a,b) => b[1]-a[1]).map(([k, v]) => {
+      const pct = Math.round((v / total) * 100);
+      return `<div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+          <span style="font-size:0.85rem">${labels[k] || k}</span>
+          <span style="font-size:0.85rem;color:#8b949e">${v} stemmer (${pct}%)</span>
+        </div>
+        <div style="background:#21262d;border-radius:4px;height:10px">
+          <div style="background:${colors[k]||'#58a6ff'};width:${pct}%;height:100%;border-radius:4px;transition:width 0.5s"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // ============================================================
+  // HELPERS
+  // ============================================================
+  function set(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  }
+
+  // Auto-refresh hvert 60 sekunder
+  setInterval(() => {
+    if (sessionStorage.getItem('admin_ok')) loadAll();
+  }, 60000);
+</script>
+</body>
+</html>

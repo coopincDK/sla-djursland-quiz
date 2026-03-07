@@ -6,7 +6,7 @@ window.quizData = {
     answers: ["Færre regler og hurtigere sagsbehandling", "Flere kommunale udvalg og flere høringer", "Flere nationale puljer med øremærket drift", "Flere statslige tilsyn og flere rapporter"],
     correct: 0,
     category: "Infrastruktur",
-    icon: "assets/images/icons/02_kattegatforbindelsen.png",
+    icon: "assets/images/icons/02_kattegatforbindelsen.webp",
     explanation: "Jens Meilvang (LA) prioriterer typisk afbureaukratisering og hurtigere sagsbehandling for at fremme projekter.",
     host: "jens"
   },
@@ -15,7 +15,7 @@ window.quizData = {
     answers: ["Mere nærhed og stærkere offentlig omsorg", "Flere private aktører og mere udlicitering", "Lavere skat og færre offentlige ydelser", "Flere brugerbetalinger og mere selvfinansiering"],
     correct: 0,
     category: "Velfærd",
-    icon: "assets/images/icons/01_velfaerd_faellesskab.png",
+    icon: "assets/images/icons/01_velfaerd_faellesskab.webp",
     explanation: "Leif Lahn Jensen (S) sætter typisk nærhed og stærk offentlig omsorg øverst i ældreplejedebatten.",
     host: "leif"
   },
@@ -24,7 +24,7 @@ window.quizData = {
     answers: ["Lavere skat for at øge arbejde og investering", "Højere skat for at udvide velfærd og service", "Uændret skat for at skabe ro om budgetter", "Mere afgift for at styre forbrug og transport"],
     correct: 0,
     category: "Skat",
-    icon: "assets/images/icons/01_lavere_skat.png",
+    icon: "assets/images/icons/01_lavere_skat.webp",
     explanation: "Jens Meilvang (LA) går typisk ind for lavere skat for at stimulere arbejde og investeringer.",
     host: "jens"
   },
@@ -33,7 +33,7 @@ window.quizData = {
     answers: ["Nærhed til behandling og tryghed i hverdagen", "Flere abonnementer og mere brugerbetaling", "Færre offentlige tilbud og mere selvansvar", "Mere centralisering og længere afstande"],
     correct: 0,
     category: "Sundhed",
-    icon: "assets/images/icons/08_sundhed_naerhed.png",
+    icon: "assets/images/icons/08_sundhed_naerhed.webp",
     explanation: "Leif Lahn Jensen (S) fremhæver typisk nærhed til behandling og tryghed i hverdagen som centrale sundhedspolitiske mål.",
     host: "leif"
   },
@@ -42,7 +42,7 @@ window.quizData = {
     answers: ["Mere konkurrence og flere driftsmuligheder", "Kun statslig drift og ingen udbud overhovedet", "Færre afgange og lavere ambitioner på skinner", "Kun kommunal drift og lokale særregler"],
     correct: 0,
     category: "Transport",
-    icon: "assets/images/icons/09_konkurrence_togdrift.png",
+    icon: "assets/images/icons/09_konkurrence_togdrift.webp",
     explanation: "Jens Meilvang (LA) foretrækker typisk konkurrence og markedsbaserede løsninger i togdriften.",
     host: "jens"
   },
@@ -51,7 +51,7 @@ window.quizData = {
     answers: ["Mindre bureaukrati og mere enkelt regelsæt", "Flere indberetninger og flere kontrolbesøg", "Flere særskatter og flere afgifter på drift", "Flere tilladelser og flere dokumentationskrav"],
     correct: 0,
     category: "Erhverv",
-    icon: "assets/images/icons/05_erhvervsklima.png",
+    icon: "assets/images/icons/05_erhvervsklima.webp",
     explanation: "Jens Meilvang (LA) mener typisk, at mindre bureaukrati og et enklere regelsæt giver virksomheder bedre vilkår.",
     host: "jens"
   },
@@ -60,7 +60,7 @@ window.quizData = {
     answers: ["Flere lokale energiprojekter og grønne initiativer", "Flere kulværker og mere importeret fossil energi", "Mere spild og færre krav til effektiv udnyttelse", "Mindre energi og færre muligheder for omstilling"],
     correct: 0,
     category: "Klima",
-    icon: "assets/images/icons/04_groen_energi.png",
+    icon: "assets/images/icons/04_groen_energi.webp",
     explanation: "Begge kandidater kan typisk støtte lokale energiprojekter og grønne initiativer, selv om de har forskellige tilgange.",
     host: "both"
   },
@@ -69,7 +69,7 @@ window.quizData = {
     answers: ["Styrk lokale tilbud og sikre lige muligheder", "Skær i uddannelser og luk flere lokale steder", "Gør uddannelse dyrere og øg brugerbetaling", "Saml alt i de største byer uden undtagelser"],
     correct: 0,
     category: "Uddannelse",
-    icon: "assets/images/icons/02_lilleskolen.png",
+    icon: "assets/images/icons/02_lilleskolen.webp",
     explanation: "Leif Lahn Jensen (S) prioriterer typisk at styrke lokale uddannelsestilbud og sikre lige muligheder for alle.",
     host: "leif"
   },
@@ -78,7 +78,7 @@ window.quizData = {
     answers: ["Bedre rammer for lokalt kystfiskeri og havne", "Mere forbud og færre muligheder for lokalt fiskeri", "Højere bøder og strengere stop uden dialog", "Færre landninger og mere import af fisk"],
     correct: 0,
     category: "Fiskeri",
-    icon: "assets/images/icons/06_kystfiskeri.png",
+    icon: "assets/images/icons/06_kystfiskeri.webp",
     explanation: "Begge kandidater kan typisk mødes om at støtte bedre rammer for lokalt kystfiskeri og havne på Djursland.",
     host: "both"
   },
@@ -87,7 +87,7 @@ window.quizData = {
     answers: ["Stærke fællesskaber og velfærd tæt på borgerne", "Mere centralisering og færre lokale institutioner", "Mindre offentlig service og flere nedskæringer", "Færre lokale tilbud og mere afstand i hverdagen"],
     correct: 0,
     category: "Lokalt",
-    icon: "assets/images/icons/10_djursland_lokalt.png",
+    icon: "assets/images/icons/10_djursland_lokalt.webp",
     explanation: "Leif Lahn Jensen (S) fremhæver typisk stærke fællesskaber og velfærd tæt på borgerne som afgørende for lokalsamfund.",
     host: "leif"
   },
@@ -96,7 +96,7 @@ window.quizData = {
     answers: ["Bedre infrastruktur kan løfte vækst og mobilitet", "Flere udredninger uden beslutning i mange år", "Lavere tempo og færre investeringer i veje", "Flere stopklodser og flere krav til godkendelse"],
     correct: 0,
     category: "Infrastruktur",
-    icon: "assets/images/icons/02_kattegatforbindelsen.png",
+    icon: "assets/images/icons/02_kattegatforbindelsen.webp",
     explanation: "Jens Meilvang (LA) argumenterer typisk for, at bedre infrastruktur løfter vækst og mobilitet i området.",
     host: "jens"
   },
@@ -105,7 +105,7 @@ window.quizData = {
     answers: ["Skatten skal sikre velfærd og tryghed for alle", "Skatten skal kun bruges til helt få opgaver", "Skatten bør fjernes mest muligt og hurtigt", "Skatten skal skiftes ud med faste gebyrer"],
     correct: 0,
     category: "Skat",
-    icon: "assets/images/icons/01_lavere_skat.png",
+    icon: "assets/images/icons/01_lavere_skat.webp",
     explanation: "Leif Lahn Jensen (S) mener typisk, at skatten skal sikre velfærd og tryghed for alle borgere.",
     host: "leif"
   },
@@ -114,7 +114,7 @@ window.quizData = {
     answers: ["Mere effektiv drift og bedre konkurrencevilkår", "Flere faste monopoler og mindre valgfrihed", "Mindre fleksibilitet og færre driftsmuligheder", "Flere lag styring og flere særregler"],
     correct: 0,
     category: "Transport",
-    icon: "assets/images/icons/09_konkurrence_togdrift.png",
+    icon: "assets/images/icons/09_konkurrence_togdrift.webp",
     explanation: "Jens Meilvang (LA) peger typisk på mere effektiv drift og bedre konkurrencevilkår som vejen til billigere og bedre transport.",
     host: "jens"
   },
@@ -123,7 +123,7 @@ window.quizData = {
     answers: ["Kortere vej til hjælp og mere nær behandling", "Mere brugerbetaling og flere private abonnementer", "Færre lokale tilbud og mere central drift", "Større afstande og mindre bemanding"],
     correct: 0,
     category: "Sundhed",
-    icon: "assets/images/icons/08_sundhed_naerhed.png",
+    icon: "assets/images/icons/08_sundhed_naerhed.webp",
     explanation: "Leif Lahn Jensen (S) prioriterer typisk kortere vej til hjælp og mere nær behandling i sundhedspolitikken.",
     host: "leif"
   },
@@ -132,7 +132,7 @@ window.quizData = {
     answers: ["Lavere skatter og færre administrative byrder", "Flere krav og mere dokumentation for alle", "Flere afgifter og højere omkostninger", "Flere tilladelser og længere ventetider"],
     correct: 0,
     category: "Erhverv",
-    icon: "assets/images/icons/05_erhvervsklima.png",
+    icon: "assets/images/icons/05_erhvervsklima.webp",
     explanation: "Jens Meilvang (LA) mener typisk, at lavere skatter og færre administrative byrder styrker iværksætteri og små virksomheder.",
     host: "jens"
   },
@@ -141,7 +141,7 @@ window.quizData = {
     answers: ["Velfærd skal være stærk og tilgængelig for alle", "Velfærd skal begrænses til et absolut minimum", "Velfærd skal drives som et marked uden regler", "Velfærd skal finansieres af brugerbetaling alene"],
     correct: 0,
     category: "Velfærd",
-    icon: "assets/images/icons/01_velfaerd_faellesskab.png",
+    icon: "assets/images/icons/01_velfaerd_faellesskab.webp",
     explanation: "Leif Lahn Jensen (S) mener typisk, at velfærd skal være stærk og tilgængelig for alle borgere.",
     host: "leif"
   },
@@ -150,7 +150,7 @@ window.quizData = {
     answers: ["Grøn omstilling der også giver nye jobs lokalt", "Grøn omstilling kun med flere forbud og stop", "Grøn omstilling uden teknologi og uden investering", "Grøn omstilling kun ved at lukke al produktion"],
     correct: 0,
     category: "Klima",
-    icon: "assets/images/icons/04_groen_energi.png",
+    icon: "assets/images/icons/04_groen_energi.webp",
     explanation: "Jens Meilvang (LA) kobler typisk grøn omstilling til vækst og nye lokale jobs frem for forbud og stop.",
     host: "jens"
   },
@@ -159,7 +159,7 @@ window.quizData = {
     answers: ["Mere frihed og færre regler i uddannelsesvalg", "Mere detailstyring og flere centrale krav", "Luk flere muligheder og fjern valgmuligheder", "Gør adgang sværere og mere begrænset"],
     correct: 0,
     category: "Uddannelse",
-    icon: "assets/images/icons/02_lilleskolen.png",
+    icon: "assets/images/icons/02_lilleskolen.webp",
     explanation: "Jens Meilvang (LA) foretrækker typisk mere frihed og færre regler i uddannelsessystemet.",
     host: "jens"
   },
@@ -168,7 +168,7 @@ window.quizData = {
     answers: ["Lokale byer skal have udvikling og muligheder", "Lokale byer skal nedprioriteres overalt", "Lokale byer skal have færre investeringer", "Lokale byer skal miste offentlig service"],
     correct: 0,
     category: "Lokalt",
-    icon: "assets/images/icons/10_djursland_lokalt.png",
+    icon: "assets/images/icons/10_djursland_lokalt.webp",
     explanation: "Begge kandidater er typisk enige om, at lokale byer som Grenaa og Ebeltoft skal have udvikling og muligheder.",
     host: "both"
   },
@@ -177,7 +177,7 @@ window.quizData = {
     answers: ["Stabile rammer og støtte til lokalt erhvervsliv", "Færre fælles løsninger og mere usikkerhed", "Mere central lukning og mindre lokal drift", "Flere stop og færre muligheder for kystfiskeri"],
     correct: 0,
     category: "Fiskeri",
-    icon: "assets/images/icons/06_kystfiskeri.png",
+    icon: "assets/images/icons/06_kystfiskeri.webp",
     explanation: "Leif Lahn Jensen (S) støtter typisk stabile rammer og støtte til lokalt erhvervsliv i havne- og fiskerisektoren.",
     host: "leif"
   },
@@ -186,7 +186,7 @@ window.quizData = {
     answers: ["Transport skal fungere for alle og i hele området", "Transport skal kun være for dem tæt på storbyer", "Transport skal kun køre hvis det giver overskud", "Transport skal være et privat tilbud uden ansvar"],
     correct: 0,
     category: "Transport",
-    icon: "assets/images/icons/09_konkurrence_togdrift.png",
+    icon: "assets/images/icons/09_konkurrence_togdrift.webp",
     explanation: "Leif Lahn Jensen (S) mener typisk, at kollektiv transport skal fungere for alle borgere i hele området.",
     host: "leif"
   },
@@ -195,7 +195,7 @@ window.quizData = {
     answers: ["Topskat bør lettes for at belønne ekstra arbejde", "Topskat bør hæves for at finansiere flere ordninger", "Topskat bør gøres ens for alle uden undtagelser", "Topskat bør erstatte alle andre skatter fuldstændigt"],
     correct: 0,
     category: "Skat",
-    icon: "assets/images/icons/01_lavere_skat.png",
+    icon: "assets/images/icons/01_lavere_skat.webp",
     explanation: "Jens Meilvang (LA) argumenterer typisk for at lette topskatten for at belønne ekstra arbejdsindsats.",
     host: "jens"
   },
@@ -204,7 +204,7 @@ window.quizData = {
     answers: ["Sikkerhed og fremkommelighed for borgere og erhverv", "Flere omveje og lavere standard for trafikken", "Færre tiltag og mindre vedligehold i området", "Mindre fokus og flere huller i belægningen"],
     correct: 0,
     category: "Infrastruktur",
-    icon: "assets/images/icons/02_kattegatforbindelsen.png",
+    icon: "assets/images/icons/02_kattegatforbindelsen.webp",
     explanation: "Begge kandidater kan typisk støtte sikkerhed og fremkommelighed på veje som Rute 15 for borgere og erhverv.",
     host: "both"
   },
@@ -213,7 +213,7 @@ window.quizData = {
     answers: ["Mere valgfrihed og smartere organisering af tilbud", "Kun én model og ingen alternative løsninger", "Færre muligheder og mindre adgang til behandling", "Mere ventetid og mere central begrænsning"],
     correct: 0,
     category: "Sundhed",
-    icon: "assets/images/icons/08_sundhed_naerhed.png",
+    icon: "assets/images/icons/08_sundhed_naerhed.webp",
     explanation: "Jens Meilvang (LA) peger typisk på mere valgfrihed og smartere organisering som vejen til bedre sundhedstilbud.",
     host: "jens"
   },
@@ -222,7 +222,7 @@ window.quizData = {
     answers: ["Gode vilkår og tryghed for lønmodtagere lokalt", "Færre rettigheder og svagere sikkerhedsnet", "Mere usikkerhed og mindre beskyttelse i job", "Færre aftaler og mindre stabilitet i hverdagen"],
     correct: 0,
     category: "Erhverv",
-    icon: "assets/images/icons/05_erhvervsklima.png",
+    icon: "assets/images/icons/05_erhvervsklima.webp",
     explanation: "Leif Lahn Jensen (S) prioriterer typisk gode vilkår og tryghed for lønmodtagere på det lokale arbejdsmarked.",
     host: "leif"
   },
@@ -231,7 +231,7 @@ window.quizData = {
     answers: ["Velfærd skal være effektiv med fokus på kerneopgaver", "Velfærd skal udvides uden hensyn til økonomi", "Velfærd skal styres af flere lag og flere regler", "Velfærd skal være uigennemskuelig og tungt styret"],
     correct: 0,
     category: "Velfærd",
-    icon: "assets/images/icons/01_velfaerd_faellesskab.png",
+    icon: "assets/images/icons/01_velfaerd_faellesskab.webp",
     explanation: "Jens Meilvang (LA) mener typisk, at velfærd skal være effektiv med fokus på kerneopgaverne.",
     host: "jens"
   },
@@ -240,7 +240,7 @@ window.quizData = {
     answers: ["Grøn omstilling med hensyn til fællesskab og job", "Grøn omstilling kun med marked uden fælles plan", "Grøn omstilling uden investering og uden retning", "Grøn omstilling uden ansvar og uden mål"],
     correct: 0,
     category: "Klima",
-    icon: "assets/images/icons/04_groen_energi.png",
+    icon: "assets/images/icons/04_groen_energi.webp",
     explanation: "Leif Lahn Jensen (S) foretrækker typisk en grøn omstilling, der tager hensyn til fællesskab og beskæftigelse.",
     host: "leif"
   },
@@ -249,7 +249,7 @@ window.quizData = {
     answers: ["Unge skal have muligheder for uddannelse og job lokalt", "Unge skal flytte væk uden hensyn til lokal udvikling", "Unge skal have færre valg og mindre støtte", "Unge skal have længere vej og færre tilbud"],
     correct: 0,
     category: "Uddannelse",
-    icon: "assets/images/icons/02_lilleskolen.png",
+    icon: "assets/images/icons/02_lilleskolen.webp",
     explanation: "Begge kandidater er typisk enige om, at unge på Djursland skal have muligheder for uddannelse og job lokalt.",
     host: "both"
   },
@@ -258,7 +258,7 @@ window.quizData = {
     answers: ["Gør det lettere at drive virksomhed og skabe vækst", "Gør det sværere at starte nyt og udvikle lokalt", "Gør det dyrere at investere og udvide i området", "Gør det mere besværligt at etablere sig på Djursland"],
     correct: 0,
     category: "Lokalt",
-    icon: "assets/images/icons/10_djursland_lokalt.png",
+    icon: "assets/images/icons/10_djursland_lokalt.webp",
     explanation: "Jens Meilvang (LA) ønsker typisk at gøre det lettere at drive virksomhed og skabe vækst i kommunen.",
     host: "jens"
   },
@@ -267,7 +267,7 @@ window.quizData = {
     answers: ["Færre unødige regler og mere plads til lokal drift", "Flere afgifter og flere administrative begrænsninger", "Mere papirarbejde og flere kontroller på alle", "Færre muligheder og flere stop for lokale erhverv"],
     correct: 0,
     category: "Fiskeri",
-    icon: "assets/images/icons/06_kystfiskeri.png",
+    icon: "assets/images/icons/06_kystfiskeri.webp",
     explanation: "Jens Meilvang (LA) ønsker typisk færre unødige regler og mere plads til lokal drift i fiskeriet.",
     host: "jens"
   },
@@ -276,7 +276,7 @@ window.quizData = {
     answers: ["Investér for at sikre sammenhæng og lokale løsninger", "Udskyd alt og lad problemerne vokse sig større", "Skær ned og undgå vedligehold i mange år", "Stop investeringer og sænk serviceniveauet"],
     correct: 0,
     category: "Infrastruktur",
-    icon: "assets/images/icons/02_kattegatforbindelsen.png",
+    icon: "assets/images/icons/02_kattegatforbindelsen.webp",
     explanation: "Leif Lahn Jensen (S) mener typisk, at offentlige investeringer skal sikre sammenhæng og lokale løsninger.",
     host: "leif"
   },
@@ -285,7 +285,7 @@ window.quizData = {
     answers: ["Fjern flaskehalse og brug ressourcerne smartere", "Accepter længere ventetid og lavere ambitioner", "Gør systemet tungere og øg papirarbejdet", "Begræns adgangen og gør det sværere at få hjælp"],
     correct: 0,
     category: "Sundhed",
-    icon: "assets/images/icons/08_sundhed_naerhed.png",
+    icon: "assets/images/icons/08_sundhed_naerhed.webp",
     explanation: "Jens Meilvang (LA) vil typisk fjerne flaskehalse og bruge ressourcerne smartere for at reducere ventetider.",
     host: "jens"
   },
@@ -294,7 +294,7 @@ window.quizData = {
     answers: ["Skat kan bruges til at sikre tryghed og velfærd", "Skat er altid skadelig og bør fjernes hurtigt", "Skat skal skiftes ud med tilfældige gebyrer", "Skat skal kun betales af helt få grupper"],
     correct: 0,
     category: "Skat",
-    icon: "assets/images/icons/01_lavere_skat.png",
+    icon: "assets/images/icons/01_lavere_skat.webp",
     explanation: "Leif Lahn Jensen (S) mener typisk, at skatten kan og skal bruges til at sikre tryghed og velfærd for alle.",
     host: "leif"
   },
@@ -303,7 +303,7 @@ window.quizData = {
     answers: ["Grønne løsninger skal også være realistiske og skalerbare", "Grønne løsninger må aldrig handle om teknologi", "Grønne løsninger skal stoppe alt lokalt erhverv", "Grønne løsninger skal undgå investering helt"],
     correct: 0,
     category: "Klima",
-    icon: "assets/images/icons/04_groen_energi.png",
+    icon: "assets/images/icons/04_groen_energi.webp",
     explanation: "Jens Meilvang (LA) mener typisk, at grønne løsninger skal være realistiske og skalerbare, ikke blot symbolske.",
     host: "jens"
   },
@@ -312,7 +312,7 @@ window.quizData = {
     answers: ["Ordentlige vilkår og stabile rammer for arbejdspladser", "Færre aftaler og mere usikkerhed i ansættelser", "Mindre sikkerhed og færre muligheder for støtte", "Lavere standard og mindre fokus på tryghed"],
     correct: 0,
     category: "Erhverv",
-    icon: "assets/images/icons/05_erhvervsklima.png",
+    icon: "assets/images/icons/05_erhvervsklima.webp",
     explanation: "Leif Lahn Jensen (S) prioriterer typisk ordentlige vilkår og stabile rammer for lokale arbejdspladser.",
     host: "leif"
   },
@@ -321,7 +321,7 @@ window.quizData = {
     answers: ["Giv mere frihed lokalt og mindre detailstyring", "Giv flere regler centralt og flere skema-krav", "Gør skolen mere tung og mindre fleksibel", "Begræns valgfag og fjern lokale muligheder"],
     correct: 0,
     category: "Uddannelse",
-    icon: "assets/images/icons/02_lilleskolen.png",
+    icon: "assets/images/icons/02_lilleskolen.webp",
     explanation: "Jens Meilvang (LA) ønsker typisk mere lokal frihed og mindre central detailstyring i folkeskolen.",
     host: "jens"
   },
@@ -330,7 +330,7 @@ window.quizData = {
     answers: ["Et stærkt fællesskab skal løfte dem der har brug for det", "Alle må klare sig selv uden fælles løsninger", "Støtte skal fjernes og ansvar ligge alene hos borgeren", "Sikkerhedsnet skal være minimalt og svært at få"],
     correct: 0,
     category: "Velfærd",
-    icon: "assets/images/icons/01_velfaerd_faellesskab.png",
+    icon: "assets/images/icons/01_velfaerd_faellesskab.webp",
     explanation: "Leif Lahn Jensen (S) mener typisk, at et stærkt fællesskab skal løfte dem, der har brug for hjælp.",
     host: "leif"
   },
@@ -339,7 +339,7 @@ window.quizData = {
     answers: ["Bevar liv og arbejdspladser i de lokale havnebyer", "Luk havnene og flyt alt til de største byer", "Skær ned og nedprioritér kystsamfund i planlægning", "Stop investeringer og lad havne forfalde over tid"],
     correct: 0,
     category: "Fiskeri",
-    icon: "assets/images/icons/06_kystfiskeri.png",
+    icon: "assets/images/icons/06_kystfiskeri.webp",
     explanation: "Leif Lahn Jensen (S) ønsker typisk at bevare liv og arbejdspladser i de lokale havnebyer på Djursland.",
     host: "leif"
   },
@@ -348,7 +348,7 @@ window.quizData = {
     answers: ["Djursland skal udvikles med job, service og fremtidstro", "Djursland skal nedprioriteres og stå bagerst i køen", "Djursland skal have færre muligheder og mere afstand", "Djursland skal miste tilbud og få lavere ambition"],
     correct: 0,
     category: "Lokalt",
-    icon: "assets/images/icons/10_djursland_lokalt.png",
+    icon: "assets/images/icons/10_djursland_lokalt.webp",
     explanation: "Begge kandidater er typisk enige om, at Djursland skal udvikles med job, service og fremtidstro.",
     host: "both"
   },
@@ -357,7 +357,7 @@ window.quizData = {
     answers: ["Konkurrence kan give bedre service og lavere omkostning", "Monopol giver altid bedst kvalitet uden sammenligning", "Flere regler giver automatisk bedre drift i praksis", "Mindre valgfrihed giver større tilfredshed hos alle"],
     correct: 0,
     category: "Transport",
-    icon: "assets/images/icons/09_konkurrence_togdrift.png",
+    icon: "assets/images/icons/09_konkurrence_togdrift.webp",
     explanation: "Jens Meilvang (LA) mener typisk, at konkurrence i offentlig drift giver bedre service og lavere omkostninger.",
     host: "jens"
   },
@@ -366,7 +366,7 @@ window.quizData = {
     answers: ["Sikre at alle borgere har adgang til veje og transport", "Privatisere al vejvedligeholdelse uden offentligt ansvar", "Skære i vejbudgetter for at finansiere skattelettelser", "Overlade alt til markedet uden fælles planlægning"],
     correct: 0,
     category: "Infrastruktur",
-    icon: "assets/images/icons/02_kattegatforbindelsen.png",
+    icon: "assets/images/icons/02_kattegatforbindelsen.webp",
     explanation: "Leif Lahn Jensen (S) prioriterer typisk at sikre alle borgeres adgang til veje og offentlig transport som et fælles ansvar.",
     host: "leif"
   },
@@ -375,7 +375,7 @@ window.quizData = {
     answers: ["Ordentlige lønvilkår og trygge ansættelser", "Lavere lønninger og færre rettigheder", "Fjerne alle overenskomster og aftaler", "Mere usikkerhed og kortere kontrakter"],
     correct: 0,
     category: "Erhverv",
-    icon: "assets/images/icons/05_erhvervsklima.png",
+    icon: "assets/images/icons/05_erhvervsklima.webp",
     explanation: "Leif Lahn Jensen (S) mener typisk, at ordentlige lønvilkår og trygge ansættelser er fundamentet for sunde lokale arbejdspladser.",
     host: "leif"
   },
@@ -384,7 +384,7 @@ window.quizData = {
     answers: ["Investering i fællesskab og lokal service er nøglen", "Udkanten skal klare sig selv uden offentlig støtte", "Færre offentlige tilbud gør området mere attraktivt", "Centralisering til de store byer er den rigtige vej"],
     correct: 0,
     category: "Lokalt",
-    icon: "assets/images/icons/10_djursland_lokalt.png",
+    icon: "assets/images/icons/10_djursland_lokalt.webp",
     explanation: "Leif Lahn Jensen (S) mener typisk, at investering i fællesskab og lokal service er nøglen til Djurslands fremtid.",
     host: "leif"
   },
@@ -393,7 +393,7 @@ window.quizData = {
     answers: ["Stærke fælles rammer beskytter de lokale fiskere", "Fiskerne skal klare sig uden nogen form for støtte", "Kystfiskeri bør udfases til fordel for industrifiskeri", "Regler for fiskeri bør fjernes helt uden undtagelser"],
     correct: 0,
     category: "Fiskeri",
-    icon: "assets/images/icons/06_kystfiskeri.png",
+    icon: "assets/images/icons/06_kystfiskeri.webp",
     explanation: "Leif Lahn Jensen (S) mener typisk, at stærke fælles rammer og støtte er nødvendige for at beskytte de lokale kystfiskere.",
     host: "leif"
   },
@@ -402,7 +402,7 @@ window.quizData = {
     answers: ["Grøn omstilling skal sikre både miljø og lokale jobs", "Klimaet er ikke et politisk ansvar", "Grøn omstilling må ikke koste noget for det offentlige", "Miljøhensyn bør vige for økonomisk vækst altid"],
     correct: 0,
     category: "Klima",
-    icon: "assets/images/icons/04_groen_energi.png",
+    icon: "assets/images/icons/04_groen_energi.webp",
     explanation: "Leif Lahn Jensen (S) lægger typisk vægt på, at grøn omstilling skal sikre både miljøet og lokale arbejdspladser.",
     host: "leif"
   },
@@ -411,7 +411,7 @@ window.quizData = {
     answers: ["Alle skal have adgang til kollektiv transport uanset bopæl", "Busser bør kun køre hvor det er lønsomt", "Landdistrikterne må klare sig uden offentlig transport", "Transport er et privat ansvar og ikke det offentliges"],
     correct: 0,
     category: "Transport",
-    icon: "assets/images/icons/09_konkurrence_togdrift.png",
+    icon: "assets/images/icons/09_konkurrence_togdrift.webp",
     explanation: "Leif Lahn Jensen (S) mener typisk, at alle borgere skal have adgang til kollektiv transport uanset hvor de bor på Djursland.",
     host: "leif"
   }

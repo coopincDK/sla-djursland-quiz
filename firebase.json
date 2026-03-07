@@ -1,15 +1,20 @@
 {
   "hosting": {
-    "public": ".",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**",
+      "node_modules/**",
       "runde1.js",
       "runde2.js",
       "runde3.js",
       "runde4.js",
-      "add_host.js"
+      "add_host.js",
+      "optimize-images.js",
+      "package.json",
+      "package-lock.json",
+      "database.rules.json"
     ],
     "rewrites": [
       {
@@ -37,5 +42,8 @@
         ]
       }
     ]
+  },
+  "database": {
+    "rules": "database.rules.json"
   }
 }

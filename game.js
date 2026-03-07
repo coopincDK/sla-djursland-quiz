@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 // S-LA FOR DJURSLAND — game.js
 // ============================================================
 
@@ -76,18 +76,18 @@ class DjurslandQuiz {
     this._lastBg = -1;
 
     this.hostImages = {
-      welcome:    'assets/images/host/jens_v3_01.png',
-      correct:    'assets/images/host/jens_v3_03.png',
-      wrong:      'assets/images/host/jens_v3_08.png',
-      celebrate:  'assets/images/host/jens_v3_06.png',
-      checkpoint: 'assets/images/host/jens_v3_07.png',
-      gameover:   'assets/images/host/jens_v3_08.png',
+      welcome:    'assets/images/host/jens_v3_01.webp',
+      correct:    'assets/images/host/jens_v3_03.webp',
+      wrong:      'assets/images/host/jens_v3_08.webp',
+      celebrate:  'assets/images/host/jens_v3_06.webp',
+      checkpoint: 'assets/images/host/jens_v3_07.webp',
+      gameover:   'assets/images/host/jens_v3_08.webp',
     };
 
     this.experts = [
       {
         id: 'finn', name: 'Finn fra Bønnerup', emoji: '🎣',
-        image: 'assets/images/experts/expert_finn_fisker.png',
+        image: 'assets/images/experts/expert_finn_fisker.webp',
         specialty: ['Fiskeri', 'Lokalt', 'Kyst'],
         confidentLines: [
           'Det ved jeg! Jeg har fisket her i 40 år – svaret er {answer}!',
@@ -102,7 +102,7 @@ class DjurslandQuiz {
       },
       {
         id: 'birthe', name: 'Birthe fra Nærhospitalet', emoji: '🏥',
-        image: 'assets/images/experts/expert_birthe_sygeplejerske.png',
+        image: 'assets/images/experts/expert_birthe_sygeplejerske.webp',
         specialty: ['Sundhed', 'Velfærd', 'Ældrepleje'],
         confidentLines: [
           'Som sygeplejerske kan jeg sige: {answer}!',
@@ -117,7 +117,7 @@ class DjurslandQuiz {
       },
       {
         id: 'karsten', name: 'Karsten fra Auning', emoji: '🚜',
-        image: 'assets/images/experts/expert_karsten_landmand.png',
+        image: 'assets/images/experts/expert_karsten_landmand.webp',
         specialty: ['Lokalt', 'Erhverv', 'Klima'],
         confidentLines: [
           'Kammerat, det er {answer}! Det ved enhver landmand!',
@@ -132,7 +132,7 @@ class DjurslandQuiz {
       },
       {
         id: 'mette', name: 'Mette fra Kommunen', emoji: '🏛️',
-        image: 'assets/images/experts/expert_mette_kommune.png',
+        image: 'assets/images/experts/expert_mette_kommune.webp',
         specialty: ['Infrastruktur', 'Transport', 'Skat'],
         confidentLines: [
           'Ifølge kommunens data: {answer} – 100% sikkert!',
@@ -147,7 +147,7 @@ class DjurslandQuiz {
       },
       {
         id: 'holger', name: 'Holger – Den gamle Djursbo', emoji: '📚',
-        image: 'assets/images/experts/expert_holger_djursbo.png',
+        image: 'assets/images/experts/expert_holger_djursbo.webp',
         specialty: ['Lokalt', 'Uddannelse', 'Velfærd'],
         confidentLines: [
           'Hør nu her – jeg har boet på Djursland i 75 år. Det er {answer}!',
@@ -446,6 +446,7 @@ class DjurslandQuiz {
   // ============================================================
 
   startGame() {
+    if (this._livesBonusTimeout) { clearTimeout(this._livesBonusTimeout); this._livesBonusTimeout = null; }
     this.currentRound = 1;
     this.score = 0;
     this.correctAnswers = 0;
@@ -467,6 +468,7 @@ class DjurslandQuiz {
 
   goToMainMenu() {
     this.stopTimer();
+    if (this._livesBonusTimeout) { clearTimeout(this._livesBonusTimeout); this._livesBonusTimeout = null; }
     if (this.music) this.music.pause();
     this.showScreen('welcomeScene');
     this.setHostImage('welcome');
@@ -791,7 +793,7 @@ class DjurslandQuiz {
     this.setHostImage('wrong');
     this.playSound('wrong');
     this.playSound('sad');
-    const isGameOver = this.lives < 0;
+    const isGameOver = this.lives <= 0;
     this.showFeedback(false, 0, q.explanation, isGameOver);
     this.track('answer_wrong', { round: this.currentRound, q: (q.question||q.statement||q.situation||'').substring(0,80) });
   }
@@ -862,6 +864,7 @@ class DjurslandQuiz {
   }
 
   _startFeedbackCountdown(countdownId, seconds, onDone) {
+    this._feedbackDone = false; // reset guard ved nyt feedback
     let t = seconds;
     const el = document.getElementById(countdownId);
     if (el) el.textContent = t;
@@ -886,6 +889,8 @@ class DjurslandQuiz {
   }
 
   skipFeedback() {
+    if (this._feedbackDone) return; // guard mod dobbelt-kald
+    this._feedbackDone = true;
     if (this._feedbackInterval) { clearInterval(this._feedbackInterval); this._feedbackInterval = null; }
     if (this._feedbackTimeout)  { clearTimeout(this._feedbackTimeout);   this._feedbackTimeout  = null; }
     if (this._feedbackGameOver) this.showGameOver();
@@ -944,7 +949,7 @@ class DjurslandQuiz {
     this.playSound('checkpoint');
 
     // Liv-bonus: vis animation efter kort pause
-    setTimeout(() => this._showLivesBonus(), 800);
+    this._livesBonusTimeout = setTimeout(() => this._showLivesBonus(), 800);
   }
 
   _showLivesBonus() {
@@ -1353,10 +1358,16 @@ class DjurslandQuiz {
 
   listenPollResults() {
     if (!this.db) return;
-    this.db.ref('djursland_poll/votes').on('value', snap => {
+    // Afregistrer eksisterende listener for at undgå memory leak ved genbesøg
+    if (this._pollListenerRef) {
+      this._pollListenerRef.off('value', this._pollListenerFn);
+    }
+    this._pollListenerFn = snap => {
       const data = snap.val() || {};
       this.showPollResults(data);
-    });
+    };
+    this._pollListenerRef = this.db.ref('djursland_poll/votes');
+    this._pollListenerRef.on('value', this._pollListenerFn);
   }
 
   showPollResults(data) {
@@ -1450,7 +1461,6 @@ class DjurslandQuiz {
   }
 
   callExpert(expert, q) {
-    console.log('=== callExpert() kaldt ===', expert.name);
     // Luk ekspert-vælg modal
     const selModal = document.getElementById('expertModal');
     if (selModal) selModal.classList.remove('active');
@@ -1473,15 +1483,7 @@ class DjurslandQuiz {
     const abgEl = document.getElementById('expertAnswerBgImg');
     if (abgEl) abgEl.src = this._rand(this.borgereImgs);
     const ansModal = document.getElementById('expertAnswerModal');
-    console.log('expertAnswerModal fundet:', ansModal);
-    console.log('emoji el:', document.getElementById('expertAnswerEmoji'));
-    console.log('name el:', document.getElementById('expertAnswerName'));
-    console.log('text el:', document.getElementById('expertAnswerText'));
-    if (ansModal) {
-      ansModal.classList.add('active');
-      console.log('expertAnswerModal classes:', ansModal.className);
-      console.log('expertAnswerModal display:', window.getComputedStyle(ansModal).display);
-    } else console.error('expertAnswerModal IKKE fundet i HTML!');
+    if (ansModal) ansModal.classList.add('active');
   }
 
   closeExpertAnswer() {
@@ -1528,12 +1530,14 @@ class DjurslandQuiz {
   closeGallery(e) {
     // Luk kun hvis man klikker på selve backdrop (ikke indholdet)
     if (e && e.currentTarget !== e.target) return;
-    document.getElementById('galleryModal').style.display = 'none';
+    const gm = document.getElementById('galleryModal');
+    if (gm) gm.style.display = 'none';
     this.closeLightbox();
   }
 
   forceCloseGallery() {
-    document.getElementById('galleryModal').style.display = 'none';
+    const gm = document.getElementById('galleryModal');
+    if (gm) gm.style.display = 'none';
     this.closeLightbox();
   }
 
@@ -1589,6 +1593,7 @@ class DjurslandQuiz {
   openLightbox(idx) {
     this._lbIdx = idx;
     const lb = document.getElementById('galleryLightbox');
+    if (!lb) return;
     lb.style.display = 'flex';
     this._renderLightbox(idx);
   }
@@ -1609,6 +1614,8 @@ class DjurslandQuiz {
     const item = imgs[idx];
     const capEl = document.getElementById('lbCaption');
     if (capEl) capEl.textContent = item.cap;
+    const lbImgEl = document.getElementById('lbImg');
+    if (lbImgEl) lbImgEl.alt = item.cap || '';
 
     // Brug canvas til at lægge logo + tekst på
     const imgEl = new Image();
@@ -1650,14 +1657,16 @@ class DjurslandQuiz {
         // Vis i lightbox
         const lbImg = document.getElementById('lbImg');
         if (lbImg) lbImg.src = canvas.toDataURL('image/jpeg', 0.92);
+        if (lbImg) lbImg.alt = item.cap || '';
         this._lbCanvas = canvas;
       };
       logo.onerror = () => {
         const lbImg = document.getElementById('lbImg');
         if (lbImg) lbImg.src = canvas.toDataURL('image/jpeg', 0.92);
+        if (lbImg) lbImg.alt = item.cap || '';
         this._lbCanvas = canvas;
       };
-      logo.src = 'assets/images/icons/sla_djursland_logo.png';
+      logo.src = 'assets/images/icons/sla_djursland_logo.webp';
     };
     imgEl.src = item.src;
   }
@@ -1782,7 +1791,7 @@ class DjurslandQuiz {
     if (!this.db) return;
     const entry = {
       name: name.trim().substring(0, 20),
-      city: city.substring(0, 20),
+      city: city.trim().substring(0, 20),
       score,
       round,
       date: new Date().toISOString()
@@ -1882,3 +1891,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   game.init();
 });
+

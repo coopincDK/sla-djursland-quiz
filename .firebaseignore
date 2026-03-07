@@ -1,0 +1,14 @@
+node_modules
+.git
+.firebase
+.firebaserc
+firebase.json
+database.rules.json
+package.json
+package-lock.json
+optimize-images.js
+add_host.js
+runde1.js
+runde2.js
+runde3.js
+runde4.js

@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="S-LA for Djursland – Det store politiske quiz-duel mellem Jens og Leif!" />
+  <title>ET S-LA for Djursland – Quiz Show</title>
+  <!-- Open Graph (Facebook, WhatsApp, LinkedIn preview) -->
+  <meta property="og:title" content="ET S-LA for Djursland – Quiz Show" />
+  <meta property="og:description" content="Test din politiske viden! Hvem kender Jens og Leifs holdninger bedst? Stem Djursland ind på Borgen!" />
+  <meta property="og:image" content="https://coopincdk.github.io/sla-djursland-quiz/assets/images/icons/sla_djursland_logo.png" />
+  <meta property="og:url" content="https://coopincdk.github.io/sla-djursland-quiz/" />
+  <meta property="og:type" content="website" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ET S-LA for Djursland – Quiz Show" />
+  <meta name="twitter:description" content="Test din politiske viden! Stem Djursland ind på Borgen!" />
+  <meta name="twitter:image" content="https://coopincdk.github.io/sla-djursland-quiz/assets/images/icons/sla_djursland_logo.png" />
+  <link rel="icon" type="image/png" href="assets/images/icons/favicon_sla_djursland.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="S-LA Quiz" />
+  <link rel="apple-touch-icon" href="assets/images/icons/favicon_sla_djursland.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       LOADING SCREEN
+  ═══════════════════════════════════════════════ -->
+  <div id="loadingScreen" class="scene active">
+    <div class="loading-content">
+      <img src="assets/images/icons/sla_djursland_logo.png" alt="S-LA Djursland Logo" class="loading-logo" />
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Indlæser quiz…</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       WELCOME SCENE
+  ═══════════════════════════════════════════════ -->
+  <div id="welcomeScene" class="scene">
+    <picture class="scene-bg">
+      <source media="(max-width: 600px)" srcset="assets/images/scenes/scene_velkomst_mobil.png" />
+      <img src="assets/images/scenes/scene_velkomst_desktop.png" alt="Velkomst baggrund" />
+    </picture>
+    <div class="scene-overlay scene-overlay--welcome"></div>
+
+    <!-- Leif: rød VENSTRE -->
+    <div class="welcome-character welcome-leif">
+      <div class="character-glow character-glow--red"></div>
+      <img src="assets/images/host/leif_politiker_03.png" alt="Leif Lahn Jensen" class="character-img" />
+      <div class="character-info">
+        <div class="character-label character-label--red">🔴 Leif Lahn Jensen</div>
+        <a href="https://www.socialdemokratiet.dk/politikere/leif-lahn-jensen/" target="_blank" rel="noopener" class="character-link character-link--red">Læs mere om Leif →</a>
+      </div>
+    </div>
+
+    <!-- Jens: blå HØJRE -->
+    <div class="welcome-character welcome-jens">
+      <div class="character-glow character-glow--blue"></div>
+      <img src="assets/images/host/jens_v3_02.png" alt="Jens Meilvang" class="character-img character-img--flip" />
+      <div class="character-info">
+        <div class="character-label character-label--blue">🔵 Jens Meilvang</div>
+        <a href="https://www.liberalalliance.dk/jens-meilvang/" target="_blank" rel="noopener" class="character-link character-link--blue">Læs mere om Jens →</a>
+      </div>
+    </div>
+
+    <div class="welcome-layout">
+      <div class="welcome-content">
+        <img src="assets/images/icons/sla_djursland_logo.png" alt="S-LA for Djursland" class="welcome-logo" />
+
+        <!-- Nedtælling til valg -->
+        <div class="election-countdown" id="electionCountdown">
+          <div class="countdown-label">⏳ Valg om</div>
+          <div class="countdown-boxes">
+            <div class="countdown-box">
+              <span class="countdown-num" id="cdDays">--</span>
+              <span class="countdown-unit">dage</span>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-box">
+              <span class="countdown-num" id="cdHours">--</span>
+              <span class="countdown-unit">timer</span>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-box">
+              <span class="countdown-num" id="cdMins">--</span>
+              <span class="countdown-unit">min</span>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-box">
+              <span class="countdown-num" id="cdSecs">--</span>
+              <span class="countdown-unit">sek</span>
+            </div>
+          </div>
+          <div class="countdown-date">📅 Valgdag: 24. marts 2026 kl. 08:00</div>
+        </div>
+
+        <!-- PWA install banner -->
+        <div id="pwaInstallBanner" style="display:none" class="pwa-banner">
+          <span>📲 Tilføj til hjemmeskærm for bedre oplevelse!</span>
+          <button id="pwaInstallBtn" class="pwa-install-btn">Tilføj</button>
+          <button id="pwaDismissBtn" class="pwa-dismiss-btn">✕</button>
+        </div>
+
+        <div class="welcome-buttons">
+          <button class="btn-primary btn-start" onclick="game.startGame()">
+            <span class="btn-icon">▶</span> Start Quiz!
+          </button>
+          <button class="btn-gold btn-highscore" onclick="game.showHighscores()">
+            <span class="btn-icon">🏆</span> Highscore
+          </button>
+
+        </div>
+
+        <div class="welcome-meta-box">
+          🎯 <strong>4 runder</strong> &nbsp;·&nbsp; +100 spørgsmål &amp; svar
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- iOS install vejledning -->
+  <div id="iosInstallTip" style="display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:99999;background:rgba(10,10,26,0.97);border:1px solid rgba(255,215,0,0.4);border-radius:16px;padding:16px 20px;max-width:300px;width:90vw;flex-direction:column;gap:8px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.6)">
+    <div style="font-size:0.95rem;font-weight:700;color:#FFD700">📲 Tilføj til hjemmeskærm</div>
+    <div style="font-size:0.82rem;color:rgba(255,255,255,0.8);line-height:1.5">Tryk på <strong style="color:#fff">Del</strong> <span style="font-size:1.1rem">📤</span> i Safari-menuen<br>og vælg <strong style="color:#fff">„Føj til hjemmeskærm“</strong></div>
+    <button onclick="document.getElementById('iosInstallTip').style.display='none';localStorage.setItem('pwa_dismissed','1')" style="background:none;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.5);border-radius:8px;padding:4px 12px;font-size:0.78rem;cursor:pointer;margin-top:4px">Luk</button>
+    <!-- Pil ned mod footer -->
+    <div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid rgba(255,215,0,0.4)"></div>
+  </div>
+
+  <!-- Footer icon-bar: Indstillinger + Galleri + Del + Install -->
+  <div id="footerIconBar" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:10000;display:flex;gap:4px;align-items:center;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:5px 12px;backdrop-filter:blur(8px)">
+    <button id="settingsBtn" onclick="game.toggleSettings()" title="Indstillinger" aria-label="Indstillinger" class="footer-icon-btn">&#9881;&#65039;</button>
+    <button id="pwaFooterBtn" onclick="game.pwaInstall()" title="Tilføj som app" aria-label="Tilføj som app" class="footer-icon-btn" style="display:none">&#11015;&#65039;</button>
+    <button onclick="game.shareGame()" title="Del med venner" aria-label="Del med venner" class="footer-icon-btn">&#128279;</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       ROUND INTRO SCENE
+  ═══════════════════════════════════════════════ -->
+  <div id="roundIntroScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Tilbage til start">✕</button>
+    <!-- Random Djursland baggrundsbillede -->
+    <img id="roundIntroBgImg" src="assets/images/faelles_djursland_scener/faelles_01_superbrugsen.png" alt="" class="scene-bg-img" />
+    <div class="scene-overlay dark-overlay"></div>
+
+    <div class="round-intro-layout">
+      <div class="round-intro-content">
+        <img src="assets/images/icons/ikon_venskab_rivalisering.png" alt="" class="round-intro-icon" />
+        <div class="round-badge-big" id="roundBadgeBig">RUNDE 1</div>
+        <h2 class="round-intro-title" id="roundIntroTitle">Djursland Grundviden</h2>
+        <p class="round-intro-desc" id="roundIntroDesc">5 spørgsmål om Djursland, politik og lokalsamfundet.</p>
+
+        <div class="round-intro-rules">
+          <div class="rule-item" id="roundRuleLife">
+            <span class="rule-icon">❤️</span>
+            <span id="roundRuleLifeText">3 hjerter ❤️❤️❤️ — 3 forkerte = Game Over</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-icon">⏱️</span>
+            <span id="roundRuleTimer">30 sekunder pr. spørgsmål</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-icon">⭐</span>
+            <span id="roundRulePoints">100–500 point pr. korrekt svar</span>
+          </div>
+        </div>
+
+        <div class="host-speech-bubble" id="roundIntroSpeech">
+          <p id="roundIntroSpeechText">Er du klar til at teste din Djursland-viden?</p>
+        </div>
+
+        <button class="btn-primary btn-round-start" onclick="game.beginRound()">
+          <span>Klar! Start runden →</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       QUESTION SCENE
+  ═══════════════════════════════════════════════ -->
+  <div id="questionScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Afslut spil">✕</button>
+    <picture class="scene-bg">
+      <source media="(max-width: 600px)" srcset="assets/images/scenes/scene_spoergsmaal_mobil.png" />
+      <img id="questionBgImg" src="assets/images/scenes/scene_spoergsmaal_desktop.png" alt="Spørgsmål baggrund" />
+    </picture>
+    <div class="scene-overlay question-overlay"></div>
+
+    <div class="question-layout">
+
+      <!-- TOP BAR -->
+      <div class="question-topbar">
+        <div class="topbar-left">
+          <span class="round-badge" id="roundLabel">#1</span>
+          <span class="question-counter" id="questionProgress">Spørgsmål 1/5</span>
+        </div>
+        <div class="topbar-center">
+          <div class="timer-wrapper">
+            <div class="timer-bar-track">
+              <div class="timer-bar-fill" id="timerBar"></div>
+            </div>
+            <span class="timer-seconds" id="timerText">30</span>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div id="livesDisplay" style="display:flex;gap:3px;align-items:center">
+            <span style="font-size:1.1rem;opacity:1">❤️</span>
+            <span style="font-size:1.1rem;opacity:1">❤️</span>
+          </div>
+          <div class="score-display">
+            <span class="score-value" id="scoreDisplay">0</span>
+          </div>
+          <div class="streak-display" id="streakDisplay" style="display:none;">
+            <span class="streak-fire">🔥</span>
+            <span class="streak-count" id="streakCount">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="question-main">
+
+        <!-- Host -->
+        <div class="question-host">
+          <img id="hostImage" src="assets/images/host/jens_v3_03.png" alt="Vært" class="host-img host-img--question" />
+        </div>
+
+        <!-- Question Card -->
+        <div class="question-card">
+          <div class="question-meta">
+            <span class="category-badge" id="categoryBadge">
+              <span class="category-icon" id="categoryIcon">🏛️</span>
+              <span class="category-name" id="categoryName">Politik</span>
+            </span>
+            <span class="difficulty-badge" id="difficultyBadge">●●●</span>
+          </div>
+
+          <p class="question-text" id="questionText">
+            Spørgsmålstekst indlæses her…
+          </p>
+
+          <!-- Answer Grid -->
+          <div class="answers-grid" id="answersContainer">
+            <button class="answer-btn" id="answerA" onclick="game.selectAnswer(0, this)">
+              <span class="answer-letter">A</span>
+              <span class="answer-text" id="answerTextA">Svar A</span>
+            </button>
+            <button class="answer-btn" id="answerB" onclick="game.selectAnswer(1, this)">
+              <span class="answer-letter">B</span>
+              <span class="answer-text" id="answerTextB">Svar B</span>
+            </button>
+            <button class="answer-btn" id="answerC" onclick="game.selectAnswer(2, this)">
+              <span class="answer-letter">C</span>
+              <span class="answer-text" id="answerTextC">Svar C</span>
+            </button>
+            <button class="answer-btn" id="answerD" onclick="game.selectAnswer(3, this)">
+              <span class="answer-letter">D</span>
+              <span class="answer-text" id="answerTextD">Svar D</span>
+            </button>
+          </div>
+
+          <!-- Jokers -->
+          <div class="jokers-row">
+            <button class="joker-btn" id="lifeline5050" onclick="game.useFiftyFifty()" title="50/50 – Fjerner to forkerte svar">
+              <span class="joker-icon">½</span>
+              <span class="joker-label">50/50</span>
+            </button>
+            <button class="joker-btn" id="lifelineAudience" onclick="game.useAudience()" title="Spørg publikum">
+              <span class="joker-icon">👥</span>
+              <span class="joker-label">Publikum</span>
+            </button>
+            <button class="joker-btn" id="lifelinePhone" onclick="game.usePhone()" title="Ring en ven – Få hjælp fra en ekspert">
+              <span class="joker-icon">📞</span>
+              <span class="joker-label">Ven</span>
+            </button>
+            <button class="joker-btn" id="lifelineTime" onclick="game.useExtraTime()" title="+15 sekunder ekstra tid">
+              <span class="joker-icon">⏱+</span>
+              <span class="joker-label">+15 sek</span>
+            </button>
+          </div>
+
+          <!-- Audience poll result (vises kun efter joker) -->
+          <div class="audience-result" id="audienceResult" style="display:none;">
+            <p class="audience-title">📊 Publikum mener:</p>
+            <div class="audience-bars" id="audienceBars"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       CORRECT ANSWER SCENE
+  ═══════════════════════════════════════════════ -->
+  <div id="correctScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Afslut spil">✕</button>
+    <img src="assets/images/scenes/scene_korrekt_svar.png" alt="Korrekt svar" class="scene-bg-img" />
+    <div class="scene-overlay success-overlay"></div>
+
+    <div class="feedback-layout">
+      <div class="feedback-host">
+        <img id="correctHostImg" src="assets/images/host/jens_v3_05.png" alt="Vært" class="host-img host-img--feedback" />
+      </div>
+
+      <div class="feedback-content">
+        <div class="feedback-icon correct-icon animate-bounce">✅</div>
+        <h2 class="feedback-title correct-title">Korrekt!</h2>
+        <p class="feedback-answer-text" id="correctAnswerText">Det rigtige svar er…</p>
+        <div class="points-earned" id="pointsEarned">
+          <span class="points-value">+250</span>
+          <span class="points-label">point</span>
+        </div>
+        <div id="pointsBonusInfo" style="font-size:0.75rem;color:rgba(255,255,255,0.6);margin-top:-4px;letter-spacing:0.03em"></div>
+        <div class="streak-bonus" id="streakBonus" style="display:none;">
+          <span>🔥 Streak bonus: </span><span id="streakBonusValue">+50</span>
+        </div>
+        <p class="feedback-fact" id="correctFact"></p>
+        <div class="feedback-speech">
+          <img id="correctSpeechHost" src="assets/images/host/jens_v3_05.png" alt="" class="speech-host-thumb" />
+          <p id="correctSpeechText" class="speech-text">Fremragende! Du er godt på vej!</p>
+        </div>
+        <button class="btn-skip" id="correctSkipBtn" onclick="game.skipFeedback()">
+          Næste spørgsmål <span class="skip-countdown" id="correctCountdown">3</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       WRONG ANSWER SCENE
+  ═══════════════════════════════════════════════ -->
+  <div id="wrongScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Afslut spil">✕</button>
+    <img src="assets/images/scenes/scene_forkert_svar.png" alt="Forkert svar" class="scene-bg-img" />
+    <div class="scene-overlay error-overlay"></div>
+
+    <div class="feedback-layout">
+      <div class="feedback-host">
+        <img id="wrongHostImg" src="assets/images/host/jens_v3_06.png" alt="Vært" class="host-img host-img--feedback" />
+      </div>
+
+      <div class="feedback-content">
+        <div class="feedback-icon wrong-icon animate-shake">❌</div>
+        <h2 class="feedback-title wrong-title" id="wrongTitle">Forkert!</h2>
+        <p class="wrong-selected">Du valgte: <strong id="wrongSelectedAnswer">–</strong></p>
+        <p class="wrong-correct">Rigtige svar: <strong id="wrongCorrectAnswer">–</strong></p>
+        <p class="feedback-fact" id="wrongFact"></p>
+        <div class="wrong-continue" id="wrongContinue" style="display:none;">
+          <p class="continue-info">Du er i runde 2 eller 3 – du kan fortsætte!</p>
+          <button class="btn-primary" onclick="game.continueAfterWrong()">Forsæt →</button>
+        </div>
+        <div class="feedback-speech">
+          <img id="wrongSpeechHost" src="assets/images/host/jens_v3_06.png" alt="" class="speech-host-thumb" />
+          <p id="wrongSpeechText" class="speech-text">Av! Det var ikke helt rigtigt…</p>
+        </div>
+        <button class="btn-skip" id="wrongSkipBtn" onclick="game.skipFeedback()">
+          Videre <span class="skip-countdown" id="wrongCountdown">3</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       CHECKPOINT SCENE
+  ═══════════════════════════════════════════════ -->
+  <!-- LIVES BONUS OVERLAY (global, vises over checkpoint) -->
+  <div id="livesBonusOverlay" class="lb-hidden">
+    <div class="lb-card">
+      <div class="lb-title">🌟 Runde klaret!</div>
+      <div id="livesBonusNewLife" class="lb-newlife"></div>
+      <div id="livesBonusHearts" class="lb-hearts"></div>
+      <div id="livesBonusAmount" class="lb-amount">+0</div>
+      <div id="livesBonusPer" class="lb-per"></div>
+      <div class="lb-stars">⭐⭐⭐</div>
+    </div>
+  </div>
+
+  <div id="checkpointScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Afslut spil">✕</button>
+    <img src="assets/images/scenes/scene_checkpoint.png" alt="Checkpoint" class="scene-bg-img" />
+    <div class="scene-overlay checkpoint-overlay"></div>
+
+    <div class="checkpoint-layout">
+
+      <div class="checkpoint-content">
+        <img src="assets/images/scenes/scene_checkpoint.png" alt="" class="checkpoint-badge-img" style="display:none;" />
+        <div class="checkpoint-header">
+          <span class="checkpoint-stamp">🏁 CHECKPOINT</span>
+          <h2 class="checkpoint-title" id="checkpointTitle">Runde 1 klaret!</h2>
+        </div>
+
+        <div class="checkpoint-stats">
+          <div class="stat-card">
+            <span class="stat-icon">⭐</span>
+            <span class="stat-value" id="checkpointScore">0</span>
+            <span class="stat-label">Point</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">✅</span>
+            <span class="stat-value" id="checkpointCorrect">0/5</span>
+            <span class="stat-label">Korrekte</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">🔥</span>
+            <span class="stat-value" id="checkpointStreak">0</span>
+            <span class="stat-label">Max streak</span>
+          </div>
+        </div>
+
+        <div class="checkpoint-progress">
+          <p class="progress-label">Samlet fremgang</p>
+          <div class="progress-rounds">
+            <div class="progress-round done" id="progressR1">R1</div>
+            <div class="progress-arrow">→</div>
+            <div class="progress-round" id="progressR2">R2</div>
+            <div class="progress-arrow">→</div>
+            <div class="progress-round" id="progressR3">R3</div>
+            <div class="progress-arrow">→</div>
+            <div class="progress-round" id="progressR4">R4</div>
+          </div>
+        </div>
+
+        <div class="checkpoint-next-info">
+          <p id="checkpointNextDesc">Næste runde: Djursland i dybden</p>
+        </div>
+
+        <button class="btn-primary btn-checkpoint-next" onclick="game.startNextRound()">
+          Videre til næste runde →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       GAME OVER SCENE
+  ═══════════════════════════════════════════════ -->
+  <div id="gameOverScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Tilbage til start">✕</button>
+    <img src="assets/images/scenes/scene_game_over.png" alt="Game Over" class="scene-bg-img" />
+    <div class="scene-overlay gameover-overlay"></div>
+
+    <div class="gameover-layout">
+      <div class="gameover-content">
+        <h2 class="gameover-title">💀 Game Over</h2>
+        <p class="gameover-subtitle" id="gameOverSubtitle">Du nåede ikke i mål denne gang…</p>
+
+        <div class="gameover-stats">
+          <div class="stat-card">
+            <span class="stat-icon">⭐</span>
+            <span class="stat-value" id="gameOverScore">0</span>
+            <span class="stat-label">Finale-score</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">🏁</span>
+            <span class="stat-value" id="gameOverRound">R1</span>
+            <span class="stat-label">Nået til</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">✅</span>
+            <span class="stat-value" id="gameOverCorrect">0</span>
+            <span class="stat-label">Korrekte svar</span>
+          </div>
+        </div>
+
+        <div class="gameover-speech">
+          <p id="gameOverSpeechText">Øv! Det var ikke Djurslands bedste dag. Prøv igen!</p>
+        </div>
+
+        <div class="inline-score-save" id="gameoverScoreSave">
+          <input type="text" id="gameoverName" placeholder="Dit navn (valgfrit)" class="score-input" maxlength="30" />
+          <input type="text" id="gameoverCity" placeholder="By" class="score-input" maxlength="30" />
+          <button class="btn-primary" id="gameoverGemBtn" onclick="game.saveScoreInline('gameover')">💾 Gem score</button>
+          <p class="score-saved-msg" id="gameoverSavedMsg" style="display:none">✅ Gemt!</p>
+          <div style="display:flex;gap:8px;width:100%">
+            <button class="btn-secondary" style="flex:1" onclick="game.startGame()">🔄 Prøv igen</button>
+            <button class="btn-secondary" style="flex:1" onclick="game.showHighscores()">🏆 Highscore</button>
+          </div>
+          <button class="btn-share" style="width:100%;margin-top:6px" onclick="game.shareScore()">🔗 Del din score med venner</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       VICTORY SCENE
+  ═══════════════════════════════════════════════ -->
+  <div id="victoryScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Tilbage til start">✕</button>
+    <img src="assets/images/scenes/scene_sejr_champion.png" alt="Sejr!" class="scene-bg-img" />
+    <div class="scene-overlay victory-overlay"></div>
+
+    <div class="victory-layout">
+
+      <div class="victory-content">
+        <div class="victory-crown animate-bounce">👑</div>
+        <h2 class="victory-title">CHAMPION!</h2>
+        <p class="victory-subtitle">Du er Djurslands Politiske Mester 2025!</p>
+
+        <img src="assets/images/icons/ikon_djursland_ekspert.png" alt="Djursland Ekspert" class="victory-badge-img" />
+
+        <div class="victory-stats">
+          <div class="stat-card gold-stat">
+            <span class="stat-icon">⭐</span>
+            <span class="stat-value" id="victoryScore">0</span>
+            <span class="stat-label">Totalscore</span>
+          </div>
+          <div class="stat-card gold-stat">
+            <span class="stat-icon">🎯</span>
+            <span class="stat-value" id="victoryAccuracy">0%</span>
+            <span class="stat-label">Præcision</span>
+          </div>
+          <div class="stat-card gold-stat">
+            <span class="stat-icon">⚡</span>
+            <span class="stat-value" id="victoryTime">0</span>
+            <span class="stat-label">Sek. sparet</span>
+          </div>
+        </div>
+
+        <div class="together-scene" id="victoryTogetherScene" style="display:none;">
+          <img src="assets/images/scenes/scene_jens_og_leif_sammen.png" alt="Jens og Leif" class="together-img" />
+        </div>
+
+        <div class="victory-buttons">
+          <div class="inline-score-save" id="victoryScoreSave">
+            <input type="text" id="victoryName" placeholder="Dit navn (valgfrit)" class="score-input" maxlength="30" />
+            <input type="text" id="victoryCity" placeholder="By" class="score-input" maxlength="30" />
+            <button class="btn-primary btn-gold" id="victoryGemBtn" onclick="game.saveScoreInline('victory')">💾 Gem score</button>
+            <p class="score-saved-msg" id="victorySavedMsg" style="display:none">✅ Gemt!</p>
+            <div style="display:flex;gap:8px;width:100%">
+              <button class="btn-secondary" style="flex:1" onclick="game.showHighscores()">🏆 Highscore</button>
+              <button class="btn-secondary" style="flex:1" onclick="game.startGame()">🔄 Spil igen</button>
+            </div>
+            <button class="btn-share" style="width:100%;margin-top:6px" onclick="game.shareScore()">🔗 Del din sejr med venner!</button>
+            <div style="display:none"><!-- placeholder -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       HIGHSCORE SCENE
+  ═══════════════════════════════════════════════ -->
+  <div id="highscoreModal" class="scene">
+    <img src="assets/images/scenes/scene_highscore.png" alt="Highscore" class="scene-bg-img" />
+    <div class="scene-overlay highscore-overlay"></div>
+
+    <div class="highscore-layout">
+      <div class="highscore-content">
+        <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Tilbage til start" style="position:absolute;top:12px;right:12px;z-index:100">✕</button>
+        <div class="highscore-header">
+          <img src="assets/images/icons/ikon_highscore_djursland.png" alt="Highscore" class="highscore-icon-img" />
+          <h2 class="highscore-title">🏆 Hall of Fame</h2>
+          <p class="highscore-subtitle">Djurslands Bedste Politiske Hjerner</p>
+        </div>
+
+        <div class="highscore-tabs">
+          <button class="tab-btn active" onclick="game.filterHighscore('all')" id="tabAll">Alle</button>
+          <button class="tab-btn" onclick="game.filterHighscore('today')" id="tabToday">I dag</button>
+          <button class="tab-btn" onclick="game.filterHighscore('week')" id="tabWeek">Uge</button>
+          <button class="tab-btn" onclick="game.filterHighscore('city')" id="tabCity">Pr. by</button>
+        </div>
+
+        <div class="highscore-table-wrapper">
+          <table class="highscore-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Navn</th>
+                <th>By</th>
+                <th>Score</th>
+                <th>Dato</th>
+              </tr>
+            </thead>
+            <tbody id="highscoreTableBody">
+              <tr><td colspan="5" class="hs-empty">Ingen highscores endnu. Vær den første! 🏆</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="highscore-enter" id="highscoreEnter">
+          <p>Gem dit resultat på listen:</p>
+          <div class="hs-input-row">
+            <input type="text" id="playerNameInput" placeholder="Dit navn…" maxlength="20" class="hs-name-input" />
+            <input type="text" id="playerCityInput" placeholder="Din by…" maxlength="20" class="hs-name-input" />
+            <button class="btn-primary" id="submitScoreBtn" onclick="game.submitScore()">Gem 💾</button>
+          </div>
+        </div>
+
+<!-- knapper fjernet - brug tilbage-pil eller start forfra fra welcome -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       POLL SCENE (Meningsmåling)
+  ═══════════════════════════════════════════════ -->
+  <div id="pollScene" class="scene">
+    <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Tilbage til start">✕</button>
+    <img src="assets/images/scenes/scene_meningsmaalig.png" alt="Meningsmåling" class="scene-bg-img" />
+    <div class="scene-overlay poll-overlay"></div>
+
+    <div class="poll-layout">
+      <div class="poll-host">
+        <img src="assets/images/scenes/scene_hvem_mener_det.png" alt="Hvem mener det?" class="poll-scene-img" />
+      </div>
+
+      <div class="poll-content">
+        <h2 class="poll-title">🗳️ Hvad stemmer du?</h2>
+        <p class="poll-desc">Inden du går – del din politiske holdning!<br/>Vi tæller stemmer fra alle spillere på Djursland.</p>
+
+        <div class="poll-buttons" id="pollButtons">
+          <button class="poll-btn red-btn" onclick="game.votePoll('red')">
+            🔴 Rød Blok
+            <small>S, SF, R, EL…</small>
+          </button>
+          <button class="poll-btn blue-btn" onclick="game.votePoll('blue')">
+            🔵 Blå Blok
+            <small>V, LA, K, DF…</small>
+          </button>
+          <button class="poll-btn grey-btn" onclick="game.votePoll('unsure')">
+            🤔 Er i tvivl
+          </button>
+          <button class="poll-btn dark-btn" onclick="game.votePoll('silent')">
+            🤐 Vil ikke sige
+          </button>
+        </div>
+
+        <div id="pollResults" style="display:none;" class="poll-results">
+          <h3 class="poll-results-title">📊 Djursland stemmer:</h3>
+          <div class="poll-result-bars" id="pollResultBars"></div>
+          <p class="poll-total" id="pollTotal">Baseret på 0 svar</p>
+        </div>
+
+        <div class="poll-footer">
+          <button onclick="game.goToMainMenu()" class="btn-secondary">🏠 Tilbage til start</button>
+          <button onclick="game.startGame()" class="btn-secondary">🔄 Spil igen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       EXPERT MODAL (Ring en ven joker)
+  ═══════════════════════════════════════════════ -->
+  <!-- AUDIENCE MODAL -->
+  <div id="audienceModal" class="modal">
+    <img id="audienceBgImg" src="" alt="" class="modal-bg-img" />
+    <div class="modal-content">
+      <h3>📊 Publikum mener:</h3>
+      <div class="audience-results" id="audienceResults"></div>
+      <button class="btn-primary" onclick="game.closeAudienceModal()">OK, tak!</button>
+    </div>
+  </div>
+
+  <!-- EXPERT SELECT MODAL -->
+  <div id="expertModal" class="modal">
+    <img id="expertBgImg" src="" alt="" class="modal-bg-img" />
+    <div class="modal-content">
+      <h3>📞 Ring en ven</h3>
+      <p class="expert-intro">Vælg en ekspert at ringe til:</p>
+      <div class="expert-grid" id="expertGrid"></div>
+    </div>
+  </div>
+
+  <!-- EXPERT ANSWER MODAL -->
+  <div id="expertAnswerModal" class="modal">
+    <img id="expertAnswerBgImg" src="" alt="" class="modal-bg-img" />
+    <div class="modal-content">
+      <div class="expert-answer-header">
+        <img id="expertAnswerImg" src="" alt="Ekspert" class="expert-answer-portrait" />
+        <div>
+          <div style="font-size:1.8rem" id="expertAnswerEmoji">🔧</div>
+          <h3 id="expertAnswerName">Eksperten</h3>
+        </div>
+      </div>
+      <p class="expert-answer-text" id="expertAnswerText">Hmm, jeg tror svaret er...</p>
+      <button class="btn-primary" onclick="game.closeExpertAnswer()">OK, tak! 👍</button>
+    </div>
+  </div>
+
+  <!-- OLD phoneModal kept as alias -->
+  <div id="phoneModal" class="modal-backdrop" style="display:none;">
+    <div class="modal-box expert-modal">
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="game.closePhoneModal()">Luk og svar selv</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       SETTINGS PANEL
+  ═══════════════════════════════════════════════ -->
+  <div id="settingsPanel" class="settings-panel">
+    <div class="settings-header">
+      <h3>⚙️ Indstillinger</h3>
+      <button class="modal-close" onclick="game.toggleSettings()">✕</button>
+    </div>
+
+    <div class="settings-body">
+      <div class="setting-row">
+        <label>🎵 Baggrundsmusik</label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="settingMusic" checked onchange="game.toggleMusic()" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <label>🔊 Lydeffekter</label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="settingSfx" checked onchange="game.toggleSfx()" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+
+
+
+
+
+    </div>
+
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       TOAST NOTIFICATIONS
+  ═══════════════════════════════════════════════ -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       AUDIO
+  ═══════════════════════════════════════════════ -->
+  <audio id="bgMusic" loop>
+    <source src="assets/music/Semo - The Microwave Dance.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="clickSound">
+    <source src="assets/sounds/Click - Single.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="correctSound">
+    <source src="assets/sounds/Correct - Synthetic Chime.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="incorrectSound">
+    <source src="assets/sounds/Sad Trombone 1.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="applauseSound">
+    <source src="assets/sounds/Applause - Large Crowd 1.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="alarmSound">
+    <source src="assets/sounds/Alert - Tense.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="whooshSound">
+    <source src="assets/sounds/Whoosh - Achievement.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="buzzerSound">
+    <source src="assets/sounds/Buzzer 1.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="drumrollSound">
+    <source src="assets/sounds/Drumroll 1.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="crowdCheerSound">
+    <source src="assets/sounds/Crowd - Cheering - Large 1.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="dramaticSound">
+    <source src="assets/sounds/Dramatic Buildup 1.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="dingSound">
+    <source src="assets/sounds/Ding - Single - Bright.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="crowdGroanSound">
+    <source src="assets/sounds/Crowd - Disappointed Groans.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="celebrateSound">
+    <source src="assets/sounds/Celebratory Jingle 1.MP3" type="audio/mpeg" />
+  </audio>
+  <audio id="checkpointRiserSound">
+    <source src="assets/sounds/Checkpoint Riser.aac" type="audio/aac" />
+  </audio>
+
+  <!-- ═══════════════════════════════════════════════
+       SCRIPTS
+  ═══════════════════════════════════════════════ -->
+  <!-- Firebase compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+  <script src="firebase-config.js"></script>
+
+  <!-- Eric.build footer — global, altid synlig -->
+  <div class="eric-footer">
+    Lavet med <a href="https://eric.build" target="_blank" rel="noopener">eric.build</a>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="game.js"></script>
+
+  <script>
+    // Nedtælling til valgdag 24. marts 2026 kl. 08:00
+    (function() {
+      const ELECTION = new Date('2026-03-24T08:00:00').getTime();
+      function pad(n) { return String(n).padStart(2, '0'); }
+      function tick() {
+        const diff = ELECTION - Date.now();
+        if (diff <= 0) {
+          document.getElementById('electionCountdown').innerHTML =
+            '<div class="countdown-label">🎉 Valgdag er i dag!</div>';
+          return;
+        }
+        const days  = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const mins  = Math.floor((diff % 3600000)  / 60000);
+        const secs  = Math.floor((diff % 60000)    / 1000);
+        const d = document.getElementById('cdDays');
+        const h = document.getElementById('cdHours');
+        const m = document.getElementById('cdMins');
+        const s = document.getElementById('cdSecs');
+        if (d) d.textContent = days;
+        if (h) h.textContent = pad(hours);
+        if (m) m.textContent = pad(mins);
+        if (s) s.textContent = pad(secs);
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
+  <script>
+    // ============================================================
+    // SERVICE WORKER REGISTRERING + AUTO CACHE BUST
+    // ============================================================
+    const APP_VERSION = 'v1.0.9';
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => {
+          console.log('[App] Service Worker registreret:', reg.scope);
+
+          // Tjek for opdatering ved load
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // Ny version klar — vis besked
+                showUpdateBanner();
+              }
+            });
+          });
+        })
+        .catch(err => console.warn('[App] SW fejl:', err));
+
+      // Hvis SW overtager kontrollen — reload siden
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+          refreshing = true;
+          window.location.reload();
+        }
+      });
+    }
+
+    // ============================================================
+    // PWA INSTALL PROMPT
+    // ============================================================
+    let _pwaPrompt = null;
+    window._pwaPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      _pwaPrompt = e;
+      window._pwaPrompt = e; // tilgængelig for game.pwaInstall()
+      // Vis install-knap i footer (både mobil og PC)
+      const footerBtn = document.getElementById('pwaFooterBtn');
+      if (footerBtn) footerBtn.style.display = 'inline-flex';
+      // Vis banner hvis ikke afvist før
+      if (!localStorage.getItem('pwa_dismissed')) {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner) banner.style.display = 'flex';
+      }
+    });
+    // iOS Safari: vis knap med vejledning (ingen beforeinstallprompt på iOS)
+    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isInStandaloneMode = window.navigator.standalone === true;
+    if (isIOS && !isInStandaloneMode && !localStorage.getItem('pwa_dismissed')) {
+      const footerBtn = document.getElementById('pwaFooterBtn');
+      if (footerBtn) {
+        footerBtn.style.display = 'inline-flex';
+        footerBtn.title = 'Tilføj til hjemmeskærm';
+        footerBtn.onclick = () => {
+          const el = document.getElementById('iosInstallTip');
+          if (el) el.style.display = el.style.display === 'none' ? 'flex' : 'none';
+        };
+      }
+    }
+
+    // Skjul install-knap når appen er installeret
+    window.addEventListener('appinstalled', () => {
+      const footerBtn = document.getElementById('pwaFooterBtn');
+      if (footerBtn) footerBtn.style.display = 'none';
+      const banner = document.getElementById('pwaInstallBanner');
+      if (banner) banner.style.display = 'none';
+    });
+    document.getElementById('pwaInstallBtn') && document.getElementById('pwaInstallBtn').addEventListener('click', () => {
+      if (_pwaPrompt) {
+        _pwaPrompt.prompt();
+        _pwaPrompt.userChoice.then(() => {
+          document.getElementById('pwaInstallBanner').style.display = 'none';
+          _pwaPrompt = null;
+        });
+      }
+    });
+    document.getElementById('pwaDismissBtn') && document.getElementById('pwaDismissBtn').addEventListener('click', () => {
+      document.getElementById('pwaInstallBanner').style.display = 'none';
+      localStorage.setItem('pwa_dismissed', '1');
+    });
+
+    function showUpdateBanner() {
+      const banner = document.getElementById('updateBanner');
+      if (banner) banner.style.display = 'flex';
+    }
+
+    function applyUpdate() {
+      navigator.serviceWorker.getRegistration().then(reg => {
+        if (reg && reg.waiting) {
+          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+        }
+      });
+      document.getElementById('updateBanner').style.display = 'none';
+    }
+  </script>
+
+  <!-- Opdaterings-banner -->
+  <div id="updateBanner" style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #E3000F, #003F8A);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    z-index: 999999;
+    gap: 12px;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    cursor: pointer;
+    white-space: nowrap;
+  " onclick="applyUpdate()">
+    🔄 Ny version klar! Tryk for at opdatere
+  </div>
+
+<!-- ===============================================
+     GALLERI MODAL
+  =============================================== -->
+<div id="galleryModal" class="gallery-modal" style="display:none" onclick="game.closeGallery(event)">
+  <div class="gallery-inner">
+    <div class="gallery-header">
+      <h2>📸 Jens &amp; Leif på Djursland</h2>
+      <button class="gallery-close" onclick="game.forceCloseGallery()">✕</button>
+    </div>
+    <!-- Lightbox -->
+    <div id="galleryLightbox" class="gallery-lightbox" style="display:none">
+      <button class="lb-nav lb-prev" onclick="game.lbNav(-1)">&#8249;</button>
+      <div class="lb-img-wrap">
+        <img id="lbImg" src="" alt="" />
+        <div class="lb-caption" id="lbCaption"></div>
+      </div>
+      <button class="lb-nav lb-next" onclick="game.lbNav(1)">&#8250;</button>
+      <button class="lb-share" onclick="game.shareGalleryImg()">🔗 Del dette billede</button>
+      <button class="lb-close" onclick="game.closeLightbox()">✕</button>
+    </div>
+    <!-- Grid -->
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</div>
+
+</body>
+</html>

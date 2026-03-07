@@ -1,0 +1,27 @@
+﻿{
+  "rules": {
+    "highscores": {
+      ".read": true,
+      ".write": false,
+      "$entry": {
+        ".write": "!data.exists()",
+        "name":  { ".validate": "newData.isString() && newData.val().length <= 30" },
+        "city":  { ".validate": "newData.isString() && newData.val().length <= 30" },
+        "score": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 50000" },
+        "ts":    { ".validate": "newData.isNumber()" }
+      }
+    },
+    "poll": {
+      ".read": true,
+      "red":    { ".validate": "newData.isNumber() && newData.val() >= 0" },
+      "blue":   { ".validate": "newData.isNumber() && newData.val() >= 0" },
+      "unsure": { ".validate": "newData.isNumber() && newData.val() >= 0" },
+      "silent": { ".validate": "newData.isNumber() && newData.val() >= 0" },
+      ".write": true
+    },
+    "$other": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}
