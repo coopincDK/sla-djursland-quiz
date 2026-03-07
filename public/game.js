@@ -1675,7 +1675,7 @@ class DjurslandQuiz {
   shareGalleryImg() {
     const imgs = this._galleryImages();
     const item = imgs[this._lbIdx];
-    const url  = 'https://coopincdk.github.io/sla-djursland-quiz/';
+    const url  = 'https://sla-djursland.web.app';
     const text = `📸 ${item.cap} — Stem Djursland ind på Borgen 24. marts! 🗳️`;
 
     // Prøv at dele som fil (canvas billede)
@@ -1699,7 +1699,7 @@ class DjurslandQuiz {
   // ============================================================
 
   shareGame() {
-    const url = 'https://coopincdk.github.io/sla-djursland-quiz/';
+    const url = 'https://sla-djursland.web.app';
     const slogans = [
       '🗳️ Stem Djursland ind på Borgen — tag quizzen først!',
       '🚣 Fra Grenaa til Christiansborg — test din viden!',
@@ -1717,7 +1717,7 @@ class DjurslandQuiz {
   }
 
   shareScore() {
-    const url = 'https://coopincdk.github.io/sla-djursland-quiz/';
+    const url = 'https://sla-djursland.web.app';
     const slogans = [
       `🎮 Jeg fik ${this.score} point! Kan du slå mig? Stem Djursland ind på Borgen!`,
       `⭐ ${this.score} point i S-LA Djursland quizzen — slå det hvis du tør!`,
@@ -1730,13 +1730,14 @@ class DjurslandQuiz {
   }
 
   _share(text, url) {
+    const textWithUrl = text + '\n\n👉 ' + url;
     if (navigator.share) {
       // Native del (mobil)
-      navigator.share({ title: 'ET S-LA for Djursland – Quiz Show', text, url })
+      navigator.share({ title: 'ET S-LA for Djursland – Quiz Show', text: textWithUrl, url })
         .catch(() => {});
     } else {
       // Fallback: kopier til clipboard
-      const full = text + '\n' + url;
+      const full = textWithUrl;
       navigator.clipboard.writeText(full).then(() => {
         alert('📋 Kopieret! Del det med dine venner.');
       }).catch(() => {
