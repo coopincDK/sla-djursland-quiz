@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 // S-LA FOR DJURSLAND — game.js
 // ============================================================
 
@@ -21,8 +21,8 @@ class DjurslandQuiz {
       extraTime: false
     };
     this.streak = 0;
-    this.lives = 1; // starter med 2 hjerter (0-indexed: 1=2 hjerter)
-    this.maxLives = 1;
+    this.lives = 2; // 2 hjerter = 2 forkerte før game over
+    this.maxLives = 2;
     this.pollVoted = false;
     this.sounds = {};
     this.music = null;
@@ -76,18 +76,18 @@ class DjurslandQuiz {
     this._lastBg = -1;
 
     this.hostImages = {
-      welcome:    'assets/images/host/jens_v3_01.png',
-      correct:    'assets/images/host/jens_v3_03.png',
-      wrong:      'assets/images/host/jens_v3_08.png',
-      celebrate:  'assets/images/host/jens_v3_06.png',
-      checkpoint: 'assets/images/host/jens_v3_07.png',
-      gameover:   'assets/images/host/jens_v3_08.png',
+      welcome:    'assets/images/host/jens_v3_01.webp',
+      correct:    'assets/images/host/jens_v3_03.webp',
+      wrong:      'assets/images/host/jens_v3_08.webp',
+      celebrate:  'assets/images/host/jens_v3_06.webp',
+      checkpoint: 'assets/images/host/jens_v3_07.webp',
+      gameover:   'assets/images/host/jens_v3_08.webp',
     };
 
     this.experts = [
       {
         id: 'finn', name: 'Finn fra Bønnerup', emoji: '🎣',
-        image: 'assets/images/experts/expert_finn_fisker.png',
+        image: 'assets/images/experts/expert_finn_fisker.webp',
         specialty: ['Fiskeri', 'Lokalt', 'Kyst'],
         confidentLines: [
           'Det ved jeg! Jeg har fisket her i 40 år – svaret er {answer}!',
@@ -102,7 +102,7 @@ class DjurslandQuiz {
       },
       {
         id: 'birthe', name: 'Birthe fra Nærhospitalet', emoji: '🏥',
-        image: 'assets/images/experts/expert_birthe_sygeplejerske.png',
+        image: 'assets/images/experts/expert_birthe_sygeplejerske.webp',
         specialty: ['Sundhed', 'Velfærd', 'Ældrepleje'],
         confidentLines: [
           'Som sygeplejerske kan jeg sige: {answer}!',
@@ -117,7 +117,7 @@ class DjurslandQuiz {
       },
       {
         id: 'karsten', name: 'Karsten fra Auning', emoji: '🚜',
-        image: 'assets/images/experts/expert_karsten_landmand.png',
+        image: 'assets/images/experts/expert_karsten_landmand.webp',
         specialty: ['Lokalt', 'Erhverv', 'Klima'],
         confidentLines: [
           'Kammerat, det er {answer}! Det ved enhver landmand!',
@@ -132,7 +132,7 @@ class DjurslandQuiz {
       },
       {
         id: 'mette', name: 'Mette fra Kommunen', emoji: '🏛️',
-        image: 'assets/images/experts/expert_mette_kommune.png',
+        image: 'assets/images/experts/expert_mette_kommune.webp',
         specialty: ['Infrastruktur', 'Transport', 'Skat'],
         confidentLines: [
           'Ifølge kommunens data: {answer} – 100% sikkert!',
@@ -147,7 +147,7 @@ class DjurslandQuiz {
       },
       {
         id: 'holger', name: 'Holger – Den gamle Djursbo', emoji: '📚',
-        image: 'assets/images/experts/expert_holger_djursbo.png',
+        image: 'assets/images/experts/expert_holger_djursbo.webp',
         specialty: ['Lokalt', 'Uddannelse', 'Velfærd'],
         confidentLines: [
           'Hør nu her – jeg har boet på Djursland i 75 år. Det er {answer}!',
@@ -487,7 +487,7 @@ class DjurslandQuiz {
 
     // Rules
     const lifeText = document.getElementById('roundRuleLifeText');
-    const livesLeft = this.lives + 1;
+    const livesLeft = this.lives;
     if (lifeText) lifeText.textContent = `${livesLeft} hjerter tilbage ❤️ — ${livesLeft} forkerte = Game Over!`;
     const timerText = document.getElementById('roundRuleTimer');
     if (timerText) timerText.textContent = this.maxTime + ' sekunder pr. spørgsmål';
@@ -496,7 +496,7 @@ class DjurslandQuiz {
     if (ptsText) ptsText.textContent = pts + ' point + op til +300 tidsbonus';
 
     // Speech bubble
-    const livesNow = this.lives + 1;
+    const livesNow = this.lives;
     const speeches = {
       1: `Du har ${livesNow} hjerter ❤️ — svar hurtigt for tidsbonus! Du får +1 liv når runden er klaret 🔥`,
       2: `Kender du Jens Meilvang og Leif Lahn Jensens holdninger? ${livesNow} hjerter — brug dem med omtanke! 🤔`,
@@ -801,10 +801,10 @@ class DjurslandQuiz {
   renderLives() {
     const el = document.getElementById('livesDisplay');
     if (!el) return;
-    const total = this.maxLives + 1; // 2 hjerter i alt
+    const total = this.maxLives; // antal hjerter
     let html = '';
     for (let i = 0; i < total; i++) {
-      html += `<span style="font-size:1.1rem;transition:opacity 0.3s;opacity:${i <= this.lives ? 1 : 0.2}">❤️</span>`;
+      html += `<span style="font-size:1.1rem;transition:opacity 0.3s;opacity:${i < this.lives ? 1 : 0.2}">❤️</span>`;
     }
     el.innerHTML = html;
   }
@@ -953,7 +953,7 @@ class DjurslandQuiz {
   }
 
   _showLivesBonus() {
-    const livesLeft = this.lives + 1; // +1 fordi lives er 0-indexed (0 = 1 liv tilbage)
+    const livesLeft = this.lives;
     if (livesLeft <= 0) return;
 
     // Bonus per runde: R1=500, R2=1000, R3=1500
@@ -1666,7 +1666,7 @@ class DjurslandQuiz {
         if (lbImg) lbImg.alt = item.cap || '';
         this._lbCanvas = canvas;
       };
-      logo.src = 'assets/images/icons/sla_djursland_logo.png';
+      logo.src = 'assets/images/icons/sla_djursland_logo.webp';
     };
     imgEl.src = item.src;
   }

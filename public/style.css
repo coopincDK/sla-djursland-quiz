@@ -2964,7 +2964,8 @@ html, body {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  padding: 8px 12px;
+  padding: 10px 16px;
+  margin-top: 8px;
   background: rgba(10, 10, 26, 0.80);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -2972,6 +2973,7 @@ html, body {
   z-index: 5;
   gap: 10px;
   min-height: 48px;
+  border-radius: 12px;
 }
 
 .topbar-left {
@@ -3088,6 +3090,8 @@ html, body {
   align-items: center;
   gap: var(--sp-xs);
   padding-top: var(--sp-xs);
+  padding-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .joker-btn {
