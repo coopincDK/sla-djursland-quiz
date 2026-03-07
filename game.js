@@ -35,14 +35,14 @@ class DjurslandQuiz {
       'jens_v3_06','jens_v3_07','jens_v3_08','jens_v3_12','jens_v3_17','jens_v3_20',
       'jens_pol_04','jens_pol_05','jens_pol_11',
       'jens_politiker_01','jens_politiker_02'
-    ].map(n => `assets/images/host/${n}.png`);
+    ].map(n => `assets/images/host/${n}.webp`);
 
     this.leifImgs = [
       'leif_v3_01','leif_v3_02','leif_v3_03','leif_v3_04','leif_v3_05',
       'leif_v3_06','leif_v3_07','leif_v3_08','leif_v3_10','leif_v3_11','leif_v3_12',
       'leif_pol_05','leif_pol_06','leif_pol_09','leif_pol_11','leif_pol_13',
       'leif_politiker_01','leif_politiker_02','leif_politiker_03'
-    ].map(n => `assets/images/host/${n}.png`);
+    ].map(n => `assets/images/host/${n}.webp`);
 
     // Borgere Djursland til publikum-joker
     this.borgereImgs = [
@@ -50,7 +50,7 @@ class DjurslandQuiz {
       'borgere_04_torvet_diskussion','borgere_05_aeldrecenter','borgere_06_skole_foraeldre',
       'borgere_07_sportshal','borgere_08_stemmerum','borgere_09_frivillige',
       'borgere_10_marked','borgere_11_bibliotek','borgere_12_sankthans'
-    ].map(n => `assets/images/borgere_djursland/${n}.png`);
+    ].map(n => `assets/images/borgere_djursland/${n}.webp`);
 
     // Djursland fælles scener til round intro (24 billeder)
     this.djurslandScenes = [
@@ -62,7 +62,7 @@ class DjurslandQuiz {
       'faelles_16_fisketur','faelles_17_cykeltur','faelles_18_camping',
       'faelles_19_stena_line','faelles_20_vindmoelle','faelles_21_ko_race',
       'faelles_22_sael_safari','faelles_23_ree_park','faelles_24_lokal_kro'
-    ].map(n => `assets/images/faelles_djursland_scener/${n}.png`);
+    ].map(n => `assets/images/faelles_djursland_scener/${n}.webp`);
     this._lastScene = -1;
 
     // Baggrundsbilleder til spørgsmål — shuffles random
@@ -72,7 +72,7 @@ class DjurslandQuiz {
       'bg_p_10_erhverv','bg_p_11_sundhedshus','bg_p_12_landbrug','bg_p_13_skat_frihed',
       'bg_p_14_foreningsliv','bg_p_15_ebeltoft','bg_p_16_christiansborg','bg_p_17_havmiljoe',
       'bg_p_18_valgplakater','bg_p_19_djurs_sommerland','bg_p_20_strand_kyst'
-    ].map(n => `assets/images/scenes/${n}.png`);
+    ].map(n => `assets/images/scenes/${n}.webp`);
     this._lastBg = -1;
 
     this.hostImages = {
@@ -1544,29 +1544,29 @@ class DjurslandQuiz {
   _galleryImages() {
     const base = 'assets/images/faelles_djursland_scener/';
     return [
-      { src: base + 'faelles_01_superbrugsen.png',          cap: 'Superbrugsen — hverdagens hjerte' },
-      { src: base + 'faelles_02_auning.png',                cap: 'Auning — midt på Djursland' },
-      { src: base + 'faelles_03_grenaa_havn.png',           cap: 'Grenaa Havn — porten til verden' },
-      { src: base + 'faelles_04_fregatten_jylland.png',     cap: 'Fregatten Jylland — stolt historie' },
-      { src: base + 'faelles_05_kattegatcentret.png',       cap: 'Kattegatcentret — havet kalder' },
-      { src: base + 'faelles_06_ebeltoft.png',              cap: 'Ebeltoft — den smukke købstad' },
-      { src: base + 'faelles_07_gif_fodbold.png',           cap: 'GIF Fodbold — lokal passion' },
-      { src: base + 'faelles_08_svoemmehal.png',            cap: 'Svømmehallen — for alle' },
-      { src: base + 'faelles_09_mols_bjerge.png',           cap: 'Mols Bjerge — Danmarks perle' },
-      { src: base + 'faelles_10_djurs_sommerland.png',      cap: 'Djurs Sommerland — sjov for alle' },
-      { src: base + 'faelles_11_strand_natur.png',          cap: 'Stranden — ren natur' },
-      { src: base + 'faelles_12_poelsevogn.png',            cap: 'Pølsevognen — klassisk Djursland' },
-      { src: base + 'faelles_13_traktor_race.png',          cap: 'Traktor Race — lokalt hit' },
-      { src: base + 'faelles_14_kajaktur.png',              cap: 'Kajaktur — på vandet' },
-      { src: base + 'faelles_15_julemarked.png',            cap: 'Julemarked — hyggelig tradition' },
-      { src: base + 'faelles_16_fisketur.png',              cap: 'Fisketur — fred og ro' },
-      { src: base + 'faelles_17_cykeltur.png',              cap: 'Cykeltur — rundt på Djursland' },
-      { src: base + 'faelles_18_camping.png',               cap: 'Camping — under åben himmel' },
-      { src: base + 'faelles_19_stena_line_optimized.png',  cap: 'Stena Line — Grenaa–Varberg' },
-      { src: base + 'faelles_20_vindmoelle_optimized.png',  cap: 'Vindmøller — grøn fremtid' },
-      { src: base + 'faelles_22_sael_safari_optimized.png', cap: 'Sæl Safari — naturoplevelse' },
-      { src: base + 'faelles_23_ree_park_optimized.png',    cap: 'Ree Park — safari på Djursland' },
-      { src: base + 'faelles_24_lokal_kro.png',             cap: 'Den lokale kro — samlingspunkt' },
+      { src: base + 'faelles_01_superbrugsen.webp',          cap: 'Superbrugsen — hverdagens hjerte' },
+      { src: base + 'faelles_02_auning.webp',                cap: 'Auning — midt på Djursland' },
+      { src: base + 'faelles_03_grenaa_havn.webp',           cap: 'Grenaa Havn — porten til verden' },
+      { src: base + 'faelles_04_fregatten_jylland.webp',     cap: 'Fregatten Jylland — stolt historie' },
+      { src: base + 'faelles_05_kattegatcentret.webp',       cap: 'Kattegatcentret — havet kalder' },
+      { src: base + 'faelles_06_ebeltoft.webp',              cap: 'Ebeltoft — den smukke købstad' },
+      { src: base + 'faelles_07_gif_fodbold.webp',           cap: 'GIF Fodbold — lokal passion' },
+      { src: base + 'faelles_08_svoemmehal.webp',            cap: 'Svømmehallen — for alle' },
+      { src: base + 'faelles_09_mols_bjerge.webp',           cap: 'Mols Bjerge — Danmarks perle' },
+      { src: base + 'faelles_10_djurs_sommerland.webp',      cap: 'Djurs Sommerland — sjov for alle' },
+      { src: base + 'faelles_11_strand_natur.webp',          cap: 'Stranden — ren natur' },
+      { src: base + 'faelles_12_poelsevogn.webp',            cap: 'Pølsevognen — klassisk Djursland' },
+      { src: base + 'faelles_13_traktor_race.webp',          cap: 'Traktor Race — lokalt hit' },
+      { src: base + 'faelles_14_kajaktur.webp',              cap: 'Kajaktur — på vandet' },
+      { src: base + 'faelles_15_julemarked.webp',            cap: 'Julemarked — hyggelig tradition' },
+      { src: base + 'faelles_16_fisketur.webp',              cap: 'Fisketur — fred og ro' },
+      { src: base + 'faelles_17_cykeltur.webp',              cap: 'Cykeltur — rundt på Djursland' },
+      { src: base + 'faelles_18_camping.webp',               cap: 'Camping — under åben himmel' },
+      { src: base + 'faelles_19_stena_line_optimized.webp',  cap: 'Stena Line — Grenaa–Varberg' },
+      { src: base + 'faelles_20_vindmoelle_optimized.webp',  cap: 'Vindmøller — grøn fremtid' },
+      { src: base + 'faelles_22_sael_safari_optimized.webp', cap: 'Sæl Safari — naturoplevelse' },
+      { src: base + 'faelles_23_ree_park_optimized.webp',    cap: 'Ree Park — safari på Djursland' },
+      { src: base + 'faelles_24_lokal_kro.webp',             cap: 'Den lokale kro — samlingspunkt' },
     ];
   }
 
