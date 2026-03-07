@@ -124,21 +124,6 @@
 
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.getElementById('settingsBtn');
-      if (btn) {
-        btn.addEventListener('click', () => {
-          console.log('TANDHJUL KLIKKET!');
-          const panel = document.getElementById('settingsPanel');
-          console.log('Panel fundet:', panel);
-          console.log('Panel classes:', panel?.className);
-        });
-      } else {
-        console.error('settingsBtn IKKE FUNDET!');
-      }
-    });
-  </script>
 
   <!-- iOS install vejledning -->
   <div id="iosInstallTip" style="display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:99999;background:rgba(10,10,26,0.97);border:1px solid rgba(255,215,0,0.4);border-radius:16px;padding:16px 20px;max-width:300px;width:90vw;flex-direction:column;gap:8px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.6)">
@@ -151,9 +136,9 @@
 
   <!-- Footer icon-bar: Indstillinger + Galleri + Del + Install -->
   <div id="footerIconBar" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:10000;display:flex;gap:4px;align-items:center;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:5px 12px;backdrop-filter:blur(8px)">
-    <button id="settingsBtn" onclick="game.toggleSettings()" title="Indstillinger" class="footer-icon-btn">&#9881;&#65039;</button>
-    <button id="pwaFooterBtn" onclick="game.pwaInstall()" title="Tilføj som app" class="footer-icon-btn" style="display:none">&#11015;&#65039;</button>
-    <button onclick="game.shareGame()" title="Del med venner" class="footer-icon-btn">&#128279;</button>
+    <button id="settingsBtn" onclick="game.toggleSettings()" title="Indstillinger" aria-label="Indstillinger" class="footer-icon-btn">&#9881;&#65039;</button>
+    <button id="pwaFooterBtn" onclick="game.pwaInstall()" title="Tilføj som app" aria-label="Tilføj som app" class="footer-icon-btn" style="display:none">&#11015;&#65039;</button>
+    <button onclick="game.shareGame()" title="Del med venner" aria-label="Del med venner" class="footer-icon-btn">&#128279;</button>
   </div>
 
   <!-- ═══════════════════════════════════════════════
@@ -205,7 +190,7 @@
   <div id="questionScene" class="scene">
     <button class="scene-exit-btn" onclick="game.goToMainMenu()" title="Afslut spil">✕</button>
     <picture class="scene-bg">
-      <source media="(max-width: 600px)" srcset="assets/images/scenes/scene_spoergsmaal_desktop.png" />
+      <source media="(max-width: 600px)" srcset="assets/images/scenes/scene_spoergsmaal_mobil.png" />
       <img id="questionBgImg" src="assets/images/scenes/scene_spoergsmaal_desktop.png" alt="Spørgsmål baggrund" />
     </picture>
     <div class="scene-overlay question-overlay"></div>

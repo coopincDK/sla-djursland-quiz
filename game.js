@@ -1101,8 +1101,6 @@ class DjurslandQuiz {
     if (this.currentRound === 2 || this.currentRound === 3) return;
     this.lifelines.fiftyFifty = true;
     this.renderLifelines();
-    this.score -= 200;
-    this.updateScoreDisplay();
     this.playSound('whoosh');
 
     const q = this.questions[this.currentQuestionIndex];
@@ -1114,7 +1112,8 @@ class DjurslandQuiz {
         removed++;
       }
     });
-    document.getElementById('lifeline5050').disabled = true;
+    const btn5050 = document.getElementById('lifeline5050');
+    if (btn5050) btn5050.disabled = true;
   }
 
   useAudience() {
@@ -1122,8 +1121,6 @@ class DjurslandQuiz {
     this._deductLifelineCost();
     this.lifelines.audience = true;
     this.renderLifelines();
-    this.score -= 200;
-    this.updateScoreDisplay();
     // Sæt random borgere baggrundsbillede
     const bgEl = document.getElementById('audienceBgImg');
     if (bgEl) bgEl.src = this._rand(this.borgereImgs);
@@ -1189,13 +1186,10 @@ class DjurslandQuiz {
   }
 
   usePhone() {
-    console.log('=== usePhone() kaldt ===');
     if (this.lifelines.phone) return;
     this._deductLifelineCost();
     this.lifelines.phone = true;
     this.renderLifelines();
-    this.score -= 200;
-    this.updateScoreDisplay();
     this.playSound('drumroll');
 
     const q = this.questions[this.currentQuestionIndex];
@@ -1207,8 +1201,6 @@ class DjurslandQuiz {
     const line = lines[Math.floor(Math.random() * lines.length)].replace('{answer}', correctLabel);
 
     // Build expert grid dynamically (like lager-quiz — no phoneModal)
-    console.log('expertGrid element:', document.getElementById('expertGrid'));
-    console.log('expertModal element:', document.getElementById('expertModal'));
     const grid = document.getElementById('expertGrid');
     if (grid) {
       grid.innerHTML = '';
@@ -1229,14 +1221,12 @@ class DjurslandQuiz {
     const bgEl = document.getElementById('expertBgImg');
     if (bgEl) bgEl.src = this._rand(this.borgereImgs);
     const expertModal = document.getElementById('expertModal');
-    console.log('expertModal fundet:', expertModal);
     if (expertModal) {
       expertModal.classList.add('active');
-      console.log('expertModal classes efter add:', expertModal.className);
-      console.log('expertModal computed display:', window.getComputedStyle(expertModal).display);
-    } else console.warn('expertModal IKKE fundet i HTML!');
+    }
     this.stopTimer();
-    document.getElementById('lifelinePhone').disabled = true;
+    const btnPhone = document.getElementById('lifelinePhone');
+    if (btnPhone) btnPhone.disabled = true;
   }
 
   pickExpert(category) {
@@ -1267,12 +1257,11 @@ class DjurslandQuiz {
     this._deductLifelineCost();
     this.lifelines.extraTime = true;
     this.renderLifelines();
-    this.score -= 200;
-    this.updateScoreDisplay();
     this.playSound('ding');
     this.timeLeft = Math.min(this.timeLeft + 15, this.maxTime + 15); // allow over max
     this.updateTimerDisplay();
-    document.getElementById('lifelineTime').disabled = true;
+    const btnTime = document.getElementById('lifelineTime');
+    if (btnTime) btnTime.disabled = true;
   }
 
   // ============================================================
@@ -1311,12 +1300,12 @@ class DjurslandQuiz {
     if (scoreEl) scoreEl.textContent = this.score;
     const accuracyEl = document.getElementById('victoryAccuracy');
     if (accuracyEl) {
-      const total = 120; // 40+30+20+30
+      const total = this.questionsPerRound * 4;
       const pct = Math.round((this.correctAnswers / total) * 100);
       accuracyEl.textContent = pct + '%';
     }
     const timeEl = document.getElementById('victoryTime');
-    if (timeEl) timeEl.textContent = this.correctAnswers + ' / 120';
+    if (timeEl) timeEl.textContent = this.correctAnswers + ' / ' + (this.questionsPerRound * 4);
     this.showScreen('victoryScene');
     this.track('victory', { score: this.score, correct: this.correctAnswers });
     // Navigate to poll after 3 seconds
@@ -1496,7 +1485,8 @@ class DjurslandQuiz {
   }
 
   closeExpertAnswer() {
-    document.getElementById('expertAnswerModal').classList.remove('active');
+    const modal = document.getElementById('expertAnswerModal');
+    if (modal) modal.classList.remove('active');
     this.startTimer();
   }
 
@@ -1852,8 +1842,11 @@ class DjurslandQuiz {
       entries.slice(0, 20).forEach((e, i) => {
         const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}`;
         const date = e.date ? new Date(e.date).toLocaleDateString('da-DK') : '';
+        const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        const safeName = esc(String(e.name || 'Anonym'));
+        const safeCity = esc(String(e.city || '-'));
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${medal}</td><td>${e.name || 'Anonym'}</td><td>${e.city || '-'}</td><td>⭐ ${e.score}</td><td>${date}</td>`;
+        tr.innerHTML = `<td>${medal}</td><td>${safeName}</td><td>${safeCity}</td><td>⭐ ${e.score}</td><td>${date}</td>`;
         tbody.appendChild(tr);
       });
     } catch (err) {
