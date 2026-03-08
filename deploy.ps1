@@ -1,17 +1,38 @@
-# Deploy script - syncer filer til public/ og deployer til Firebase
-Write-Host "Syncer filer til public/..." -ForegroundColor Cyan
+# S-LA Djursland Quiz — Deploy script
+# Kopierer alle relevante filer til public/ og deployer til Firebase
 
-$files = @('game.js','style.css','index.html','questions.js','firebase-config.js','sw.js','manifest.json','admin.html')
-foreach($f in $files) {
-    Copy-Item -Path $f -Destination "public/$f" -Force
-    Write-Host "  $f -> public/$f"
+Write-Host "`n🚀 S-LA Djursland — Deploy til Firebase" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor DarkGray
+
+# 1. Kopier kodefiler
+$files = @("index.html", "game.js", "style.css", "questions.js", "firebase-config.js", "manifest.json", "sw.js", "admin.html")
+Write-Host "`n📄 Kopierer kodefiler..." -ForegroundColor Yellow
+foreach ($f in $files) {
+    if (Test-Path $f) {
+        Copy-Item -Path $f -Destination "public\$f" -Force
+        Write-Host "  ✅ $f" -ForegroundColor Green
+    } else {
+        Write-Host "  ⚠️  $f ikke fundet — springer over" -ForegroundColor DarkYellow
+    }
 }
 
-# Sync assets
-Write-Host "Syncer assets..." -ForegroundColor Cyan
-Copy-Item -Path "assets" -Destination "public/" -Recurse -Force
+# 2. Sync assets (kun nye/ændrede)
+Write-Host "`n🖼️  Syncer assets..." -ForegroundColor Yellow
+robocopy "assets" "public\assets" /MIR /NJH /NJS /NDL /NFL /NC /NS | Out-Null
+Write-Host "  ✅ assets synced" -ForegroundColor Green
 
-Write-Host "`nDeployer til Firebase..." -ForegroundColor Green
+# 3. Git commit + push
+Write-Host "`n📦 Git commit + push..." -ForegroundColor Yellow
+git add -A
+$msg = Read-Host "  Commit besked (Enter = 'Deploy update')"
+if (-not $msg) { $msg = "Deploy update" }
+git commit -m $msg 2>$null
+git push 2>$null
+Write-Host "  ✅ Pushet til GitHub" -ForegroundColor Green
+
+# 4. Firebase deploy
+Write-Host "`n🔥 Firebase deploy..." -ForegroundColor Yellow
 firebase deploy --only hosting
 
-Write-Host "`nFaerdig! Live paa https://sla-djursland.web.app" -ForegroundColor Green
+Write-Host "`n✅ DONE! Live på: https://sla-djursland.web.app" -ForegroundColor Green
+Write-Host ""
