@@ -1,9 +1,9 @@
 {
-  "name": "ET S-LA for Djursland – Quiz Show",
+  "name": "ET S-LA for Djursland - Quiz Show",
   "short_name": "S-LA Djursland",
-  "description": "Det store politiske quiz-duel mellem Jens og Leif på Djursland!",
-  "start_url": "/sla-djursland-quiz/",
-  "scope": "/sla-djursland-quiz/",
+  "description": "Det store politiske quiz-duel mellem Jens og Leif pa Djursland!",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0a0a1a",
@@ -12,12 +12,12 @@
     {
       "src": "assets/images/icons/favicon_sla_djursland.webp",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/webp"
     },
     {
       "src": "assets/images/icons/favicon_sla_djursland.webp",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/webp"
     }
   ]
 }
